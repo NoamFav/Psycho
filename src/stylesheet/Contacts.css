@@ -1,0 +1,140 @@
+/* Contacts Component Specific Styling */
+
+.contacts {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+  background-color: var(--secondary-color);
+  color: var(--text-color);
+}
+
+/* Title Section */
+.title {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.title h1 {
+  font-size: 2.5rem;
+  color: var(--accent-color);
+  margin-bottom: 0.5rem;
+}
+
+/* Text Section */
+.contacts p {
+  font-size: 1rem;
+  line-height: 1.6;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.contacts a {
+  color: var(--link-color);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.contacts a:hover {
+  color: var(--link-hover-color);
+}
+
+/* Image Section */
+.image {
+  text-align: center;
+}
+
+.image img {
+  width: 300px;
+  height: auto;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+}
+
+.image p {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--text-color);
+}
+
+/* Map Section */
+.map {
+  width: 100%;
+  max-width: 800px;
+  height: 300px;
+  background-color: #f0f0f0;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--muted-color);
+  font-size: 1.2rem;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1.5rem;
+}
+
+/* Contact Avatar Section */
+.contact {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.contact img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Social Section */
+.social {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.social p {
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--link-color);
+  text-align: center;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.social p:hover {
+  color: var(--link-hover-color);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .image img {
+    width: 200px;
+  }
+
+  .contact img {
+    width: 120px;
+    height: 120px;
+  }
+
+  .map {
+    height: 200px;
+  }
+
+  .title h1 {
+    font-size: 1.5rem;
+  }
+
+  .contacts p {
+    font-size: 0.9rem;
+  }
+
+  .social p {
+    font-size: 0.9rem;
+  }
+}

@@ -1,0 +1,100 @@
+/* Psycho Component Specific Styling */
+
+.psycho {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+  background-color: var(--secondary-color);
+  color: var(--text-color);
+}
+
+/* Title Section */
+.title {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.title h1 {
+  font-size: 2.5rem;
+  color: var(--accent-color);
+  margin-bottom: 0.5rem;
+}
+
+/* Image Section */
+.image {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.image img {
+  width: 300px;
+  height: auto;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.image img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* "Why" Section */
+.Why {
+  width: 100%;
+  max-width: 800px;
+  text-align: justify;
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.Why p {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+  font-size: 1rem;
+  color: var(--text-color);
+}
+
+.Why ul {
+  margin-bottom: 1rem;
+  padding-left: 20px;
+  list-style-type: disc;
+  color: var(--text-color);
+}
+
+.Why ul li {
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+  font-size: 1rem;
+}
+
+/* Hover Effect for the "Why" Section */
+.Why:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .image img {
+    width: 200px;
+  }
+
+  .Why {
+    padding: 1rem;
+  }
+
+  .Why p,
+  .Why ul li {
+    font-size: 0.9rem;
+  }
+}
