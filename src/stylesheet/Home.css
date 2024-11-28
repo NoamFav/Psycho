@@ -1,108 +1,45 @@
-/* Home Component Specific Styling */
-
-.home {
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  align-items: center;
-}
-
-/* Title Section */
-.title {
-  text-align: center;
-  margin-bottom: 2rem;
-}
-
-.title h1 {
-  font-size: 2.5rem;
-  margin-bottom: 0.5rem;
-}
-
-.title h2 {
-  font-size: 1.5rem;
-  font-style: italic;
-  color: var(--muted-color);
-}
-
-/* Images Section */
+/* Home.css */
 .images {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.images img {
-  width: 150px;
-  height: auto;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+.image-card {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition:
     transform 0.3s ease,
     box-shadow 0.3s ease;
 }
 
-.images img:hover {
-  transform: scale(1.1);
-  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
-}
-
-/* "Why" and "How" Sections */
-.Why,
-.how {
-  width: 100%;
-  max-width: 600px;
-  text-align: center;
-  margin: 0 auto;
-  padding: 1.5rem;
-  background-color: white;
-  border-radius: 15px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
-}
-
-.Why:hover,
-.how:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
-}
-
-.Why h2,
-.how h2 {
-  font-size: 1.8rem;
+.image-card img {
+  width: 200px;
+  height: auto;
+  border-radius: 10px;
   margin-bottom: 1rem;
-  color: var(--accent-color);
 }
 
-.Why p,
-.how p {
-  font-size: 1rem;
-  line-height: 1.6;
-  color: var(--text-color);
+.image-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
-/* Responsive Design */
+/* Responsive adjustments for Home.css */
+@media (max-width: 1200px) {
+  .images {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 @media (max-width: 768px) {
   .images {
-    flex-direction: column;
-  }
-
-  .images img {
-    width: 120px;
-  }
-
-  .Why,
-  .how {
-    padding: 1rem;
-  }
-
-  .Why h2,
-  .how h2 {
-    font-size: 1.5rem;
-  }
-
-  .Why p,
-  .how p {
-    font-size: 0.9rem;
+    grid-template-columns: 1fr;
   }
 }
