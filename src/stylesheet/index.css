@@ -1,29 +1,30 @@
 /* Global CSS Variables */
 :root {
-  --primary-color: #4caf93; /* Refreshing teal */
-  --secondary-color: #f5f8fa; /* Soft, neutral pale blue */
-  --accent-color: #ffb74d; /* Warm golden orange for highlights */
-  --text-color: #2e3a59; /* Dark blue for text */
-  --muted-color: #8a9cb8; /* Subtle blue-gray for muted text */
-  --card-bg: #ffffff; /* Clean white for cards */
-  --link-color: #4caf93; /* Primary teal for links */
-  --link-hover-color: #388e75; /* Darker teal for link hover */
-  --shadow-color: rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
-  --font-family: "Poppins", sans-serif; /* Modern and approachable font */
+  --primary-color: #1b5e20; /* Deep forest green */
+  --secondary-color: #263238; /* Dark slate gray for backgrounds */
+  --accent-color: #ffa000; /* Rich golden amber for highlights */
+  --title-color: #ffa000; /* Bright carrot orange for titles */
+  --text-color: #e0e0e0; /* Light gray for readable text */
+  --muted-color: #90a4ae; /* Muted steel blue-gray */
+  --card-bg: #37474f; /* Dark slate for card backgrounds */
+  --link-color: #ffa000; /* Matching the golden accent for links */
+  --link-hover-color: #ffca28; /* Bright golden yellow for hover */
+  --shadow-color: rgba(0, 0, 0, 0.3); /* Subtle shadow for a dark theme */
+  --font-family: "Poppins", sans-serif; /* Clean and modern font */
   --hero-gradient: linear-gradient(
     to right,
-    #4caf93,
-    #ffb74d
-  ); /* Balanced gradient for hero section */
+    #1b5e20,
+    #ffa000
+  ); /* Gradient for hero section */
   --button-gradient: linear-gradient(
     to right,
-    #ffb74d,
-    #42a5f5
-  ); /* Energetic gradient for buttons */
+    #ffa000,
+    #f57c00
+  ); /* Vibrant gradient for buttons */
   --section-gradient: linear-gradient(
     to bottom,
-    #f5f8fa,
-    #e8f4f8
+    #263238,
+    #37474f
   ); /* Subtle gradient for sections */
 }
 
@@ -127,6 +128,30 @@ a:focus {
 }
 .mb-2 {
   margin-bottom: 2rem;
+}
+
+.main.container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.title {
+  margin-bottom: 2rem;
+}
+
+.title h1 {
+  font-size: 3rem;
+  color: var(--title-color);
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  text-shadow: 2px 2px 5px var(--shadow-color);
+}
+
+.title h2 {
+  font-size: 1.5rem;
+  color: var(--muted-color);
+  font-weight: 400;
 }
 
 /* Hero Section */
@@ -331,28 +356,29 @@ footer {
   }
 }
 
+/* Images Section */
 .images {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
-  gap: 15px;
-  margin: 20px 0;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 2rem 0;
 }
 
 .images img {
-  max-width: 200px;
+  width: 250px;
   height: auto;
-  border-radius: 20px;
-  box-shadow: 0 4px 10px var(--shadow-color);
+  border-radius: 15px;
+  box-shadow: 0 5px 15px var(--shadow-color);
   transition:
     transform 0.3s ease,
     box-shadow 0.3s ease;
 }
 
 .images img:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 8px 20px var(--shadow-color);
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
 @media (max-width: 768px) {
@@ -368,10 +394,10 @@ footer {
 }
 
 .section {
-  margin-bottom: 2rem;
-  padding: 20px;
   background: var(--section-gradient);
-  border-radius: 20px;
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+  border-radius: 15px;
   box-shadow: 0 3px 10px var(--shadow-color);
   transition:
     transform 0.3s ease,
@@ -380,32 +406,19 @@ footer {
 
 .section:hover {
   transform: translateY(-5px);
-  box-shadow: 0 6px 15px var(--shadow-color);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
 }
 
 .section h2 {
   font-size: 1.8rem;
-  color: var(--primary-color);
-  margin-bottom: 1rem;
-  text-align: center;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
-  position: relative;
-}
-
-.section h2::before {
-  content: "🌟";
-  position: absolute;
-  left: -40px;
-  font-size: 1.5rem;
   color: var(--accent-color);
+  margin-bottom: 1rem;
 }
 
 .section p {
   font-size: 1rem;
   color: var(--text-color);
   line-height: 1.8;
-  margin-bottom: 1.2rem;
-  padding: 0 10px;
 }
 
 .section ul {
