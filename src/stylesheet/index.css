@@ -1,15 +1,30 @@
 /* Global CSS Variables */
 :root {
-  --primary-color: #ff6f61; /* Playful coral */
-  --secondary-color: #fef9e7; /* Soft yellow background */
-  --accent-color: #42a5f5; /* Vibrant blue for highlights */
-  --text-color: #333; /* Neutral dark text */
-  --muted-color: #9e9e9e; /* Muted text for secondary info */
-  --card-bg: #ffffff; /* Bright card background */
-  --link-color: #ff7043; /* Coral for links */
-  --link-hover-color: #e64a19; /* Darker coral for hover */
-  --shadow-color: rgba(0, 0, 0, 0.15); /* Shadow effect */
-  --font-family: "Comic Sans MS", "Poppins", sans-serif;
+  --primary-color: #4caf93; /* Refreshing teal */
+  --secondary-color: #f5f8fa; /* Soft, neutral pale blue */
+  --accent-color: #ffb74d; /* Warm golden orange for highlights */
+  --text-color: #2e3a59; /* Dark blue for text */
+  --muted-color: #8a9cb8; /* Subtle blue-gray for muted text */
+  --card-bg: #ffffff; /* Clean white for cards */
+  --link-color: #4caf93; /* Primary teal for links */
+  --link-hover-color: #388e75; /* Darker teal for link hover */
+  --shadow-color: rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+  --font-family: "Poppins", sans-serif; /* Modern and approachable font */
+  --hero-gradient: linear-gradient(
+    to right,
+    #4caf93,
+    #ffb74d
+  ); /* Balanced gradient for hero section */
+  --button-gradient: linear-gradient(
+    to right,
+    #ffb74d,
+    #42a5f5
+  ); /* Energetic gradient for buttons */
+  --section-gradient: linear-gradient(
+    to bottom,
+    #f5f8fa,
+    #e8f4f8
+  ); /* Subtle gradient for sections */
 }
 
 /* Universal Reset */
@@ -64,7 +79,7 @@ a:hover {
 
 /* Buttons */
 button {
-  background: linear-gradient(to right, #ff7043, #ffcc80);
+  background: var(--button-gradient);
   color: white;
   border: none;
   padding: 14px 28px;
@@ -121,7 +136,7 @@ a:focus {
   align-items: center;
   text-align: center;
   height: 70vh;
-  background: linear-gradient(to right, #42a5f5, #ffcc80);
+  background: var(--hero-gradient);
   color: var(--text-color);
   border-bottom: 5px solid var(--accent-color);
   position: relative;
@@ -355,7 +370,7 @@ footer {
 .section {
   margin-bottom: 2rem;
   padding: 20px;
-  background: linear-gradient(135deg, #fef9e7, #ffcc80);
+  background: var(--section-gradient);
   border-radius: 20px;
   box-shadow: 0 3px 10px var(--shadow-color);
   transition:
