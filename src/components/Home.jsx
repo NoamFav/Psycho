@@ -1,12 +1,12 @@
-import "../stylesheet/Home.css";
+import "../stylesheet/index.css";
 import kidApple from "../assets/kid_apple.png";
 import kidDoodle from "../assets/kid_doodle.png";
 import kidBook from "../assets/kid_book.png";
 
 function Home() {
   return (
-    <div className="home">
-      <div className="title">
+    <div className="main container">
+      <div className="title text-center">
         <h1>Séverine Favier</h1>
         <h2>Psychopédagogue</h2>
       </div>
@@ -18,16 +18,16 @@ function Home() {
         />
         <img src={kidBook} alt="enfant avec un livre sur la tete" />
       </div>
-      <div className="Why">
+      <div className="section">
         <h2>Pourquoi ?</h2>
-        <p>
+        <p className="mb-2">
           Pour comprendre et améliorer le processus d’apprentissage de chaque
           élève en alliant pédagogie & psychologie.
         </p>
       </div>
-      <div className="how">
+      <div className="section">
         <h2>Comment ?</h2>
-        <p>
+        <p className="mb-2">
           Mon approche repose sur la bienveillance, l’écoute et l’adaptation
           pour libérer le potentiel de chacun.
         </p>

@@ -1,5 +1,5 @@
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
-import "../stylesheet/App.css";
+
 import Menu from "./Menu";
 import Home from "./Home";
 import Psycho from "./Psycho";

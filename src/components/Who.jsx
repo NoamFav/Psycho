@@ -1,16 +1,16 @@
-import "../stylesheet/Who.css";
+import "../stylesheet/index.css";
 import side from "../assets/side.png";
 
 function Who() {
   return (
-    <div className="who">
-      <div>
-        <h1>Qui suis-je ?</h1>
-        <p>
+    <div className="main container">
+      <div className="section">
+        <h1 className="text-center">👩‍🏫 Qui suis-je ?</h1>
+        <p className="mb-2">
           Après une décennie dans les ressources humaines, ma passion pour la
           psychologie et l’école m&apos;a menée à l&apos;enseignement.
         </p>
-        <p>
+        <p className="mb-2">
           J’ai enseigné avec enthousiasme en zone prioritaire pendant près de 10
           ans. J&apos;ai trop souvent été confrontée aux défis des enfants à
           besoins éducatifs particuliers. Pour mieux y répondre, j&apos;ai suivi
@@ -24,22 +24,16 @@ function Who() {
           favoriser l’épanouissement scolaire et personnel de tous.
         </p>
       </div>
-      <div className="image">
-        <img src={side} alt="femme de coté" />
+      <div className="image text-center">
+        <img src={side} alt="femme de coté" className="rounded" />
       </div>
-      <div className="comp">
+      <div className="card text-center">
         <ul>
-          <li>
-            Master 1 MEEF - pratique & ingénierie de la formation Métiers de la
-            scolarisation inclusive
-          </li>
-          <li>
-            Concours Professeurs des écoles préparation aux métiers de
-            l’enseignement
-          </li>
-          <li>Psychologue Praticienne</li>
-          <li>Master 2 en Management des Ressources Humaines</li>
-          <li>Master 1 en Sociologie du travail et du développement</li>
+          <li>🎓 Master 1 MEEF - pratique & ingénierie de la formation</li>
+          <li>📚 Concours Professeurs des écoles</li>
+          <li>🧠 Psychologue Praticienne</li>
+          <li>👩‍💼 Master 2 en Management des Ressources Humaines</li>
+          <li>📊 Master 1 en Sociologie du travail et du développement</li>
         </ul>
       </div>
     </div>

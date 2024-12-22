@@ -1,36 +1,54 @@
-import { Link } from "react-router-dom";
-import "../stylesheet/Menu.css";
+import { NavLink } from "react-router-dom";
+import "../stylesheet/index.css";
 
 function Menu() {
   return (
-    <nav className="menu">
-      <ul>
+    <nav className="menu container">
+      <ul className="menu-list">
         <li>
-          <Link to="/">Home</Link>
+          <NavLink to="/" className="link" activeClassName="active">
+            🏠 Home
+          </NavLink>
         </li>
         <li>
-          <Link to="/psycho">Psycho</Link>
+          <NavLink to="/psycho" className="link" activeClassName="active">
+            🧠 Psycho
+          </NavLink>
         </li>
         <li>
-          <Link to="/approch">Approch</Link>
+          <NavLink to="/approch" className="link" activeClassName="active">
+            💡 Approch
+          </NavLink>
         </li>
         <li>
-          <Link to="/school">School</Link>
+          <NavLink to="/school" className="link" activeClassName="active">
+            🎓 School
+          </NavLink>
         </li>
         <li>
-          <Link to="/learn">Learn</Link>
+          <NavLink to="/learn" className="link" activeClassName="active">
+            📚 Learn
+          </NavLink>
         </li>
         <li>
-          <Link to="/brevet">Brevet</Link>
+          <NavLink to="/brevet" className="link" activeClassName="active">
+            📝 Brevet
+          </NavLink>
         </li>
         <li>
-          <Link to="/pre">Pre</Link>
+          <NavLink to="/pre" className="link" activeClassName="active">
+            🛤️ Pre
+          </NavLink>
         </li>
         <li>
-          <Link to="/who">Who</Link>
+          <NavLink to="/who" className="link" activeClassName="active">
+            ❓ Who
+          </NavLink>
         </li>
         <li>
-          <Link to="/contacts">Contacts</Link>
+          <NavLink to="/contacts" className="link" activeClassName="active">
+            📞 Contacts
+          </NavLink>
         </li>
       </ul>
     </nav>
