@@ -1,31 +1,31 @@
 /* Global CSS Variables */
 :root {
-  --primary-color: #1b5e20; /* Deep forest green */
-  --secondary-color: #263238; /* Dark slate gray for backgrounds */
-  --accent-color: #ffa000; /* Rich golden amber for highlights */
-  --title-color: #ffa000; /* Bright carrot orange for titles */
-  --text-color: #e0e0e0; /* Light gray for readable text */
-  --muted-color: #90a4ae; /* Muted steel blue-gray */
-  --card-bg: #37474f; /* Dark slate for card backgrounds */
-  --link-color: #ffa000; /* Matching the golden accent for links */
-  --link-hover-color: #ffca28; /* Bright golden yellow for hover */
-  --shadow-color: rgba(0, 0, 0, 0.3); /* Subtle shadow for a dark theme */
+  --primary-color: #4e4e6a; /* Deep desaturated blue-gray for primary elements */
+  --secondary-color: #2e2e38; /* Soft, warm dark gray for background */
+  --accent-color: #f28c28; /* Warm, inviting orange for highlights */
+  --title-color: #f28c28; /* Same inviting orange for titles */
+  --text-color: #f5f5f5; /* Light warm gray for readable text */
+  --muted-color: #b8b8c0; /* Subtle muted gray for secondary text */
+  --card-bg: #393944; /* Soft, dark neutral for card backgrounds */
+  --link-color: #f28c28; /* Warm orange for links */
+  --link-hover-color: #f5a623; /* Slightly brighter orange for hover */
+  --shadow-color: rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
   --font-family: "Poppins", sans-serif; /* Clean and modern font */
   --hero-gradient: linear-gradient(
     to right,
-    #1b5e20,
-    #ffa000
+    #4e4e6a,
+    #f28c28
   ); /* Gradient for hero section */
   --button-gradient: linear-gradient(
     to right,
-    #ffa000,
-    #f57c00
-  ); /* Vibrant gradient for buttons */
+    #f28c28,
+    #f5a623
+  ); /* Gradient for buttons */
   --section-gradient: linear-gradient(
     to bottom,
-    #263238,
-    #37474f
-  ); /* Subtle gradient for sections */
+    #2e2e38,
+    #4e4e6a
+  ); /* Gradient for sections */
 }
 
 /* Universal Reset */
