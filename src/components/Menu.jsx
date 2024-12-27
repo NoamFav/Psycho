@@ -1,48 +1,79 @@
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import "../stylesheet/index.css";
 
 function Menu() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleSubList = (e) => {
+    e.preventDefault(); // Prevent navigation on toggle
+    setIsOpen(!isOpen);
+  };
+
   return (
-    <nav className="menu container">
+    <nav className="menu">
       <ul className="menu-list">
         <li>
           <NavLink to="/" className="link" activeClassName="active">
-            🏠 Home
+            📓 Accueil
           </NavLink>
         </li>
         <li>
           <NavLink to="/psycho" className="link" activeClassName="active">
-            🧠 Psycho
+            🧠 Psychopédagogie ?
           </NavLink>
         </li>
         <li>
-          <NavLink to="/approch" className="link" activeClassName="active">
-            💡 Approch
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/school" className="link" activeClassName="active">
-            🎓 School
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/learn" className="link" activeClassName="active">
-            📚 Learn
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/brevet" className="link" activeClassName="active">
-            📝 Brevet
-          </NavLink>
+          <div>
+            <NavLink
+              to="/approch"
+              className="link"
+              activeClassName="active"
+              onClick={toggleSubList}
+            >
+              🌟 Mon approche
+            </NavLink>
+            {isOpen && (
+              <ul className="menu-list">
+                <li>
+                  <NavLink
+                    to="/school"
+                    className="link"
+                    activeClassName="active"
+                  >
+                    📚 Suivi scolaire
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/learn"
+                    className="link"
+                    activeClassName="active"
+                  >
+                    🪄 Apprendre à apprendre
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/brevet"
+                    className="link"
+                    activeClassName="active"
+                  >
+                    🎓 Vers le brevet
+                  </NavLink>
+                </li>
+              </ul>
+            )}
+          </div>
         </li>
         <li>
           <NavLink to="/pre" className="link" activeClassName="active">
-            🛤️ Pre
+            🏫 Pré rentrée
           </NavLink>
         </li>
         <li>
           <NavLink to="/who" className="link" activeClassName="active">
-            ❓ Who
+            🙋🏻‍♀️ Qui suis-je ?
           </NavLink>
         </li>
         <li>
