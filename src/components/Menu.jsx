@@ -15,7 +15,7 @@ function Menu() {
   };
 
   return (
-    <div className="w-full md:w-64 mb-6 md:mb-0">
+    <div className="w-full md:w-64 mb-6 md:mb-0 sticky">
       {/* Mobile menu button */}
       <div className="md:hidden flex justify-between items-center py-4">
         <span className="text-xl font-bold text-primary">Séverine Favier</span>
