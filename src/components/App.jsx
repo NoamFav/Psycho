@@ -15,6 +15,48 @@ import whoPortrait from "../assets/who-portrait.png";
 import contactsRoom from "../assets/contacts-room.jpg";
 import contactsAvatar from "../assets/contacts-avatar.jpg";
 
+import {
+  FaBook,
+  FaBrain,
+  FaStar,
+  FaTrophy,
+  FaUserGraduate,
+  FaPhone,
+  FaMapMarkerAlt,
+  FaQuestion,
+  FaUserTie,
+  FaTools,
+  FaLightbulb,
+  FaBullseye,
+  FaChartLine,
+  FaChartBar,
+  FaCalendarAlt,
+  FaSchool,
+  FaClipboardList,
+  FaHandshake,
+  FaSearch,
+  FaMoneyBillWave,
+  FaClock,
+  FaUsers,
+  FaChalkboardTeacher,
+  FaFileAlt,
+  FaMap,
+  FaFacebookF,
+  FaInstagram,
+  FaLinkedinIn,
+  FaWhatsapp,
+  FaGraduationCap,
+  FaQuoteRight,
+  FaPaintBrush,
+  FaPenFancy,
+  FaDice,
+  FaNotesMedical,
+  FaArrowRight,
+  FaRocket,
+} from "react-icons/fa";
+
+import { MdBackpack } from "react-icons/md";
+
 // Custom hook for intersection observer
 const useIntersectionObserver = (ref, options = {}) => {
   const [isIntersecting, setIsIntersecting] = useState(false);
@@ -131,9 +173,8 @@ const Menu = () => {
                   }`
                 }
               >
-                <span className="text-xl mr-3 group-hover:scale-110 transition-transform duration-300">
-                  📚
-                </span>
+                <FaBook className="text-xl mr-3 group-hover:scale-110 transition-transform duration-300" />
+
                 <span className="font-medium">Accueil</span>
               </NavLink>
             </li>
@@ -148,9 +189,8 @@ const Menu = () => {
                   }`
                 }
               >
-                <span className="text-xl mr-3 group-hover:scale-110 transition-transform duration-300">
-                  🧠
-                </span>
+                <FaBrain className="text-xl mr-3 group-hover:scale-110 transition-transform duration-300" />
+
                 <span className="font-medium">Psychopédagogie</span>
               </NavLink>
             </li>
@@ -164,9 +204,8 @@ const Menu = () => {
                 }`}
               >
                 <NavLink to="/approach" className="flex items-center w-full">
-                  <span className="text-xl mr-3 group-hover:scale-110 transition-transform duration-300">
-                    ⭐
-                  </span>
+                  <FaStar className="text-xl mr-3 group-hover:scale-110 transition-transform duration-300" />
+
                   <span className="font-medium">Mon approche</span>
                 </NavLink>
                 <svg
@@ -198,9 +237,8 @@ const Menu = () => {
                         }`
                       }
                     >
-                      <span className="text-lg mr-3 group-hover:scale-110 transition-transform duration-300">
-                        🎯
-                      </span>
+                      <FaBullseye className="text-lg mr-3 group-hover:scale-110 transition-transform duration-300" />
+
                       <span className="font-medium">Suivi scolaire</span>
                     </NavLink>
                   </li>
@@ -215,9 +253,8 @@ const Menu = () => {
                         }`
                       }
                     >
-                      <span className="text-lg mr-3 group-hover:scale-110 transition-transform duration-300">
-                        🚀
-                      </span>
+                      <FaRocket className="text-lg mr-3 group-hover:scale-110 transition-transform duration-300" />
+
                       <span className="font-medium">Apprendre à apprendre</span>
                     </NavLink>
                   </li>
@@ -232,9 +269,8 @@ const Menu = () => {
                         }`
                       }
                     >
-                      <span className="text-lg mr-3 group-hover:scale-110 transition-transform duration-300">
-                        🏆
-                      </span>
+                      <FaTrophy className="text-lg mr-3 group-hover:scale-110 transition-transform duration-300" />
+
                       <span className="font-medium">Préparation brevet</span>
                     </NavLink>
                   </li>
@@ -252,9 +288,8 @@ const Menu = () => {
                   }`
                 }
               >
-                <span className="text-xl mr-3 group-hover:scale-110 transition-transform duration-300">
-                  🎒
-                </span>
+                <MdBackpack className="text-xl mr-3 group-hover:scale-110 transition-transform duration-300" />
+
                 <span className="font-medium">Pré-rentrée</span>
               </NavLink>
             </li>
@@ -269,9 +304,8 @@ const Menu = () => {
                   }`
                 }
               >
-                <span className="text-xl mr-3 group-hover:scale-110 transition-transform duration-300">
-                  👩‍🎓
-                </span>
+                <FaUserGraduate className="text-xl mr-3 group-hover:scale-110 transition-transform duration-300" />
+
                 <span className="font-medium">Qui suis-je</span>
               </NavLink>
             </li>
@@ -286,9 +320,8 @@ const Menu = () => {
                   }`
                 }
               >
-                <span className="text-xl mr-3 group-hover:scale-110 transition-transform duration-300">
-                  📞
-                </span>
+                <FaPhone className="text-xl mr-3 group-hover:scale-110 transition-transform duration-300" />
+
                 <span className="font-medium">Contact</span>
               </NavLink>
             </li>
@@ -369,7 +402,7 @@ const Home = () => {
           <div className="p-8 space-y-6">
             <div className="flex items-center space-x-4">
               <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center">
-                <span className="text-2xl">❓</span>
+                <FaQuestion className="text-2xl" />
               </div>
               <h2 className="text-3xl font-bold text-gray-800">Pourquoi ?</h2>
             </div>
@@ -385,7 +418,7 @@ const Home = () => {
           <div className="p-8 space-y-6">
             <div className="flex items-center space-x-4">
               <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl flex items-center justify-center">
-                <span className="text-2xl">💡</span>
+                <FaLightbulb className="text-2xl" />
               </div>
               <h2 className="text-3xl font-bold text-gray-800">Comment ?</h2>
             </div>
@@ -453,17 +486,17 @@ const Psycho = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               {
-                icon: "🚧",
+                icon: <FaTools />,
                 title: "Blocages",
                 color: "from-red-400 to-pink-400",
               },
               {
-                icon: "📈",
+                icon: <FaChartLine />,
                 title: "Retards scolaires",
                 color: "from-yellow-400 to-orange-400",
               },
               {
-                icon: "🏫",
+                icon: <FaSchool />,
                 title: "Phobies scolaires",
                 color: "from-blue-400 to-purple-400",
               },
@@ -514,7 +547,7 @@ const School = () => {
           <div className="p-8 space-y-6">
             <div className="text-center space-y-4">
               <div className="w-20 h-20 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto">
-                <span className="text-3xl">📊</span>
+                <FaChartBar className="text-3xl" />
               </div>
               <h2 className="text-3xl font-bold text-gray-800">Le Bilan</h2>
               <p className="text-lg text-purple-600 font-semibold">
@@ -525,15 +558,15 @@ const School = () => {
             <div className="space-y-4">
               {[
                 {
-                  icon: "🤝",
+                  icon: <FaHandshake />,
                   text: "Rencontre dans un climat de confiance et sécurité",
                 },
                 {
-                  icon: "🔍",
+                  icon: <FaSearch />,
                   text: "Évaluation complète des acquis et du comportement",
                 },
                 {
-                  icon: "📋",
+                  icon: <FaClipboardList />,
                   text: "Restitution détaillée et conseils personnalisés",
                 },
               ].map((item, index) => (
@@ -563,11 +596,11 @@ const School = () => {
               <h3 className="text-2xl font-bold text-gray-800">Tarifs</h3>
               <div className="space-y-4">
                 <div className="p-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-2xl">
-                  <span className="text-2xl mr-3">💰</span>
+                  <FaMoneyBillWave className="text-2xl mr-3" />
                   <span className="text-xl font-semibold">Bilan : 300€</span>
                 </div>
                 <div className="p-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-2xl">
-                  <span className="text-2xl mr-3">⏱️</span>
+                  <FaClock className="text-2xl mr-3" />
                   <span className="text-xl font-semibold">Suivi : 50€/h</span>
                 </div>
               </div>
@@ -580,7 +613,7 @@ const School = () => {
         <div className="p-8 space-y-8">
           <div className="text-center space-y-4">
             <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center mx-auto">
-              <span className="text-3xl">🎯</span>
+              <FaBullseye className="text-3xl" />
             </div>
             <h2 className="text-3xl font-bold text-gray-800">Le Suivi</h2>
             <p className="text-lg text-blue-600 font-semibold">
@@ -590,12 +623,12 @@ const School = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {[
-              { icon: "📖", text: "Ateliers de lecture" },
-              { icon: "🎯", text: "Soutien approfondi" },
-              { icon: "🎨", text: "Méthodes alternatives" },
-              { icon: "📝", text: "Techniques d'organisation" },
-              { icon: "🧠", text: "Apprendre à apprendre" },
-              { icon: "🎲", text: "Jeux pédagogiques" },
+              { icon: <FaBook />, text: "Ateliers de lecture" },
+              { icon: <FaBullseye />, text: "Soutien approfondi" },
+              { icon: <FaPaintBrush />, text: "Méthodes alternatives" },
+              { icon: <FaPenFancy />, text: "Techniques d'organisation" },
+              { icon: <FaBrain />, text: "Apprendre à apprendre" },
+              { icon: <FaDice />, text: "Jeux pédagogiques" },
             ].map((item, index) => (
               <div
                 key={index}
@@ -639,7 +672,7 @@ const Learn = () => {
         <div className="p-8 space-y-8">
           <div className="text-center space-y-4">
             <div className="w-20 h-20 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto">
-              <span className="text-3xl">🎯</span>
+              <FaBullseye className="text-3xl" />
             </div>
             <h2 className="text-3xl font-bold text-gray-800">
               À chacun sa façon de travailler !
@@ -653,13 +686,13 @@ const Learn = () => {
               </h3>
               <div className="space-y-4">
                 <div className="flex items-start space-x-4 p-4 bg-purple-50 rounded-xl">
-                  <span className="text-2xl">💡</span>
+                  <FaLightbulb className="text-2xl" />
                   <p className="text-gray-700">
                     Les intelligences multiples (Howard Gardner)
                   </p>
                 </div>
                 <div className="flex items-start space-x-4 p-4 bg-purple-50 rounded-xl">
-                  <span className="text-2xl">🤝</span>
+                  <FaHandshake className="text-2xl" />
                   <p className="text-gray-700">
                     Un entretien avec l&apos;élève et ses parents
                   </p>
@@ -677,10 +710,19 @@ const Learn = () => {
                     Méthodes de travail
                   </h4>
                   <ul className="text-sm text-gray-600 space-y-1">
-                    <li>📝 Prise de notes</li>
-                    <li>📄 Fiches structurées</li>
-                    <li>🗺️ Mind mapping</li>
-                    <li>✨ Flash cards</li>
+                    <li>
+                      <FaPenFancy />
+                      Prise de notes
+                    </li>
+                    <li>
+                      <FaFileAlt /> Fiches structurées
+                    </li>
+                    <li>
+                      <FaMap /> Mind mapping
+                    </li>
+                    <li>
+                      <FaQuoteRight /> Flash cards
+                    </li>
                   </ul>
                 </div>
                 <div className="p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl">
@@ -708,13 +750,13 @@ const Learn = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="p-6 bg-gradient-to-r from-purple-100 to-pink-100 rounded-2xl">
                 <h3 className="text-xl font-semibold text-purple-800 mb-2">
-                  👥 Public
+                  <FaUsers /> Public
                 </h3>
                 <p className="text-gray-700">Collégiens et lycéens</p>
               </div>
               <div className="p-6 bg-gradient-to-r from-blue-100 to-purple-100 rounded-2xl">
                 <h3 className="text-xl font-semibold text-blue-800 mb-2">
-                  📅 Périodes
+                  <FaCalendarAlt /> Périodes
                 </h3>
                 <p className="text-gray-700">
                   Dernière semaine d&apos;août + petites vacances
@@ -722,7 +764,7 @@ const Learn = () => {
               </div>
               <div className="p-6 bg-gradient-to-r from-pink-100 to-purple-100 rounded-2xl">
                 <h3 className="text-xl font-semibold text-pink-800 mb-2">
-                  💰 Tarif
+                  <FaMoneyBillWave /> Tarif
                 </h3>
                 <p className="text-gray-700 font-bold">450€ pour 5 séances</p>
               </div>
@@ -731,7 +773,7 @@ const Learn = () => {
 
           <div className="max-w-2xl mx-auto p-6 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-2xl">
             <p className="text-xl font-semibold">
-              ➡️ Apprendre à travailler de manière plus efficace
+              <FaArrowRight /> Apprendre à travailler de manière plus efficace
             </p>
           </div>
         </div>
@@ -765,7 +807,7 @@ const Brevet = () => {
         <div className="p-8 space-y-8">
           <div className="text-center space-y-4">
             <div className="w-20 h-20 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto">
-              <span className="text-3xl">🎓</span>
+              <FaGraduationCap className="text-3xl" />
             </div>
             <h2 className="text-3xl font-bold text-gray-800">
               Programme intensif
@@ -811,14 +853,20 @@ const Brevet = () => {
               <div className="grid grid-cols-1 gap-3">
                 {[
                   {
-                    icon: "📋",
+                    icon: <FaClipboardList />,
                     text: "Organisation et optimisation de travail",
                   },
-                  { icon: "📚", text: "Révision dans toutes les matières" },
-                  { icon: "🎯", text: "Méthodologies de travail" },
-                  { icon: "📈", text: "Approfondissement des notions" },
-                  { icon: "🎲", text: "Exercices, quiz et challenges" },
-                  { icon: "🧘", text: "Gestion du stress" },
+                  {
+                    icon: <FaBook />,
+                    text: "Révision dans toutes les matières",
+                  },
+                  { icon: <FaBullseye />, text: "Méthodologies de travail" },
+                  {
+                    icon: <FaChartLine />,
+                    text: "Approfondissement des notions",
+                  },
+                  { icon: <FaDice />, text: "Exercices, quiz et challenges" },
+                  { icon: <FaNotesMedical />, text: "Gestion du stress" },
                 ].map((item, index) => (
                   <div
                     key={index}
@@ -841,7 +889,7 @@ const Brevet = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
               <div className="p-6 bg-gradient-to-r from-purple-100 to-pink-100 rounded-2xl">
                 <h3 className="text-xl font-semibold text-purple-800 mb-2">
-                  📅 Session unique
+                  <FaCalendarAlt /> Session unique
                 </h3>
                 <p className="text-2xl font-bold text-gray-800">
                   300€ / semaine
@@ -849,7 +897,7 @@ const Brevet = () => {
               </div>
               <div className="p-6 bg-gradient-to-r from-blue-100 to-purple-100 rounded-2xl">
                 <h3 className="text-xl font-semibold text-blue-800 mb-2">
-                  🎯 4 sessions annuelles
+                  <FaBullseye /> 4 sessions annuelles
                 </h3>
                 <p className="text-2xl font-bold text-gray-800">
                   250€ / semaine
@@ -889,7 +937,7 @@ const Pre = () => {
           <div className="p-8 space-y-6">
             <div className="text-center space-y-4">
               <div className="w-20 h-20 bg-gradient-to-r from-green-500 to-teal-500 rounded-full flex items-center justify-center mx-auto">
-                <span className="text-3xl">🎒</span>
+                <MdBackpack className="text-3xl" />
               </div>
               <h2 className="text-3xl font-bold text-gray-800">Le Programme</h2>
             </div>
@@ -924,7 +972,7 @@ const Pre = () => {
           <div className="p-8 space-y-6">
             <div className="text-center space-y-4">
               <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center mx-auto">
-                <span className="text-3xl">👥</span>
+                <FaUsers className="text-3xl" />
               </div>
               <h2 className="text-3xl font-bold text-gray-800">
                 Informations Pratiques
@@ -995,7 +1043,7 @@ const Who = () => {
           <div className="p-8 space-y-6">
             <div className="text-center space-y-4">
               <div className="w-20 h-20 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full flex items-center justify-center mx-auto">
-                <span className="text-3xl">👩‍🏫</span>
+                <FaChalkboardTeacher className="text-3xl" />
               </div>
               <h2 className="text-3xl font-bold text-gray-800">Mon Parcours</h2>
             </div>
@@ -1040,7 +1088,7 @@ const Who = () => {
             <div className="p-8 space-y-6">
               <div className="text-center space-y-4">
                 <div className="w-20 h-20 bg-gradient-to-r from-pink-500 to-red-500 rounded-full flex items-center justify-center mx-auto">
-                  <span className="text-3xl">🎓</span>
+                  <FaGraduationCap className="text-3xl" />
                 </div>
                 <h2 className="text-3xl font-bold text-gray-800">
                   Mes Qualifications
@@ -1050,17 +1098,17 @@ const Who = () => {
               <div className="space-y-3">
                 {[
                   {
-                    icon: "🎓",
+                    icon: <FaGraduationCap />,
                     text: "Master 1 MEEF - pratique & ingénierie de la formation",
                   },
-                  { icon: "📚", text: "Concours Professeurs des écoles" },
-                  { icon: "🧠", text: "Psychologue Praticienne" },
+                  { icon: <FaBook />, text: "Concours Professeurs des écoles" },
+                  { icon: <FaBrain />, text: "Psychologue Praticienne" },
                   {
-                    icon: "👩‍💼",
+                    icon: <FaUserTie />,
                     text: "Master 2 en Management des Ressources Humaines",
                   },
                   {
-                    icon: "📊",
+                    icon: <FaChartBar />,
                     text: "Master 1 en Sociologie du travail et du développement",
                   },
                 ].map((item, index) => (
@@ -1107,7 +1155,7 @@ const Approach = () => {
         <div className="p-8 space-y-6">
           <div className="text-center space-y-4">
             <div className="w-20 h-20 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto">
-              <span className="text-3xl">🎯</span>
+              <FaBullseye className="text-3xl" />
             </div>
             <h2 className="text-3xl font-bold text-gray-800">
               Comprendre l&apos;individu dans toute sa complexité
@@ -1131,7 +1179,7 @@ const Approach = () => {
         <div className="p-8 space-y-8">
           <div className="text-center space-y-4">
             <h2 className="text-3xl font-bold text-gray-800 flex items-center justify-center">
-              <span className="mr-4 text-4xl">🌟</span>
+              <FaStar className="mr-4 text-4xl" />
               Mes Objectifs
             </h2>
           </div>
@@ -1139,32 +1187,32 @@ const Approach = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {[
               {
-                icon: "🎯",
+                icon: <FaBullseye />,
                 title: "M'adapter à chacun",
                 color: "from-purple-400 to-pink-400",
               },
               {
-                icon: "🌟",
+                icon: <FaStar />,
                 title: "Renforcer la confiance et l'estime de soi",
                 color: "from-pink-400 to-red-400",
               },
               {
-                icon: "📚",
+                icon: <FaBook />,
                 title: "Soutenir lors des évaluations",
                 color: "from-blue-400 to-purple-400",
               },
               {
-                icon: "💡",
+                icon: <FaLightbulb />,
                 title: "Susciter la curiosité et le désir d'apprendre",
                 color: "from-green-400 to-blue-400",
               },
               {
-                icon: "✨",
+                icon: <FaQuoteRight />,
                 title: "Développer l'autonomie et le plaisir d'apprendre",
                 color: "from-yellow-400 to-orange-400",
               },
               {
-                icon: "🤝",
+                icon: <FaHandshake />,
                 title: "Collaborer avec les parents / acteurs éducatifs",
                 color: "from-indigo-400 to-purple-400",
               },
@@ -1205,7 +1253,7 @@ const Contacts = () => {
         <div className="p-8 text-center space-y-8">
           <div className="space-y-4">
             <div className="w-20 h-20 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto">
-              <span className="text-3xl">📞</span>
+              <FaPhone className="text-3xl" />
             </div>
             <h2 className="text-3xl font-bold text-gray-800">
               Premier échange téléphonique
@@ -1234,7 +1282,7 @@ const Contacts = () => {
           <div className="p-8 space-y-6">
             <div className="text-center space-y-4">
               <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center mx-auto">
-                <span className="text-2xl">📍</span>
+                <FaMapMarkerAlt className="text-2xl" />
               </div>
               <h3 className="text-2xl font-bold text-gray-800">Adresse</h3>
             </div>
@@ -1260,7 +1308,7 @@ const Contacts = () => {
           <div className="p-8 space-y-6">
             <div className="text-center space-y-4">
               <div className="w-16 h-16 bg-gradient-to-r from-pink-500 to-red-500 rounded-full flex items-center justify-center mx-auto">
-                <span className="text-2xl">👩‍🎓</span>
+                <FaUserGraduate className="text-2xl" />
               </div>
               <h3 className="text-2xl font-bold text-gray-800">
                 Séverine Favier
@@ -1293,22 +1341,22 @@ const Contacts = () => {
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
             {[
               {
-                icon: "📘",
+                icon: <FaFacebookF />,
                 name: "Facebook",
                 color: "from-blue-500 to-blue-600",
               },
               {
-                icon: "📸",
+                icon: <FaInstagram />,
                 name: "Instagram",
                 color: "from-pink-500 to-purple-600",
               },
               {
-                icon: "🔗",
+                icon: <FaLinkedinIn />,
                 name: "LinkedIn",
                 color: "from-blue-600 to-blue-700",
               },
               {
-                icon: "💬",
+                icon: <FaWhatsapp />,
                 name: "WhatsApp",
                 color: "from-green-500 to-green-600",
               },
