@@ -24,7 +24,11 @@ import contactsRoom from "../assets/contacts-room.jpg";
 import contactsAvatar from "../assets/contacts-avatar.jpg";
 
 import {
+  FaReact,
+  FaLaptopCode,
   FaUserFriends,
+  FaCode,
+  FaGithub,
   FaMoon,
   FaSun,
   FaBook,
@@ -69,6 +73,7 @@ import {
 } from "react-icons/fa";
 
 import { MdBackpack } from "react-icons/md";
+import { SiTailwindcss } from "react-icons/si";
 
 const DarkModeContext = createContext();
 
@@ -2205,6 +2210,85 @@ const Contacts = () => {
   );
 };
 
+const PrettyFooter = () => {
+  return (
+    <footer className="relative mt-20">
+      {/* Decorative gradient border */}
+      <div className="h-1 bg-gradient-to-r from-purple-500 via-pink-500 to-purple-500 dark:from-purple-700 dark:via-pink-700 dark:to-purple-700"></div>
+
+      {/* Main footer content */}
+      <div className="bg-gradient-to-r from-gray-50 to-purple-50/30 dark:from-gray-900 dark:to-purple-900/20 py-12">
+        <div className="max-w-6xl mx-auto px-6">
+          {/* Top section with decorative elements */}
+          <div className="text-center mb-8">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <div className="w-8 h-0.5 bg-gradient-to-r from-transparent via-purple-400 to-transparent"></div>
+              <div className="w-12 h-12 rounded-full overflow-hidden shadow-lg ring-2 ring-purple-500/50">
+                <img
+                  src="https://github.com/noamfav.png"
+                  alt="Noam Favier"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="w-8 h-0.5 bg-gradient-to-r from-transparent via-purple-400 to-transparent"></div>
+            </div>
+
+            <h3 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 dark:from-purple-400 dark:to-pink-400 bg-clip-text text-transparent mb-2">
+              Créé avec passion
+            </h3>
+          </div>
+
+          {/* Main attribution */}
+          <div className="text-center space-y-4">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-2 text-lg">
+              <span className="text-gray-600 dark:text-gray-300">
+                Site réalisé avec
+              </span>
+              <FaHeart className="text-red-500 animate-pulse" />
+              <span className="text-gray-600 dark:text-gray-300">et</span>
+              <FaCode className="text-purple-600 dark:text-purple-400" />
+              <span className="text-gray-600 dark:text-gray-300">par</span>
+            </div>
+
+            <div className="flex items-center justify-center gap-3">
+              <a
+                href="https://github.com/noamfav"
+                className="group flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FaGithub className="text-xl group-hover:rotate-12 transition-transform duration-300" />
+                <span>Noam Favier</span>
+              </a>
+            </div>
+
+            <p className="text-sm text-gray-500 dark:text-gray-400 font-medium">
+              Ingénieur logiciel & Développeur créatif
+            </p>
+          </div>
+
+          {/* Bottom decorative section */}
+          <div className="mt-8 pt-6 border-t border-gray-200/50 dark:border-gray-700/50">
+            <div className="flex items-center justify-center gap-4 text-xs text-gray-400 dark:text-gray-500">
+              <span className="flex items-center gap-2">
+                <span>Créé avec</span>
+                <FaReact className="text-blue-500" />
+                <span>React,</span>
+                <SiTailwindcss className="text-cyan-500" />
+                <span>Tailwind &</span>
+                <FaCode className="text-purple-500" />
+                <span>React Icons</span>
+              </span>
+              <span>•</span>
+              <span className="italic">À utiliser avec précaution ✨</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+};
+
 // Main App component with dark mode support
 const App = () => {
   return (
@@ -2232,6 +2316,7 @@ const App = () => {
               </main>
             </div>
           </div>
+          <PrettyFooter />
         </div>
       </Router>
     </DarkModeProvider>
