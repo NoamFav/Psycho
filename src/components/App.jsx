@@ -8,6 +8,7 @@ import React, {
 
 import { HashRouter as Router, Routes, Route, NavLink } from "react-router-dom";
 import PropTypes from "prop-types";
+import Cookies from "js-cookie";
 
 import homeCreative from "../assets/home-creative.jpg";
 import homeLearning from "../assets/home-learning.jpg";
@@ -23,10 +24,14 @@ import contactsRoom from "../assets/contacts-room.jpg";
 import contactsAvatar from "../assets/contacts-avatar.jpg";
 
 import {
+  FaUserFriends,
   FaMoon,
   FaSun,
   FaBook,
   FaBrain,
+  FaHeartbeat,
+  FaHeart,
+  FaMicrophone,
   FaStar,
   FaTrophy,
   FaUserGraduate,
@@ -59,7 +64,6 @@ import {
   FaPaintBrush,
   FaPenFancy,
   FaDice,
-  FaNotesMedical,
   FaArrowRight,
   FaRocket,
 } from "react-icons/fa";
@@ -69,23 +73,23 @@ import { MdBackpack } from "react-icons/md";
 const DarkModeContext = createContext();
 
 const DarkModeProvider = ({ children }) => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(true);
 
   useEffect(() => {
-    const saved = localStorage.getItem("darkMode");
+    const saved = Cookies.get("darkMode");
     const prefersDark = window.matchMedia(
       "(prefers-color-scheme: dark)",
     ).matches;
 
-    if (saved !== null) {
-      setIsDarkMode(JSON.parse(saved));
+    if (saved !== undefined) {
+      setIsDarkMode(saved === "true");
     } else {
       setIsDarkMode(prefersDark);
     }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("darkMode", JSON.stringify(isDarkMode));
+    Cookies.set("darkMode", isDarkMode.toString(), { expires: 365 });
 
     if (isDarkMode) {
       document.documentElement.classList.add("dark");
@@ -95,7 +99,7 @@ const DarkModeProvider = ({ children }) => {
   }, [isDarkMode]);
 
   const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
+    setIsDarkMode((prev) => !prev);
   };
 
   return (
@@ -103,6 +107,10 @@ const DarkModeProvider = ({ children }) => {
       {children}
     </DarkModeContext.Provider>
   );
+};
+
+DarkModeProvider.propTypes = {
+  children: PropTypes.node.isRequired,
 };
 
 const useDarkMode = () => {
@@ -472,8 +480,9 @@ const Menu = () => {
 
   const bottomMenuItems = [
     { to: "/pre", icon: MdBackpack, label: "Pré-rentrée", delay: "300ms" },
-    { to: "/who", icon: FaUserGraduate, label: "Qui suis-je", delay: "400ms" },
-    { to: "/contacts", icon: FaPhone, label: "Contact", delay: "500ms" },
+    { to: "/highschool", icon: FaSchool, label: "Lycée", delay: "400ms" },
+    { to: "/who", icon: FaUserGraduate, label: "Qui suis-je", delay: "500ms" },
+    { to: "/contacts", icon: FaPhone, label: "Contact", delay: "600ms" },
   ];
 
   const subMenuItems = [
@@ -540,7 +549,7 @@ const Menu = () => {
         >
           <ul className="space-y-3">
             {/* Top Menu Items */}
-            {menuItems.map((item, index) => (
+            {menuItems.map((item) => (
               <li
                 key={item.to}
                 className={`transform transition-all duration-500 ${
@@ -842,9 +851,9 @@ const Home = () => {
               </h2>
             </div>
             <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
-              Comprendre et améliorer le processus d&apos;apprentissage de
-              chaque élève en alliant pédagogie moderne et approche
-              psychologique bienveillante.
+              Pour comprendre et améliorer le processus d’apprentissage de
+              chaque élève, en alliant pédagogie moderne et psychologie
+              bienveillante.
             </p>
           </div>
         </AnimatedCard>
@@ -860,8 +869,8 @@ const Home = () => {
               </h2>
             </div>
             <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
-              Une approche personnalisée basée sur l&apos;écoute, la
-              bienveillance et l&apos;adaptation pour révéler et libérer le
+              Grâce à une approche personnalisée, fondée sur l’écoute, la
+              bienveillance et l’adaptation, afin de révéler et libérer le
               potentiel unique de chaque enfant.
             </p>
           </div>
@@ -917,7 +926,7 @@ const Psycho = () => {
       <AnimatedCard>
         <div className="p-8 space-y-8">
           <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100 text-center">
-            Un soutien adapté aux difficultés scolaires
+            Mieux comprendre et surmonter les difficultés scolaires
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -950,6 +959,16 @@ const Psycho = () => {
 
           <div className="bg-gradient-to-r from-purple-50 to-pink-50  dark:from-purple-900/20 dark:to-pink-900/20 p-8 rounded-3xl border border-purple-100/50 dark:border-purple-800/30">
             <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed text-center">
+              Mais aussi pour renforcer l’estime de soi, la confiance, améliorer
+              la mémoire, l’organisation et l’autonomie. Et ce, en français, en
+              mathématiques ou en compréhension…
+              <span className="block mt-4 font-semibold text-purple-600 dark:text-purple-400">
+                Chaque enfant est unique.
+              </span>
+            </p>
+          </div>
+          <div className="bg-gradient-to-r from-purple-50 to-pink-50  dark:from-purple-900/20 dark:to-pink-900/20 p-8 rounded-3xl border border-purple-100/50 dark:border-purple-800/30">
+            <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed text-center">
               L&apos;approche psychopédagogique prend en compte tous les aspects
               du développement -
               <span className="font-semibold text-purple-600 dark:text-purple-400">
@@ -959,6 +978,114 @@ const Psycho = () => {
               - pour favoriser l&apos;épanouissement à l&apos;école et dans la
               vie quotidienne.
             </p>
+          </div>
+        </div>
+      </AnimatedCard>
+    </div>
+  );
+};
+
+// Modern Approach component with dark mode support
+const Approach = () => {
+  return (
+    <div className="max-w-6xl mx-auto space-y-12">
+      <div className="text-center space-y-6">
+        <h1 className="text-5xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 dark:from-purple-800 dark:to-pink-300 bg-clip-text text-transparent">
+          Mon Approche
+        </h1>
+        <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+          Une méthode personnalisée qui révèle le potentiel unique de chaque
+          enfant
+        </p>
+      </div>
+
+      <div className="text-center">
+        <img
+          src={approachHand}
+          alt="Enfant avec une main tendue"
+          className="rounded-3xl shadow-2xl dark:shadow-gray-900/50 mx-auto hover:scale-105 transition-transform duration-500"
+        />
+      </div>
+
+      <AnimatedCard>
+        <div className="p-8 space-y-6">
+          <div className="text-center space-y-4">
+            <div className="w-20 h-20 bg-gradient-to-r from-purple-500 to-pink-500 dark:from-purple-800 dark:to-pink-300 rounded-full flex items-center justify-center mx-auto">
+              <FaBullseye className="text-3xl text-white" />
+            </div>
+            <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100">
+              Comprendre l&apos;individu dans toute sa complexité
+            </h2>
+            <p className="text-lg text-purple-600 dark:text-purple-400 font-semibold">
+              Adapter l&apos;apprentissage à ses besoins spécifiques
+            </p>
+          </div>
+
+          <div className="bg-gradient-to-r from-purple-50 to-pink-50  dark:from-purple-900/20 dark:to-pink-900/20 p-8 rounded-3xl border border-purple-100/50 dark:border-purple-800/30">
+            <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed text-center">
+              Ma méthode pédagogique allie outils modernes et approches
+              traditionnelles, en cohérence avec les programmes nationaux, pour
+              créer un environnement d’apprentissage optimal.
+            </p>
+          </div>
+        </div>
+      </AnimatedCard>
+
+      <AnimatedCard delay={200}>
+        <div className="p-8 space-y-8">
+          <div className="text-center space-y-4">
+            <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100 flex items-center justify-center">
+              <FaStar className="mr-4 text-4xl text-purple-600 dark:text-purple-400" />
+              Mes Objectifs
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {[
+              {
+                icon: <FaBullseye />,
+                title: "M'adapter à chacun",
+                color:
+                  "from-purple-400 to-pink-400 dark:from-purple-800 dark:to-pink-300",
+              },
+              {
+                icon: <FaStar />,
+                title: "Renforcer la confiance et l'estime de soi",
+                color: "from-pink-400 to-red-400",
+              },
+              {
+                icon: <FaBook />,
+                title: "Soutenir lors des évaluations",
+                color: "from-blue-400 to-purple-400",
+              },
+              {
+                icon: <FaLightbulb />,
+                title: "Susciter la curiosité et le désir d'apprendre",
+                color: "from-green-400 to-blue-400",
+              },
+              {
+                icon: <FaQuoteRight />,
+                title: "Développer l'autonomie et le plaisir d'apprendre",
+                color: "from-yellow-400 to-orange-400",
+              },
+              {
+                icon: <FaHandshake />,
+                title: "Collaborer avec les parents et les acteurs éducatifs",
+                color: "from-indigo-400 to-purple-400",
+              },
+            ].map((item, index) => (
+              <div
+                key={index}
+                className={`group p-6 rounded-2xl bg-gradient-to-r ${item.color} text-white hover:scale-105 transition-all duration-300 hover:shadow-xl dark:shadow-gray-900/30`}
+              >
+                <div className="flex items-center space-x-4">
+                  <span className="text-3xl group-hover:scale-110 transition-transform duration-300">
+                    {item.icon}
+                  </span>
+                  <p className="text-lg font-medium">{item.title}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </AnimatedCard>
@@ -1008,6 +1135,14 @@ const School = () => {
                   icon: <FaClipboardList />,
                   text: "Restitution détaillée et conseils personnalisés",
                 },
+                {
+                  icon: <FaUserFriends />,
+                  text: "Entretien individuel avec l'élève et ses parents",
+                },
+                {
+                  icon: <FaClock />,
+                  text: "Deux séances d’observation et d’évaluation",
+                },
               ].map((item, index) => (
                 <div
                   key={index}
@@ -1046,8 +1181,21 @@ const School = () => {
                 </div>
                 <div className="p-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-2xl flex items-center justify-center">
                   <FaClock className="text-2xl mr-3" />
-                  <span className="text-xl font-semibold">Suivi : 50€/h</span>
+                  <span className="text-xl font-semibold">
+                    Suivi : 55€/h (primaire)
+                  </span>
                 </div>
+                <div className="p-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-2xl flex items-center justify-center">
+                  <FaClock className="text-2xl mr-3" />
+                  <span className="text-xl font-semibold">
+                    Suivi : 60€/h (Collégiens)
+                  </span>
+                </div>
+                <p className="text-sm italic text-gray-500 dark:text-gray-400 mt-2">
+                  (Les tarifs incluent la préparation, le matériel personnalisé,
+                  ainsi que les échanges réguliers avec les parents ou les
+                  enseignants si nécessaire.)
+                </p>
               </div>
             </div>
           </AnimatedCard>
@@ -1064,7 +1212,15 @@ const School = () => {
               Le Suivi
             </h2>
             <p className="text-lg text-blue-600 dark:text-blue-400 font-semibold">
-              Séances personnalisées - Rythme adapté
+              Séance 1h/1h30 selon les besoins / niveau scolaire - rythme à
+              adapter.
+            </p>
+          </div>
+
+          <div className="bg-gradient-to-r from-purple-50 to-pink-50  dark:from-purple-900/20 dark:to-pink-900/20 p-8 rounded-3xl border border-purple-100/50 dark:border-purple-800/30">
+            <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed text-center">
+              Séances individuelles. Suite au bilan, j’oriente l’élève vers la
+              médiation appropriée :
             </p>
           </div>
 
@@ -1072,7 +1228,10 @@ const School = () => {
             {[
               { icon: <FaBook />, text: "Ateliers de lecture" },
               { icon: <FaBullseye />, text: "Soutien approfondi" },
-              { icon: <FaPaintBrush />, text: "Méthodes alternatives" },
+              {
+                icon: <FaPaintBrush />,
+                text: "Méthodes alternatives pour (re)motiver et donner du sens",
+              },
               { icon: <FaPenFancy />, text: "Techniques d'organisation" },
               { icon: <FaBrain />, text: "Apprendre à apprendre" },
               { icon: <FaDice />, text: "Jeux pédagogiques" },
@@ -1217,7 +1376,7 @@ const Learn = () => {
                   <span>Périodes</span>
                 </h3>
                 <p className="text-gray-700 dark:text-gray-300">
-                  Dernière semaine d&apos;août + petites vacances
+                  Dernière semaine d&apos;août + petites vacances scolaires
                 </p>
               </div>
               <div className="p-6 bg-gradient-to-r from-pink-100 to-purple-100 dark:from-pink-900/30 dark:to-purple-900/30 rounded-2xl border border-pink-200/50 dark:border-pink-700/30">
@@ -1244,7 +1403,7 @@ const Learn = () => {
   );
 };
 
-// Modern Brevet component with dark mode support
+// Modern Brevet component
 const Brevet = () => {
   return (
     <div className="max-w-6xl mx-auto space-y-12">
@@ -1287,22 +1446,29 @@ const Brevet = () => {
                 Informations pratiques
               </h3>
               <div className="space-y-4">
-                <div className="p-4 bg-gradient-to-r from-purple-50 to-pink-50  dark:from-purple-900/20 dark:to-pink-900/20 rounded-xl border border-purple-100/50 dark:border-purple-800/30">
+                <div className="p-4 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-xl border border-purple-100/50 dark:border-purple-800/30">
                   <p className="text-gray-700 dark:text-gray-300">
                     <span className="font-semibold">Périodes :</span> Vacances
-                    de février / printemps + avant l&apos;examen
+                    de Toussaint / février / printemps + session intensive avant
+                    l&apos;examen
                   </p>
                 </div>
                 <div className="p-4 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-xl border border-blue-100/50 dark:border-blue-800/30">
                   <p className="text-gray-700 dark:text-gray-300">
-                    <span className="font-semibold">Groupe :</span> Min 2 élèves
-                    / Max 4 élèves
+                    <span className="font-semibold">Groupe :</span> Min 3 élèves
+                    / Max 6 élèves
                   </p>
                 </div>
                 <div className="p-4 bg-gradient-to-r from-pink-50 to-purple-50 dark:from-pink-900/20 dark:to-purple-900/20 rounded-xl border border-pink-100/50 dark:border-pink-800/30">
                   <p className="text-gray-700 dark:text-gray-300">
-                    <span className="font-semibold">Durée :</span> 10h de cours
-                    (2h/jour pendant 5 jours)
+                    <span className="font-semibold">Durant les vacances :</span>{" "}
+                    15h de cours (3h/jour pendant 5 jours)
+                  </p>
+                </div>
+                <div className="p-4 bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-900/20 dark:to-blue-900/20 rounded-xl border border-green-100/50 dark:border-green-800/30">
+                  <p className="text-gray-700 dark:text-gray-300">
+                    <span className="font-semibold">Session intensive :</span>{" "}
+                    17h sur 6 sessions
                   </p>
                 </div>
               </div>
@@ -1328,11 +1494,11 @@ const Brevet = () => {
                     text: "Approfondissement des notions",
                   },
                   { icon: <FaDice />, text: "Exercices, quiz et challenges" },
-                  { icon: <FaNotesMedical />, text: "Gestion du stress" },
+                  { icon: <FaHeartbeat />, text: "Gestion du stress" },
                 ].map((item, index) => (
                   <div
                     key={index}
-                    className="flex items-center space-x-3 p-3 bg-gradient-to-r from-purple-50 to-pink-50 0 dark:from-purple-900/20 dark:to-pink-900/20 rounded-xl hover:from-purple-100 hover:to-pink-100 dark:hover:from-purple-800/30 dark:hover:to-pink-800/30 transition-all duration-300 border border-purple-100/50 dark:border-purple-800/30"
+                    className="flex items-center space-x-3 p-3 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-xl hover:from-purple-100 hover:to-pink-100 dark:hover:from-purple-800/30 dark:hover:to-pink-800/30 transition-all duration-300 border border-purple-100/50 dark:border-purple-800/30"
                   >
                     <span className="text-xl text-purple-600 dark:text-purple-400">
                       {item.icon}
@@ -1358,16 +1524,16 @@ const Brevet = () => {
               <div className="p-6 bg-gradient-to-r from-purple-100 to-pink-100  dark:from-purple-900/30 dark:to-pink-900/30 rounded-2xl border border-purple-200/50 dark:border-purple-700/30">
                 <h3 className="text-xl font-semibold text-purple-800 dark:text-purple-300 mb-2 flex items-center justify-center space-x-2">
                   <FaCalendarAlt />
-                  <span>Session unique</span>
+                  <span>Session standard</span>
                 </h3>
                 <p className="text-2xl font-bold text-gray-800 dark:text-gray-100">
-                  300€ / semaine
+                  200€ / semaine
                 </p>
               </div>
               <div className="p-6 bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 rounded-2xl border border-blue-200/50 dark:border-blue-700/30">
                 <h3 className="text-xl font-semibold text-blue-800 dark:text-blue-300 mb-2 flex items-center justify-center space-x-2">
                   <FaBullseye />
-                  <span>4 sessions annuelles</span>
+                  <span>Session intensive</span>
                 </h3>
                 <p className="text-2xl font-bold text-gray-800 dark:text-gray-100">
                   250€ / semaine
@@ -1466,7 +1632,7 @@ const Pre = () => {
                   Période
                 </h3>
                 <p className="text-gray-700 dark:text-gray-300">
-                  Du 26 au 30 août (horaires à définir ensemble)
+                  Du 25 au 29 août (horaires à définir ensemble)
                 </p>
               </div>
 
@@ -1475,7 +1641,8 @@ const Pre = () => {
                   Format
                 </h3>
                 <p className="text-gray-700 dark:text-gray-300">
-                  5 séances de 1h à 1h30 selon le niveau et les besoins
+                  5 séances de 1h à 1h30, selon le niveau scolaire et les
+                  besoins de l’élève.
                 </p>
               </div>
 
@@ -1485,10 +1652,17 @@ const Pre = () => {
                 </h3>
                 <div className="space-y-1">
                   <p className="text-gray-700 dark:text-gray-300">
-                    • 50€/h en individuel
+                    • 55€/h en individuel
+                  </p>
+                  <p className="text-gray-700 dark:text-gray-300">
+                    • Forfait 5 jours: 390€
                   </p>
                   <p className="text-gray-700 dark:text-gray-300">
                     • En groupe : sur devis
+                  </p>
+                  <p className="text-sm italic text-gray-500 dark:text-gray-400 mt-2">
+                    Le matériel est fourni. Contactez-moi pour établir un devis
+                    personnalisé en cas de groupe.
                   </p>
                 </div>
               </div>
@@ -1496,6 +1670,251 @@ const Pre = () => {
           </div>
         </AnimatedCard>
       </div>
+    </div>
+  );
+};
+
+// Modern Highschool component
+const Highschool = () => {
+  return (
+    <div className="max-w-6xl mx-auto space-y-12">
+      <div className="text-center space-y-6">
+        <h1 className="text-5xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 dark:from-purple-800 dark:to-pink-300 bg-clip-text text-transparent">
+          Et au lycée !
+        </h1>
+        <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+          Un accompagnement sur mesure pour chaque étape du lycée
+        </p>
+      </div>
+
+      {/* Seconde Section */}
+      <AnimatedCard>
+        <div className="p-8 space-y-8">
+          <div className="text-center space-y-4">
+            <div className="w-20 h-20 bg-gradient-to-r from-green-500 to-teal-500 rounded-full flex items-center justify-center mx-auto">
+              <FaUsers className="text-3xl text-white" />
+            </div>
+            <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100">
+              En Seconde – Bien démarrer au lycée
+            </h2>
+            <p className="text-lg text-gray-600 dark:text-gray-300">
+              Une année déstabilisante qui nécessite un accompagnement adapté
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div className="space-y-6">
+              <h3 className="text-xl font-semibold text-green-600 dark:text-green-400">
+                Les défis de la Seconde
+              </h3>
+              <div className="space-y-3">
+                {[
+                  { icon: <FaClock />, text: "Nouveau rythme" },
+                  { icon: <FaUsers />, text: "Autonomie accrue" },
+                  { icon: <FaChartLine />, text: "Méthodes plus exigeantes" },
+                ].map((item, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center space-x-3 p-3 bg-gradient-to-r from-green-50 to-teal-50 dark:from-green-900/20 dark:to-teal-900/20 rounded-xl border border-green-100/50 dark:border-green-800/30"
+                  >
+                    <span className="text-xl text-green-600 dark:text-green-400">
+                      {item.icon}
+                    </span>
+                    <span className="text-gray-700 dark:text-gray-300">
+                      {item.text}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="space-y-6">
+              <h3 className="text-xl font-semibold text-teal-600 dark:text-teal-400">
+                Mon accompagnement
+              </h3>
+              <div className="space-y-3">
+                {[
+                  { icon: <FaClipboardList />, text: "Mieux s'organiser" },
+                  { icon: <FaBullseye />, text: "Gagner en efficacité" },
+                  {
+                    icon: <FaClock />,
+                    text: "Gérer son temps et son attention",
+                  },
+                  {
+                    icon: <FaHeart />,
+                    text: "Restaurer confiance et motivation",
+                  },
+                ].map((item, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center space-x-3 p-3 bg-gradient-to-r from-teal-50 to-blue-50 dark:from-teal-900/20 dark:to-blue-900/20 rounded-xl border border-teal-100/50 dark:border-teal-800/30"
+                  >
+                    <span className="text-xl text-teal-600 dark:text-teal-400">
+                      {item.icon}
+                    </span>
+                    <span className="text-gray-700 dark:text-gray-300">
+                      {item.text}
+                    </span>
+                  </div>
+                ))}
+              </div>
+              <div className="p-4 bg-gradient-to-r from-green-100 to-teal-100 dark:from-green-900/30 dark:to-teal-900/30 rounded-xl border border-green-200/50 dark:border-green-700/30">
+                <p className="text-sm font-semibold text-gray-800 dark:text-gray-200">
+                  <span className="text-green-600 dark:text-green-400">
+                    Objectif :
+                  </span>{" "}
+                  Poser des bases solides pour réussir sereinement
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </AnimatedCard>
+
+      {/* Première Section */}
+      <AnimatedCard delay={200}>
+        <div className="p-8 space-y-8">
+          <div className="text-center space-y-4">
+            <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center mx-auto">
+              <FaBook className="text-3xl text-white" />
+            </div>
+            <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100">
+              En Première – Préparation au Bac de Français
+            </h2>
+            <p className="text-lg text-gray-600 dark:text-gray-300">
+              L&apos;épreuve de français peut être source de stress par manque
+              de méthode
+            </p>
+          </div>
+
+          <div className="space-y-6">
+            <h3 className="text-xl font-semibold text-blue-600 dark:text-blue-400 text-center">
+              Mon accompagnement méthodologique complémentaire
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {[
+                { icon: <FaBook />, text: "Vulgarisation des œuvres" },
+                { icon: <FaBrain />, text: "Méthode de mémorisation efficace" },
+                { icon: <FaBullseye />, text: "Aide aux choix pour l'écrit" },
+                {
+                  icon: <FaClipboardList />,
+                  text: "Méthodologie de rédaction",
+                },
+                {
+                  icon: <FaUsers />,
+                  text: "Quiz ludiques sur les notions essentielles",
+                },
+              ].map((item, index) => (
+                <div
+                  key={index}
+                  className="flex items-center space-x-3 p-4 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-xl border border-blue-100/50 dark:border-blue-800/30 hover:scale-105 transition-transform duration-300"
+                >
+                  <span className="text-xl text-blue-600 dark:text-blue-400">
+                    {item.icon}
+                  </span>
+                  <span className="text-gray-700 dark:text-gray-300 text-sm">
+                    {item.text}
+                  </span>
+                </div>
+              ))}
+            </div>
+            <div className="p-4 bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 rounded-xl border border-blue-200/50 dark:border-blue-700/30">
+              <p className="text-sm font-semibold text-gray-800 dark:text-gray-200 text-center">
+                <span className="text-blue-600 dark:text-blue-400">
+                  Objectif :
+                </span>{" "}
+                Aborder le bac de français avec clarté et confiance
+              </p>
+            </div>
+          </div>
+        </div>
+      </AnimatedCard>
+
+      {/* Terminale Section */}
+      <AnimatedCard delay={400}>
+        <div className="p-8 space-y-8">
+          <div className="text-center space-y-4">
+            <div className="w-20 h-20 bg-gradient-to-r from-red-500 to-pink-500 rounded-full flex items-center justify-center mx-auto">
+              <FaGraduationCap className="text-3xl text-white" />
+            </div>
+            <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100">
+              Terminale – Préparer le bac efficacement
+            </h2>
+            <p className="text-lg text-gray-600 dark:text-gray-300">
+              Une année intense et stressante. Il faut savoir organiser,
+              mémoriser et prioriser.
+            </p>
+          </div>
+
+          <div className="space-y-6">
+            <h3 className="text-xl font-semibold text-red-600 dark:text-red-400 text-center">
+              Ce que je propose
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {[
+                {
+                  icon: <FaClipboardList />,
+                  text: "Outils pour planifier les révisions",
+                },
+                {
+                  icon: <FaBrain />,
+                  text: "Aide pour les cours complexes (fiches, cartes mentales, mémoire)",
+                },
+                {
+                  icon: <FaMicrophone />,
+                  text: "Préparation au Grand Oral : structurer, parler clairement, gérer le stress",
+                },
+                {
+                  icon: <FaHeart />,
+                  text: "Travailler la motivation, la concentration et la confiance",
+                },
+              ].map((item, index) => (
+                <div
+                  key={index}
+                  className="flex items-start space-x-3 p-4 bg-gradient-to-r from-red-50 to-pink-50 dark:from-red-900/20 dark:to-pink-900/20 rounded-xl border border-red-100/50 dark:border-red-800/30 hover:scale-105 transition-transform duration-300"
+                >
+                  <span className="text-xl text-red-600 dark:text-red-400 mt-1">
+                    {item.icon}
+                  </span>
+                  <span className="text-gray-700 dark:text-gray-300">
+                    {item.text}
+                  </span>
+                </div>
+              ))}
+            </div>
+            <div className="p-4 bg-gradient-to-r from-red-100 to-pink-100 dark:from-red-900/30 dark:to-pink-900/30 rounded-xl border border-red-200/50 dark:border-red-700/30">
+              <p className="text-sm font-semibold text-gray-800 dark:text-gray-200 text-center">
+                <span className="text-red-600 dark:text-red-400">
+                  Objectif :
+                </span>{" "}
+                Aborder cette année avec méthode et confiance, sans
+                s&apos;épuiser
+              </p>
+            </div>
+          </div>
+        </div>
+      </AnimatedCard>
+
+      {/* Tarifs Section */}
+      <AnimatedCard delay={600}>
+        <div className="p-8 text-center space-y-8">
+          <div className="space-y-4">
+            <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100">
+              Tarifs
+            </h2>
+            <div className="max-w-md mx-auto">
+              <div className="p-6 bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 rounded-2xl border border-purple-200/50 dark:border-purple-700/30">
+                <h3 className="text-xl font-semibold text-purple-800 dark:text-purple-300 mb-2">
+                  Accompagnement lycée
+                </h3>
+                <p className="text-3xl font-bold text-gray-800 dark:text-gray-100">
+                  70€ / heure
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </AnimatedCard>
     </div>
   );
 };
@@ -1611,115 +2030,7 @@ const Who = () => {
   );
 };
 
-// Modern Approach component with dark mode support
-const Approach = () => {
-  return (
-    <div className="max-w-6xl mx-auto space-y-12">
-      <div className="text-center space-y-6">
-        <h1 className="text-5xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 dark:from-purple-800 dark:to-pink-300 bg-clip-text text-transparent">
-          Mon Approche
-        </h1>
-        <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-          Une méthode personnalisée qui révèle le potentiel unique de chaque
-          enfant
-        </p>
-      </div>
-
-      <div className="text-center">
-        <img
-          src={approachHand}
-          alt="Enfant avec une main tendue"
-          className="rounded-3xl shadow-2xl dark:shadow-gray-900/50 mx-auto hover:scale-105 transition-transform duration-500"
-        />
-      </div>
-
-      <AnimatedCard>
-        <div className="p-8 space-y-6">
-          <div className="text-center space-y-4">
-            <div className="w-20 h-20 bg-gradient-to-r from-purple-500 to-pink-500 dark:from-purple-800 dark:to-pink-300 rounded-full flex items-center justify-center mx-auto">
-              <FaBullseye className="text-3xl text-white" />
-            </div>
-            <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100">
-              Comprendre l&apos;individu dans toute sa complexité
-            </h2>
-            <p className="text-lg text-purple-600 dark:text-purple-400 font-semibold">
-              Adapter l&apos;apprentissage à ses besoins spécifiques
-            </p>
-          </div>
-
-          <div className="bg-gradient-to-r from-purple-50 to-pink-50  dark:from-purple-900/20 dark:to-pink-900/20 p-8 rounded-3xl border border-purple-100/50 dark:border-purple-800/30">
-            <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed text-center">
-              Ma méthode pédagogique allie les outils modernes et des approches
-              traditionnelles, conformes aux programmes nationaux, pour créer un
-              environnement d&apos;apprentissage optimal.
-            </p>
-          </div>
-        </div>
-      </AnimatedCard>
-
-      <AnimatedCard delay={200}>
-        <div className="p-8 space-y-8">
-          <div className="text-center space-y-4">
-            <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100 flex items-center justify-center">
-              <FaStar className="mr-4 text-4xl text-purple-600 dark:text-purple-400" />
-              Mes Objectifs
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {[
-              {
-                icon: <FaBullseye />,
-                title: "M'adapter à chacun",
-                color:
-                  "from-purple-400 to-pink-400 dark:from-purple-800 dark:to-pink-300",
-              },
-              {
-                icon: <FaStar />,
-                title: "Renforcer la confiance et l'estime de soi",
-                color: "from-pink-400 to-red-400",
-              },
-              {
-                icon: <FaBook />,
-                title: "Soutenir lors des évaluations",
-                color: "from-blue-400 to-purple-400",
-              },
-              {
-                icon: <FaLightbulb />,
-                title: "Susciter la curiosité et le désir d'apprendre",
-                color: "from-green-400 to-blue-400",
-              },
-              {
-                icon: <FaQuoteRight />,
-                title: "Développer l'autonomie et le plaisir d'apprendre",
-                color: "from-yellow-400 to-orange-400",
-              },
-              {
-                icon: <FaHandshake />,
-                title: "Collaborer avec les parents / acteurs éducatifs",
-                color: "from-indigo-400 to-purple-400",
-              },
-            ].map((item, index) => (
-              <div
-                key={index}
-                className={`group p-6 rounded-2xl bg-gradient-to-r ${item.color} text-white hover:scale-105 transition-all duration-300 hover:shadow-xl dark:shadow-gray-900/30`}
-              >
-                <div className="flex items-center space-x-4">
-                  <span className="text-3xl group-hover:scale-110 transition-transform duration-300">
-                    {item.icon}
-                  </span>
-                  <p className="text-lg font-medium">{item.title}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </AnimatedCard>
-    </div>
-  );
-};
-
-// Modern Contacts component with dark mode support
+// Modern Contacts component
 const Contacts = () => {
   return (
     <div className="max-w-6xl mx-auto space-y-12">
@@ -1913,6 +2224,7 @@ const App = () => {
                   <Route path="/learn" element={<Learn />} />
                   <Route path="/brevet" element={<Brevet />} />
                   <Route path="/pre" element={<Pre />} />
+                  <Route path="/highschool" element={<Highschool />} />
                   <Route path="/who" element={<Who />} />
                   <Route path="/approach" element={<Approach />} />
                   <Route path="/contacts" element={<Contacts />} />
