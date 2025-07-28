@@ -1,4 +1,10 @@
-import React, { useState, useEffect, createContext, useContext } from "react";
+import React, {
+  useState,
+  useEffect,
+  createContext,
+  useContext,
+  useRef,
+} from "react";
 
 import { HashRouter as Router, Routes, Route, NavLink } from "react-router-dom";
 import PropTypes from "prop-types";
@@ -175,6 +181,7 @@ AnimatedCard.propTypes = {
 // Floating elements background
 const FloatingElements = () => {
   const [elements, setElements] = useState([]);
+  const animationFrameRef = useRef();
 
   // Generate random movement for each element
   useEffect(() => {
@@ -339,83 +346,106 @@ const FloatingElements = () => {
         id: index,
         x: Math.random() * 100,
         y: Math.random() * 100,
-        dx: (Math.random() - 0.5) * 0.3, // Slower movement
-        dy: (Math.random() - 0.5) * 0.3,
+        dx: (Math.random() - 0.5) * 0.2, // Even slower for Safari
+        dy: (Math.random() - 0.5) * 0.2,
         rotation: Math.random() * 360,
-        rotationSpeed: (Math.random() - 0.5) * 2,
-        scale: 0.8 + Math.random() * 0.4, // Random scale between 0.8 and 1.2
-        animationDelay: Math.random() * 5,
-        animationDuration: 2 + Math.random() * 4, // Between 2-6 seconds
-        animationType: Math.random() > 0.5 ? "pulse" : "bounce",
+        rotationSpeed: (Math.random() - 0.5) * 1,
+        scale: 0.8 + Math.random() * 0.4,
+        pulseOffset: Math.random() * Math.PI * 2, // For custom pulse effect
+        pulseSpeed: 0.02 + Math.random() * 0.03,
       }));
     };
 
     setElements(generateElements());
   }, []);
 
-  // Animation loop for movement
+  // Use requestAnimationFrame for smooth animation
   useEffect(() => {
-    const interval = setInterval(() => {
-      setElements((prevElements) =>
-        prevElements.map((element) => {
-          let newX = element.x + element.dx;
-          let newY = element.y + element.dy;
-          let newDx = element.dx;
-          let newDy = element.dy;
+    let lastTime = 0;
 
-          // Bounce off edges with some randomness
-          if (newX <= -10 || newX >= 110) {
-            newDx = -element.dx + (Math.random() - 0.5) * 0.1;
-            newX = Math.max(-10, Math.min(110, newX));
-          }
-          if (newY <= -10 || newY >= 110) {
-            newDy = -element.dy + (Math.random() - 0.5) * 0.1;
-            newY = Math.max(-10, Math.min(110, newY));
-          }
+    const animate = (currentTime) => {
+      if (currentTime - lastTime >= 16) {
+        // ~60fps, throttled for Safari
+        setElements((prevElements) =>
+          prevElements.map((element) => {
+            let newX = element.x + element.dx;
+            let newY = element.y + element.dy;
+            let newDx = element.dx;
+            let newDy = element.dy;
 
-          // Add some random direction changes
-          if (Math.random() < 0.02) {
-            // 2% chance per frame
-            newDx += (Math.random() - 0.5) * 0.1;
-            newDy += (Math.random() - 0.5) * 0.1;
-            // Limit speed
-            const speed = Math.sqrt(newDx * newDx + newDy * newDy);
-            if (speed > 0.5) {
-              newDx = (newDx / speed) * 0.5;
-              newDy = (newDy / speed) * 0.5;
+            // Bounce off edges with some randomness
+            if (newX <= -5 || newX >= 105) {
+              newDx = -element.dx + (Math.random() - 0.5) * 0.05;
+              newX = Math.max(-5, Math.min(105, newX));
             }
-          }
+            if (newY <= -5 || newY >= 105) {
+              newDy = -element.dy + (Math.random() - 0.5) * 0.05;
+              newY = Math.max(-5, Math.min(105, newY));
+            }
 
-          return {
-            ...element,
-            x: newX,
-            y: newY,
-            dx: newDx,
-            dy: newDy,
-            rotation: element.rotation + element.rotationSpeed,
-          };
-        }),
-      );
-    }, 100); // Update every 100ms for smooth movement
+            // Add some random direction changes (less frequent for Safari)
+            if (Math.random() < 0.005) {
+              newDx += (Math.random() - 0.5) * 0.05;
+              newDy += (Math.random() - 0.5) * 0.05;
+              // Limit speed
+              const speed = Math.sqrt(newDx * newDx + newDy * newDy);
+              if (speed > 0.3) {
+                newDx = (newDx / speed) * 0.3;
+                newDy = (newDy / speed) * 0.3;
+              }
+            }
 
-    return () => clearInterval(interval);
+            // Update pulse offset for custom pulse effect
+            const newPulseOffset = element.pulseOffset + element.pulseSpeed;
+
+            return {
+              ...element,
+              x: newX,
+              y: newY,
+              dx: newDx,
+              dy: newDy,
+              rotation: element.rotation + element.rotationSpeed,
+              pulseOffset: newPulseOffset,
+            };
+          }),
+        );
+        lastTime = currentTime;
+      }
+
+      animationFrameRef.current = requestAnimationFrame(animate);
+    };
+
+    animationFrameRef.current = requestAnimationFrame(animate);
+
+    return () => {
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+    };
   }, []);
 
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden">
-      {elements.map((element) => (
-        <div
-          key={element.id}
-          className={`absolute transition-all duration-1000 ease-in-out ${element.size} ${element.lightColor} dark:${element.darkColor} ${element.blur} ${element.shape || "rounded-full"} ${element.animationType === "pulse" ? "animate-pulse" : "animate-bounce"}`}
-          style={{
-            left: `${element.x}%`,
-            top: `${element.y}%`,
-            transform: `translate(-50%, -50%) rotate(${element.rotation}deg) scale(${element.scale})`,
-            animationDelay: `${element.animationDelay}s`,
-            animationDuration: `${element.animationDuration}s`,
-          }}
-        />
-      ))}
+      {elements.map((element) => {
+        // Calculate custom pulse scale
+        const pulseScale = 1 + Math.sin(element.pulseOffset) * 0.1;
+        const finalScale = element.scale * pulseScale;
+
+        return (
+          <div
+            key={element.id}
+            className={`absolute will-change-transform ${element.size} ${element.lightColor} dark:${element.darkColor} ${element.blur} ${element.shape || "rounded-full"}`}
+            style={{
+              left: `${element.x}%`,
+              top: `${element.y}%`,
+              transform: `translate(-50%, -50%) rotate(${element.rotation}deg) scale(${finalScale})`,
+              // Use transform3d to enable hardware acceleration on Safari
+              backfaceVisibility: "hidden",
+              perspective: "1000px",
+            }}
+          />
+        );
+      })}
     </div>
   );
 };
