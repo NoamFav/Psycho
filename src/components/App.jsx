@@ -468,9 +468,12 @@ const Menu = () => {
   const menuItems = [
     { to: "/", icon: FaBook, label: "Accueil", delay: "0ms" },
     { to: "/psycho", icon: FaBrain, label: "Psychopédagogie", delay: "100ms" },
-    { to: "/pre", icon: MdBackpack, label: "Pré-rentrée", delay: "200ms" },
-    { to: "/who", icon: FaUserGraduate, label: "Qui suis-je", delay: "300ms" },
-    { to: "/contacts", icon: FaPhone, label: "Contact", delay: "400ms" },
+  ];
+
+  const bottomMenuItems = [
+    { to: "/pre", icon: MdBackpack, label: "Pré-rentrée", delay: "300ms" },
+    { to: "/who", icon: FaUserGraduate, label: "Qui suis-je", delay: "400ms" },
+    { to: "/contacts", icon: FaPhone, label: "Contact", delay: "500ms" },
   ];
 
   const subMenuItems = [
@@ -533,11 +536,11 @@ const Menu = () => {
         <div
           className={`bg-white/10 dark:bg-gray-800/30 backdrop-blur-md rounded-3xl border border-white/20 dark:border-gray-700/20 p-6 shadow-2xl dark:shadow-gray-900/50 transition-all duration-700 ${
             mobileMenuOpen ? "animate-slideInDown" : ""
-          }`}
+          } overflow-visible`}
         >
           <ul className="space-y-3">
-            {/* Regular Menu Items */}
-            {menuItems.map((item) => (
+            {/* Top Menu Items */}
+            {menuItems.map((item, index) => (
               <li
                 key={item.to}
                 className={`transform transition-all duration-500 ${
@@ -579,103 +582,159 @@ const Menu = () => {
               </li>
             ))}
 
-            {/* Dropdown Menu Item */}
+            {/* Mon Approche - Dropdown Menu Item */}
             <li
-              className="relative transform transition-all duration-500"
-              style={{ transitionDelay: "250ms" }}
+              className="relative transform transition-all duration-500 overflow-visible"
+              style={{ transitionDelay: "200ms" }}
               onMouseEnter={() => setHoveredItem("/approach")}
               onMouseLeave={() => setHoveredItem(null)}
             >
-              <div
-                onClick={toggleSubList}
-                className={`group w-full flex items-center justify-between px-6 py-4 rounded-2xl transition-all duration-500 transform hover:scale-105 active:scale-95 hover:bg-gradient-to-r hover:from-purple-600 hover:to-pink-600 dark:hover:from-purple-800 dark:hover:to-pink-300 hover:text-white cursor-pointer hover:shadow-xl ${
-                  isOpen
-                    ? "bg-gradient-to-r from-purple-500 to-pink-500 dark:from-purple-800 dark:to-pink-300 text-white shadow-lg scale-105"
-                    : "text-gray-700 dark:text-gray-200 hover:shadow-md"
-                } ${hoveredItem === "/approach" ? "translate-x-2" : ""}`}
+              <NavLink
+                to="/approach"
+                className={({ isActive }) =>
+                  `group w-full flex items-center justify-between px-6 py-4 rounded-2xl transition-all duration-500 transform hover:scale-105 active:scale-95 hover:bg-gradient-to-r hover:from-purple-600 hover:to-pink-600 dark:hover:from-purple-800 dark:hover:to-pink-300 hover:text-white hover:shadow-xl ${
+                    isActive
+                      ? "bg-gradient-to-r from-purple-500 to-pink-500 dark:from-purple-800 dark:to-pink-300 text-white shadow-lg scale-105"
+                      : "text-gray-700 dark:text-gray-200 hover:shadow-md"
+                  } ${hoveredItem === "/approach" ? "translate-x-2" : ""}`
+                }
               >
-                <div className="flex items-center w-full">
+                <div className="flex items-center flex-1">
                   <FaStar
                     className={`text-xl mr-3 transition-all duration-300 ${
                       hoveredItem === "/approach"
-                        ? "scale-125 rotate-12"
+                        ? "scale-125 rotate-180"
                         : "group-hover:scale-110"
-                    } ${isOpen ? "animate-spin" : ""}`}
+                    }`}
                   />
                   <span className="font-medium transition-all duration-300">
                     Mon approche
                   </span>
                 </div>
-                <svg
-                  className={`w-4 h-4 transition-all duration-500 ease-in-out ${
-                    isOpen ? "rotate-180 scale-110" : "group-hover:scale-110"
-                  }`}
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    toggleSubList(e);
+                  }}
+                  className="p-1 rounded-lg hover:bg-white/20 transition-all duration-300"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M19 9l-7 7-7-7"
-                  />
-                </svg>
+                  <svg
+                    className={`w-4 h-4 transition-all duration-500 ease-in-out ${
+                      isOpen ? "rotate-180 scale-110" : "group-hover:scale-110"
+                    }`}
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </button>
                 {hoveredItem === "/approach" && (
-                  <div className="ml-2 w-2 h-2 bg-white rounded-full animate-ping"></div>
+                  <div className="absolute right-3 top-1/2 transform -translate-y-1/2 w-2 h-2 bg-white rounded-full animate-ping"></div>
                 )}
-              </div>
+              </NavLink>
 
               {/* Submenu */}
               <div
-                className={`overflow-hidden transition-all duration-700 ease-in-out ${
-                  isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+                className={`relative transition-all duration-700 ease-in-out ${
+                  isOpen ? "max-h-96 opacity-100 mt-2" : "max-h-0 opacity-0"
                 }`}
               >
-                <ul className="ml-6 mt-2 space-y-2">
-                  {subMenuItems.map((item) => (
-                    <li
-                      key={item.to}
-                      className={`transform transition-all duration-500 ${
-                        isOpen
-                          ? "translate-y-0 opacity-100 scale-100"
-                          : "translate-y-4 opacity-0 scale-95"
-                      }`}
-                      style={{
-                        transitionDelay: isOpen ? item.delay : "0ms",
-                      }}
-                      onMouseEnter={() => setHoveredItem(item.to)}
-                      onMouseLeave={() => setHoveredItem(null)}
-                    >
-                      <NavLink
-                        to={item.to}
-                        className={({ isActive }) =>
-                          `group flex items-center px-6 py-3 rounded-xl transition-all duration-500 transform hover:scale-105 active:scale-95 hover:bg-gradient-to-r hover:from-pink-600 hover:to-purple-600 dark:hover:from-pink-300 dark:hover:to-purple-800 hover:text-white hover:shadow-lg ${
-                            isActive
-                              ? "bg-gradient-to-r from-pink-400 to-purple-400 dark:from-pink-300 dark:to-purple-800 text-white shadow-md scale-105"
-                              : "text-gray-600 dark:text-gray-300 hover:shadow-sm"
-                          } ${hoveredItem === item.to ? "translate-x-2" : ""}`
-                        }
+                <div className="bg-white/5 dark:bg-gray-900/20 rounded-2xl border border-white/10 dark:border-gray-700/10 backdrop-blur-sm overflow-hidden">
+                  <ul className="p-2 space-y-1">
+                    {subMenuItems.map((item) => (
+                      <li
+                        key={item.to}
+                        className={`transform transition-all duration-500 ${
+                          isOpen
+                            ? "translate-y-0 opacity-100 scale-100"
+                            : "translate-y-4 opacity-0 scale-95"
+                        }`}
+                        style={{
+                          transitionDelay: isOpen ? item.delay : "0ms",
+                        }}
+                        onMouseEnter={() => setHoveredItem(item.to)}
+                        onMouseLeave={() => setHoveredItem(null)}
                       >
-                        <item.icon
-                          className={`text-lg mr-3 transition-all duration-300 ${
-                            hoveredItem === item.to
-                              ? "scale-125 rotate-12"
-                              : "group-hover:scale-110"
-                          }`}
-                        />
-                        <span className="font-medium transition-all duration-300">
-                          {item.label}
-                        </span>
-                        {hoveredItem === item.to && (
-                          <div className="ml-auto w-1.5 h-1.5 bg-white rounded-full animate-ping"></div>
-                        )}
-                      </NavLink>
-                    </li>
-                  ))}
-                </ul>
+                        <NavLink
+                          to={item.to}
+                          className={({ isActive }) =>
+                            `group flex items-center px-4 py-3 rounded-xl transition-all duration-500 transform hover:scale-105 active:scale-95 hover:bg-gradient-to-r hover:from-pink-600 hover:to-purple-600 dark:hover:from-pink-300 dark:hover:to-purple-800 hover:text-white hover:shadow-lg ${
+                              isActive
+                                ? "bg-gradient-to-r from-pink-400 to-purple-400 dark:from-pink-300 dark:to-purple-800 text-white shadow-md scale-105"
+                                : "text-gray-600 dark:text-gray-300 hover:shadow-sm"
+                            } ${hoveredItem === item.to ? "translate-x-2" : ""}`
+                          }
+                        >
+                          <item.icon
+                            className={`text-lg mr-3 transition-all duration-300 ${
+                              hoveredItem === item.to
+                                ? "scale-125 rotate-12"
+                                : "group-hover:scale-110"
+                            }`}
+                          />
+                          <span className="font-medium transition-all duration-300 text-sm">
+                            {item.label}
+                          </span>
+                          {hoveredItem === item.to && (
+                            <div className="ml-auto w-1.5 h-1.5 bg-white rounded-full animate-ping"></div>
+                          )}
+                        </NavLink>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             </li>
+
+            {/* Bottom Menu Items */}
+            {bottomMenuItems.map((item) => (
+              <li
+                key={item.to}
+                className={`transform transition-all duration-500 ${
+                  mobileMenuOpen
+                    ? "translate-x-0 opacity-100"
+                    : "lg:translate-x-0 lg:opacity-100"
+                }`}
+                style={{
+                  transitionDelay: mobileMenuOpen ? item.delay : "0ms",
+                  animationDelay: item.delay,
+                }}
+                onMouseEnter={() => setHoveredItem(item.to)}
+                onMouseLeave={() => setHoveredItem(null)}
+              >
+                <NavLink
+                  to={item.to}
+                  className={({ isActive }) =>
+                    `group flex items-center px-6 py-4 rounded-2xl transition-all duration-500 transform hover:scale-105 active:scale-95 hover:bg-gradient-to-r hover:from-purple-600 hover:to-pink-600 dark:hover:from-purple-800 dark:hover:to-pink-300 hover:text-white hover:shadow-xl ${
+                      isActive
+                        ? "bg-gradient-to-r from-purple-500 to-pink-500 dark:from-purple-800 dark:to-pink-300 text-white shadow-lg scale-105"
+                        : "text-gray-700 dark:text-gray-200 hover:shadow-md"
+                    } ${hoveredItem === item.to ? "translate-x-2" : ""}`
+                  }
+                >
+                  <item.icon
+                    className={`text-xl mr-3 transition-all duration-300 ${
+                      hoveredItem === item.to
+                        ? "scale-125 rotate-12"
+                        : "group-hover:scale-110"
+                    }`}
+                  />
+                  <span className="font-medium transition-all duration-300">
+                    {item.label}
+                  </span>
+                  {hoveredItem === item.to && (
+                    <div className="ml-auto w-2 h-2 bg-white rounded-full animate-ping"></div>
+                  )}
+                </NavLink>
+              </li>
+            ))}
           </ul>
 
           {/* Animated Background Elements */}
