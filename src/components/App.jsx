@@ -421,33 +421,6 @@ const FloatingElements = () => {
 };
 
 // Modern navigation menu
-import React, { useState } from "react";
-import {
-  FaBook,
-  FaBrain,
-  FaStar,
-  FaBullseye,
-  FaRocket,
-  FaTrophy,
-  FaUserGraduate,
-  FaPhone,
-} from "react-icons/fa";
-import { MdBackpack } from "react-icons/md";
-
-// Mock NavLink component for demonstration
-const NavLink = ({ to, children, className }) => {
-  const [isActive] = useState(to === "/"); // Mock active state
-  return (
-    <div
-      className={
-        typeof className === "function" ? className({ isActive }) : className
-      }
-    >
-      {children}
-    </div>
-  );
-};
-
 const Menu = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -683,7 +656,7 @@ const Menu = () => {
         </div>
       </nav>
 
-      <style jsx>{`
+      <style>{`
         @keyframes slideInDown {
           from {
             transform: translateY(-20px);
