@@ -174,11 +174,248 @@ AnimatedCard.propTypes = {
 
 // Floating elements background
 const FloatingElements = () => {
+  const [elements, setElements] = useState([]);
+
+  // Generate random movement for each element
+  useEffect(() => {
+    const generateElements = () => {
+      const elementConfigs = [
+        // Large background elements
+        {
+          size: "w-64 h-64",
+          lightColor: "bg-purple-200/60",
+          darkColor: "bg-purple-600/80",
+          blur: "blur-3xl",
+        },
+        {
+          size: "w-96 h-96",
+          lightColor: "bg-pink-200/50",
+          darkColor: "bg-pink-600/70",
+          blur: "blur-3xl",
+        },
+        {
+          size: "w-48 h-48",
+          lightColor: "bg-blue-200/70",
+          darkColor: "bg-blue-600/90",
+          blur: "blur-3xl",
+        },
+
+        // Medium floating orbs
+        {
+          size: "w-32 h-32",
+          lightColor: "bg-cyan-300/60",
+          darkColor: "bg-cyan-400/80",
+          blur: "blur-2xl",
+        },
+        {
+          size: "w-40 h-40",
+          lightColor: "bg-emerald-300/50",
+          darkColor: "bg-emerald-400/70",
+          blur: "blur-2xl",
+        },
+        {
+          size: "w-36 h-36",
+          lightColor: "bg-orange-300/60",
+          darkColor: "bg-orange-500/80",
+          blur: "blur-2xl",
+        },
+        {
+          size: "w-28 h-28",
+          lightColor: "bg-yellow-300/70",
+          darkColor: "bg-yellow-400/90",
+          blur: "blur-2xl",
+        },
+
+        // Small ambient particles
+        {
+          size: "w-16 h-16",
+          lightColor: "bg-indigo-400/60",
+          darkColor: "bg-indigo-300/80",
+          blur: "blur-xl",
+        },
+        {
+          size: "w-20 h-20",
+          lightColor: "bg-rose-400/50",
+          darkColor: "bg-rose-300/70",
+          blur: "blur-xl",
+        },
+        {
+          size: "w-12 h-12",
+          lightColor: "bg-teal-400/70",
+          darkColor: "bg-teal-300/90",
+          blur: "blur-lg",
+        },
+        {
+          size: "w-24 h-24",
+          lightColor: "bg-violet-400/60",
+          darkColor: "bg-violet-300/80",
+          blur: "blur-xl",
+        },
+        {
+          size: "w-18 h-18",
+          lightColor: "bg-lime-400/50",
+          darkColor: "bg-lime-300/70",
+          blur: "blur-lg",
+        },
+
+        // Tiny sparkle effects
+        {
+          size: "w-8 h-8",
+          lightColor: "bg-amber-500/80",
+          darkColor: "bg-amber-200/90",
+          blur: "blur-sm",
+        },
+        {
+          size: "w-6 h-6",
+          lightColor: "bg-pink-500/70",
+          darkColor: "bg-pink-200/80",
+          blur: "blur-sm",
+        },
+        {
+          size: "w-10 h-10",
+          lightColor: "bg-blue-500/60",
+          darkColor: "bg-blue-200/70",
+          blur: "blur-sm",
+        },
+        {
+          size: "w-8 h-8",
+          lightColor: "bg-green-500/80",
+          darkColor: "bg-green-200/90",
+          blur: "blur-sm",
+        },
+        {
+          size: "w-12 h-12",
+          lightColor: "bg-purple-500/70",
+          darkColor: "bg-purple-200/80",
+          blur: "blur-sm",
+        },
+
+        // Floating geometric shapes
+        {
+          size: "w-32 h-32",
+          lightColor: "bg-gradient-to-br from-red-300/60 to-orange-300/60",
+          darkColor: "bg-gradient-to-br from-red-400/80 to-orange-400/80",
+          blur: "blur-2xl",
+          shape: "rounded-2xl",
+        },
+        {
+          size: "w-28 h-28",
+          lightColor: "bg-gradient-to-tr from-cyan-300/50 to-blue-300/50",
+          darkColor: "bg-gradient-to-tr from-cyan-400/70 to-blue-400/70",
+          blur: "blur-2xl",
+          shape: "rounded-2xl",
+        },
+        {
+          size: "w-24 h-24",
+          lightColor: "bg-gradient-to-bl from-emerald-300/60 to-teal-300/60",
+          darkColor: "bg-gradient-to-bl from-emerald-400/80 to-teal-400/80",
+          blur: "blur-xl",
+          shape: "rounded-xl",
+        },
+
+        // Drifting elements
+        {
+          size: "w-44 h-44",
+          lightColor: "bg-slate-400/20",
+          darkColor: "bg-slate-200/40",
+          blur: "blur-3xl",
+        },
+        {
+          size: "w-52 h-52",
+          lightColor: "bg-neutral-400/15",
+          darkColor: "bg-neutral-200/35",
+          blur: "blur-3xl",
+        },
+        {
+          size: "w-38 h-38",
+          lightColor: "bg-stone-400/25",
+          darkColor: "bg-stone-200/45",
+          blur: "blur-2xl",
+        },
+      ];
+
+      return elementConfigs.map((config, index) => ({
+        ...config,
+        id: index,
+        x: Math.random() * 100,
+        y: Math.random() * 100,
+        dx: (Math.random() - 0.5) * 0.3, // Slower movement
+        dy: (Math.random() - 0.5) * 0.3,
+        rotation: Math.random() * 360,
+        rotationSpeed: (Math.random() - 0.5) * 2,
+        scale: 0.8 + Math.random() * 0.4, // Random scale between 0.8 and 1.2
+        animationDelay: Math.random() * 5,
+        animationDuration: 2 + Math.random() * 4, // Between 2-6 seconds
+        animationType: Math.random() > 0.5 ? "pulse" : "bounce",
+      }));
+    };
+
+    setElements(generateElements());
+  }, []);
+
+  // Animation loop for movement
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setElements((prevElements) =>
+        prevElements.map((element) => {
+          let newX = element.x + element.dx;
+          let newY = element.y + element.dy;
+          let newDx = element.dx;
+          let newDy = element.dy;
+
+          // Bounce off edges with some randomness
+          if (newX <= -10 || newX >= 110) {
+            newDx = -element.dx + (Math.random() - 0.5) * 0.1;
+            newX = Math.max(-10, Math.min(110, newX));
+          }
+          if (newY <= -10 || newY >= 110) {
+            newDy = -element.dy + (Math.random() - 0.5) * 0.1;
+            newY = Math.max(-10, Math.min(110, newY));
+          }
+
+          // Add some random direction changes
+          if (Math.random() < 0.02) {
+            // 2% chance per frame
+            newDx += (Math.random() - 0.5) * 0.1;
+            newDy += (Math.random() - 0.5) * 0.1;
+            // Limit speed
+            const speed = Math.sqrt(newDx * newDx + newDy * newDy);
+            if (speed > 0.5) {
+              newDx = (newDx / speed) * 0.5;
+              newDy = (newDy / speed) * 0.5;
+            }
+          }
+
+          return {
+            ...element,
+            x: newX,
+            y: newY,
+            dx: newDx,
+            dy: newDy,
+            rotation: element.rotation + element.rotationSpeed,
+          };
+        }),
+      );
+    }, 100); // Update every 100ms for smooth movement
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden">
-      <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-purple-300/20 dark:bg-purple-500/10 rounded-full blur-3xl animate-pulse"></div>
-      <div className="absolute top-3/4 right-1/4 w-96 h-96 bg-pink-300/20 dark:bg-pink-500/10 rounded-full blur-3xl animate-pulse animation-delay-2000"></div>
-      <div className="absolute top-1/2 left-1/2 w-48 h-48 bg-blue-300/20 dark:bg-blue-500/10 rounded-full blur-3xl animate-pulse animation-delay-4000"></div>
+      {elements.map((element) => (
+        <div
+          key={element.id}
+          className={`absolute transition-all duration-1000 ease-in-out ${element.size} ${element.lightColor} dark:${element.darkColor} ${element.blur} ${element.shape || "rounded-full"} ${element.animationType === "pulse" ? "animate-pulse" : "animate-bounce"}`}
+          style={{
+            left: `${element.x}%`,
+            top: `${element.y}%`,
+            transform: `translate(-50%, -50%) rotate(${element.rotation}deg) scale(${element.scale})`,
+            animationDelay: `${element.animationDelay}s`,
+            animationDuration: `${element.animationDuration}s`,
+          }}
+        />
+      ))}
     </div>
   );
 };
@@ -1525,7 +1762,7 @@ const App = () => {
   return (
     <DarkModeProvider>
       <Router>
-        <div className="min-h-screen bg-gradient-to-br from-purple-100 via-pink-50 to-blue-100 dark:from-gray-900 dark:via-purple-900/20 dark:to-blue-900/20 relative overflow-hidden transition-colors duration-300">
+        <div className="min-h-screen bg-gradient-to-br from-purple-100 via-pink-50 to-blue-100 dark:from-gray-900 dark:via-purple-900 dark:to-blue-900 relative overflow-hidden transition-colors duration-300">
           <FloatingElements />
           <div className="relative z-10 container mx-auto px-4 py-8">
             <div className="flex flex-col lg:flex-row gap-8">
