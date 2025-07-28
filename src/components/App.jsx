@@ -2262,13 +2262,20 @@ const PrettyFooter = () => {
                 <div className="w-8 h-0.5 bg-gradient-to-r from-transparent via-purple-400 to-transparent animate-pulse"></div>
                 <div className="relative group">
                   <div className="absolute -inset-1 bg-gradient-to-r from-purple-500 via-pink-500 to-purple-500 rounded-full blur opacity-75 group-hover:opacity-100 animate-spin-slow"></div>
-                  <div className="relative w-12 h-12 rounded-full overflow-hidden shadow-lg ring-2 ring-purple-500/50 hover:ring-4 hover:ring-purple-400/75 transition-all duration-500 hover:scale-110 transform">
-                    <img
-                      src="https://github.com/noamfav.png"
-                      alt="Noam Favier"
-                      className="w-full h-full object-cover hover:scale-110 transition-transform duration-700"
-                    />
-                  </div>
+                  <a
+                    href="https://github.com/noamfav"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="GitHub de Noam Favier"
+                  >
+                    <div className="relative w-12 h-12 rounded-full overflow-hidden shadow-lg ring-2 ring-purple-500/50 hover:ring-4 hover:ring-purple-400/75 transition-all duration-500 hover:scale-110 transform">
+                      <img
+                        src="https://github.com/noamfav.png"
+                        alt="Noam Favier"
+                        className="w-full h-full object-cover hover:scale-110 transition-transform duration-700"
+                      />
+                    </div>
+                  </a>
                 </div>
                 <div className="w-8 h-0.5 bg-gradient-to-r from-transparent via-purple-400 to-transparent animate-pulse"></div>
               </div>
@@ -2316,11 +2323,35 @@ const PrettyFooter = () => {
               <div className="flex items-center justify-center gap-4 text-xs text-gray-400 dark:text-gray-500">
                 <span className="flex items-center gap-2">
                   <span className="animate-fade-in">Créé avec</span>
-                  <FaReact className="text-blue-500 animate-spin-slow" />
+
+                  <a
+                    href="https://react.dev"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <FaReact className="text-blue-500 animate-spin-slow hover:scale-110 transition-transform duration-300 cursor-pointer" />
+                  </a>
+
                   <span className="animate-fade-in">React,</span>
-                  <SiTailwindcss className="text-cyan-500 hover:scale-125 transition-transform duration-300" />
+
+                  <a
+                    href="https://tailwindcss.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <SiTailwindcss className="text-cyan-500 hover:scale-125 transition-transform duration-300 cursor-pointer" />
+                  </a>
+
                   <span className="animate-fade-in">Tailwind &</span>
-                  <FaCode className="text-purple-500 hover:rotate-12 transition-transform duration-300" />
+
+                  <a
+                    href="https://react-icons.github.io/react-icons/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <FaCode className="text-purple-500 hover:rotate-12 transition-transform duration-300 cursor-pointer" />
+                  </a>
+
                   <span className="animate-fade-in">React Icons</span>
                 </span>
                 <span>•</span>
