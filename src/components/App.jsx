@@ -421,7 +421,6 @@ const FloatingElements = () => {
 };
 
 // Modern navigation menu
-// Modern navigation menu with dark mode support
 const Menu = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -438,7 +437,7 @@ const Menu = () => {
   return (
     <div className="w-full lg:w-80 mb-8 lg:mb-0 relative z-10">
       <div className="lg:hidden flex justify-between items-center py-6">
-        <div className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+        <div className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 dark:from-purple-800 dark:to-pink-300 bg-clip-text text-transparent">
           Séverine Favier
         </div>
         <button
@@ -472,9 +471,9 @@ const Menu = () => {
               <NavLink
                 to="/"
                 className={({ isActive }) =>
-                  `group flex items-center px-6 py-4 rounded-2xl transition-all duration-300 hover:bg-gradient-to-r hover:from-purple-500 hover:to-pink-500 hover:text-white ${
+                  `group flex items-center px-6 py-4 rounded-2xl transition-all duration-300 hover:bg-gradient-to-r hover:from-purple-600 hover:to-pink-600 dark:hover:from-purple-800 dark:hover:to-pink-300 hover:text-white ${
                     isActive
-                      ? "bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg"
+                      ? "bg-gradient-to-r from-purple-500 to-pink-500 dark:from-purple-800 dark:to-pink-300 text-white shadow-lg"
                       : "text-gray-700 dark:text-gray-200 hover:shadow-md"
                   }`
                 }
@@ -487,9 +486,9 @@ const Menu = () => {
               <NavLink
                 to="/psycho"
                 className={({ isActive }) =>
-                  `group flex items-center px-6 py-4 rounded-2xl transition-all duration-300 hover:bg-gradient-to-r hover:from-purple-500 hover:to-pink-500 hover:text-white ${
+                  `group flex items-center px-6 py-4 rounded-2xl transition-all duration-300 hover:bg-gradient-to-r hover:from-purple-600 hover:to-pink-600 dark:hover:from-purple-800 dark:hover:to-pink-300 hover:text-white ${
                     isActive
-                      ? "bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg"
+                      ? "bg-gradient-to-r from-purple-500 to-pink-500 dark:from-purple-800 dark:to-pink-300 text-white shadow-lg"
                       : "text-gray-700 dark:text-gray-200 hover:shadow-md"
                   }`
                 }
@@ -501,9 +500,9 @@ const Menu = () => {
             <li className="relative">
               <div
                 onClick={toggleSubList}
-                className={`group w-full flex items-center justify-between px-6 py-4 rounded-2xl transition-all duration-300 hover:bg-gradient-to-r hover:from-purple-500 hover:to-pink-500 hover:text-white cursor-pointer ${
+                className={`group w-full flex items-center justify-between px-6 py-4 rounded-2xl transition-all duration-300 hover:bg-gradient-to-r hover:from-purple-600 hover:to-pink-600 dark:hover:from-purple-800 dark:hover:to-pink-300 hover:text-white cursor-pointer ${
                   isOpen
-                    ? "bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg"
+                    ? "bg-gradient-to-r from-purple-500 to-pink-500 dark:from-purple-800 dark:to-pink-300 text-white shadow-lg"
                     : "text-gray-700 dark:text-gray-200 hover:shadow-md"
                 }`}
               >
@@ -533,9 +532,9 @@ const Menu = () => {
                     <NavLink
                       to="/school"
                       className={({ isActive }) =>
-                        `group flex items-center px-6 py-3 rounded-xl transition-all duration-300 hover:bg-gradient-to-r hover:from-pink-400 hover:to-purple-400 hover:text-white ${
+                        `group flex items-center px-6 py-3 rounded-xl transition-all duration-300 hover:bg-gradient-to-r hover:from-pink-600 hover:to-purple-600 dark:hover:from-pink-300 dark:hover:to-purple-800 hover:text-white ${
                           isActive
-                            ? "bg-gradient-to-r from-pink-400 to-purple-400 text-white shadow-md"
+                            ? "bg-gradient-to-r from-pink-400 to-purple-400 dark:from-pink-300 dark:to-purple-800 text-white shadow-md"
                             : "text-gray-600 dark:text-gray-300 hover:shadow-sm"
                         }`
                       }
@@ -548,9 +547,9 @@ const Menu = () => {
                     <NavLink
                       to="/learn"
                       className={({ isActive }) =>
-                        `group flex items-center px-6 py-3 rounded-xl transition-all duration-300 hover:bg-gradient-to-r hover:from-pink-400 hover:to-purple-400 hover:text-white ${
+                        `group flex items-center px-6 py-3 rounded-xl transition-all duration-300 hover:bg-gradient-to-r hover:from-pink-600 hover:to-purple-600 dark:hover:from-pink-300 dark:hover:to-purple-800 hover:text-white ${
                           isActive
-                            ? "bg-gradient-to-r from-pink-400 to-purple-400 text-white shadow-md"
+                            ? "bg-gradient-to-r from-pink-400 to-purple-400 dark:from-pink-300 dark:to-purple-800 text-white shadow-md"
                             : "text-gray-600 dark:text-gray-300 hover:shadow-sm"
                         }`
                       }
@@ -563,9 +562,9 @@ const Menu = () => {
                     <NavLink
                       to="/brevet"
                       className={({ isActive }) =>
-                        `group flex items-center px-6 py-3 rounded-xl transition-all duration-300 hover:bg-gradient-to-r hover:from-pink-400 hover:to-purple-400 hover:text-white ${
+                        `group flex items-center px-6 py-3 rounded-xl transition-all duration-300 hover:bg-gradient-to-r hover:from-pink-600 hover:to-purple-600 dark:hover:from-pink-300 dark:hover:to-purple-800 hover:text-white ${
                           isActive
-                            ? "bg-gradient-to-r from-pink-400 to-purple-400 text-white shadow-md"
+                            ? "bg-gradient-to-r from-pink-400 to-purple-400 dark:from-pink-300 dark:to-purple-800 text-white shadow-md"
                             : "text-gray-600 dark:text-gray-300 hover:shadow-sm"
                         }`
                       }
@@ -581,9 +580,9 @@ const Menu = () => {
               <NavLink
                 to="/pre"
                 className={({ isActive }) =>
-                  `group flex items-center px-6 py-4 rounded-2xl transition-all duration-300 hover:bg-gradient-to-r hover:from-purple-500 hover:to-pink-500 hover:text-white ${
+                  `group flex items-center px-6 py-4 rounded-2xl transition-all duration-300 hover:bg-gradient-to-r hover:from-purple-600 hover:to-pink-600 dark:hover:from-purple-800 dark:hover:to-pink-300 hover:text-white ${
                     isActive
-                      ? "bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg"
+                      ? "bg-gradient-to-r from-purple-500 to-pink-500 dark:from-purple-800 dark:to-pink-300 text-white shadow-lg"
                       : "text-gray-700 dark:text-gray-200 hover:shadow-md"
                   }`
                 }
@@ -596,9 +595,9 @@ const Menu = () => {
               <NavLink
                 to="/who"
                 className={({ isActive }) =>
-                  `group flex items-center px-6 py-4 rounded-2xl transition-all duration-300 hover:bg-gradient-to-r hover:from-purple-500 hover:to-pink-500 hover:text-white ${
+                  `group flex items-center px-6 py-4 rounded-2xl transition-all duration-300 hover:bg-gradient-to-r hover:from-purple-600 hover:to-pink-600 dark:hover:from-purple-800 dark:hover:to-pink-300 hover:text-white ${
                     isActive
-                      ? "bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg"
+                      ? "bg-gradient-to-r from-purple-500 to-pink-500 dark:from-purple-800 dark:to-pink-300 text-white shadow-lg"
                       : "text-gray-700 dark:text-gray-200 hover:shadow-md"
                   }`
                 }
@@ -611,9 +610,9 @@ const Menu = () => {
               <NavLink
                 to="/contacts"
                 className={({ isActive }) =>
-                  `group flex items-center px-6 py-4 rounded-2xl transition-all duration-300 hover:bg-gradient-to-r hover:from-purple-500 hover:to-pink-500 hover:text-white ${
+                  `group flex items-center px-6 py-4 rounded-2xl transition-all duration-300 hover:bg-gradient-to-r hover:from-purple-600 hover:to-pink-600 dark:hover:from-purple-800 dark:hover:to-pink-300 hover:text-white ${
                     isActive
-                      ? "bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg"
+                      ? "bg-gradient-to-r from-purple-500 to-pink-500 dark:from-purple-800 dark:to-pink-300 text-white shadow-lg"
                       : "text-gray-700 dark:text-gray-200 hover:shadow-md"
                   }`
                 }
@@ -698,7 +697,7 @@ const Home = () => {
         <AnimatedCard delay={200}>
           <div className="p-8 space-y-6">
             <div className="flex items-center space-x-4">
-              <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center">
+              <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 dark:from-purple-800 dark:to-pink-300 rounded-2xl flex items-center justify-center">
                 <FaQuestion className="text-2xl text-white" />
               </div>
               <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100">
@@ -735,14 +734,14 @@ const Home = () => {
       {/* Call to Action */}
       <AnimatedCard delay={600}>
         <div className="p-12 text-center space-y-8">
-          <h2 className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+          <h2 className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 dark:from-purple-800 dark:to-pink-300 bg-clip-text text-transparent">
             Prêt à débuter l&apos;aventure ?
           </h2>
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
             Découvrez comment libérer le potentiel de votre enfant grâce à une
             approche sur mesure
           </p>
-          <button className="group px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+          <button className="group px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-500 dark:from-purple-800 dark:to-pink-300 text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
             <span className="flex items-center space-x-2">
               <span>Commencer maintenant</span>
               <span className="group-hover:translate-x-1 transition-transform duration-300">
@@ -761,7 +760,7 @@ const Psycho = () => {
   return (
     <div className="max-w-6xl mx-auto space-y-12">
       <div className="text-center space-y-6">
-        <h1 className="text-5xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+        <h1 className="text-5xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 dark:from-purple-800 dark:to-pink-300 bg-clip-text text-transparent">
           La Psychopédagogie
         </h1>
         <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
@@ -812,7 +811,7 @@ const Psycho = () => {
             ))}
           </div>
 
-          <div className="bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 p-8 rounded-3xl border border-purple-100/50 dark:border-purple-800/30">
+          <div className="bg-gradient-to-r from-purple-50 to-pink-50  dark:from-purple-900/20 dark:to-pink-900/20 p-8 rounded-3xl border border-purple-100/50 dark:border-purple-800/30">
             <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed text-center">
               L&apos;approche psychopédagogique prend en compte tous les aspects
               du développement -
@@ -835,7 +834,7 @@ const School = () => {
   return (
     <div className="max-w-6xl mx-auto space-y-12">
       <div className="text-center space-y-6">
-        <h1 className="text-5xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+        <h1 className="text-5xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 dark:from-purple-800 dark:to-pink-300  bg-clip-text text-transparent">
           Suivi Scolaire Personnalisé
         </h1>
         <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
@@ -847,7 +846,7 @@ const School = () => {
         <AnimatedCard>
           <div className="p-8 space-y-6">
             <div className="text-center space-y-4">
-              <div className="w-20 h-20 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto">
+              <div className="w-20 h-20 bg-gradient-to-r from-purple-500 to-pink-500 dark:from-purple-800 dark:to-pink-300 rounded-full flex items-center justify-center mx-auto">
                 <FaChartBar className="text-3xl text-white" />
               </div>
               <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100">
@@ -904,7 +903,7 @@ const School = () => {
                 Tarifs
               </h3>
               <div className="space-y-4">
-                <div className="p-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-2xl flex items-center justify-center">
+                <div className="p-4 bg-gradient-to-r from-purple-500 to-pink-500 dark:from-purple-800 dark:to-pink-300 text-white rounded-2xl flex items-center justify-center">
                   <FaMoneyBillWave className="text-2xl mr-3" />
                   <span className="text-xl font-semibold">Bilan : 300€</span>
                 </div>
@@ -943,7 +942,7 @@ const School = () => {
             ].map((item, index) => (
               <div
                 key={index}
-                className="p-4 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-xl hover:from-purple-100 hover:to-pink-100 dark:hover:from-purple-800/30 dark:hover:to-pink-800/30 border border-purple-100/50 dark:border-purple-800/30 transition-all duration-300 hover:scale-105"
+                className="p-4 bg-gradient-to-r from-purple-50 to-pink-50  dark:from-purple-900/20 dark:to-pink-900/20 rounded-xl hover:from-purple-100 hover:to-pink-100 dark:hover:from-purple-800/30 dark:hover:to-pink-800/30 border border-purple-100/50 dark:border-purple-800/30 transition-all duration-300 hover:scale-105"
               >
                 <div className="text-center space-y-2">
                   <span className="text-2xl text-purple-600 dark:text-purple-400">
@@ -967,7 +966,7 @@ const Learn = () => {
   return (
     <div className="max-w-6xl mx-auto space-y-12">
       <div className="text-center space-y-6">
-        <h1 className="text-5xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+        <h1 className="text-5xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 dark:from-purple-800 dark:to-pink-300 bg-clip-text text-transparent">
           Apprendre à Apprendre
         </h1>
         <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
@@ -986,7 +985,7 @@ const Learn = () => {
       <AnimatedCard>
         <div className="p-8 space-y-8">
           <div className="text-center space-y-4">
-            <div className="w-20 h-20 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto">
+            <div className="w-20 h-20 bg-gradient-to-r from-purple-500 to-pink-500 dark:from-purple-800 dark:to-pink-300 rounded-full flex items-center justify-center mx-auto">
               <FaBullseye className="text-3xl text-white" />
             </div>
             <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100">
@@ -1020,7 +1019,7 @@ const Learn = () => {
                 Nous travaillons sur :
               </h3>
               <div className="grid grid-cols-1 gap-4">
-                <div className="p-4 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-xl border border-purple-100/50 dark:border-purple-800/30">
+                <div className="p-4 bg-gradient-to-r from-purple-50 to-pink-50  dark:from-purple-900/20 dark:to-pink-900/20 rounded-xl border border-purple-100/50 dark:border-purple-800/30">
                   <h4 className="font-semibold text-gray-800 dark:text-gray-100 mb-2">
                     Méthodes de travail
                   </h4>
@@ -1066,7 +1065,7 @@ const Learn = () => {
               Informations pratiques
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="p-6 bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 rounded-2xl border border-purple-200/50 dark:border-purple-700/30">
+              <div className="p-6 bg-gradient-to-r from-purple-100 to-pink-100  dark:from-purple-900/30 dark:to-pink-900/30 rounded-2xl border border-purple-200/50 dark:border-purple-700/30">
                 <h3 className="text-xl font-semibold text-purple-800 dark:text-purple-300 mb-2 flex items-center justify-center space-x-2">
                   <FaUsers />
                   <span>Public</span>
@@ -1096,7 +1095,7 @@ const Learn = () => {
             </div>
           </div>
 
-          <div className="max-w-2xl mx-auto p-6 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-2xl shadow-lg">
+          <div className="max-w-2xl mx-auto p-6 bg-gradient-to-r from-purple-500 to-pink-500 dark:from-purple-800 dark:to-pink-300 text-white rounded-2xl shadow-lg">
             <p className="text-xl font-semibold flex items-center justify-center space-x-2">
               <FaArrowRight />
               <span>Apprendre à travailler de manière plus efficace</span>
@@ -1113,7 +1112,7 @@ const Brevet = () => {
   return (
     <div className="max-w-6xl mx-auto space-y-12">
       <div className="text-center space-y-6">
-        <h1 className="text-5xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+        <h1 className="text-5xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 dark:from-purple-800 dark:to-pink-300 bg-clip-text text-transparent">
           En route pour le brevet !
         </h1>
         <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
@@ -1132,7 +1131,7 @@ const Brevet = () => {
       <AnimatedCard>
         <div className="p-8 space-y-8">
           <div className="text-center space-y-4">
-            <div className="w-20 h-20 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto">
+            <div className="w-20 h-20 bg-gradient-to-r from-purple-500 to-pink-500 dark:from-purple-800 dark:to-pink-300 rounded-full flex items-center justify-center mx-auto">
               <FaGraduationCap className="text-3xl text-white" />
             </div>
             <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100">
@@ -1151,7 +1150,7 @@ const Brevet = () => {
                 Informations pratiques
               </h3>
               <div className="space-y-4">
-                <div className="p-4 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-xl border border-purple-100/50 dark:border-purple-800/30">
+                <div className="p-4 bg-gradient-to-r from-purple-50 to-pink-50  dark:from-purple-900/20 dark:to-pink-900/20 rounded-xl border border-purple-100/50 dark:border-purple-800/30">
                   <p className="text-gray-700 dark:text-gray-300">
                     <span className="font-semibold">Périodes :</span> Vacances
                     de février / printemps + avant l&apos;examen
@@ -1196,7 +1195,7 @@ const Brevet = () => {
                 ].map((item, index) => (
                   <div
                     key={index}
-                    className="flex items-center space-x-3 p-3 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-xl hover:from-purple-100 hover:to-pink-100 dark:hover:from-purple-800/30 dark:hover:to-pink-800/30 transition-all duration-300 border border-purple-100/50 dark:border-purple-800/30"
+                    className="flex items-center space-x-3 p-3 bg-gradient-to-r from-purple-50 to-pink-50 0 dark:from-purple-900/20 dark:to-pink-900/20 rounded-xl hover:from-purple-100 hover:to-pink-100 dark:hover:from-purple-800/30 dark:hover:to-pink-800/30 transition-all duration-300 border border-purple-100/50 dark:border-purple-800/30"
                   >
                     <span className="text-xl text-purple-600 dark:text-purple-400">
                       {item.icon}
@@ -1219,7 +1218,7 @@ const Brevet = () => {
               Tarifs
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
-              <div className="p-6 bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 rounded-2xl border border-purple-200/50 dark:border-purple-700/30">
+              <div className="p-6 bg-gradient-to-r from-purple-100 to-pink-100  dark:from-purple-900/30 dark:to-pink-900/30 rounded-2xl border border-purple-200/50 dark:border-purple-700/30">
                 <h3 className="text-xl font-semibold text-purple-800 dark:text-purple-300 mb-2 flex items-center justify-center space-x-2">
                   <FaCalendarAlt />
                   <span>Session unique</span>
@@ -1250,7 +1249,7 @@ const Pre = () => {
   return (
     <div className="max-w-6xl mx-auto space-y-12">
       <div className="text-center space-y-6">
-        <h1 className="text-5xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+        <h1 className="text-5xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 dark:from-purple-800 dark:to-pink-300 bg-clip-text text-transparent">
           Pour une Rentrée Réussie !
         </h1>
         <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
@@ -1325,7 +1324,7 @@ const Pre = () => {
                 </p>
               </div>
 
-              <div className="p-4 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-xl border border-purple-100/50 dark:border-purple-800/30">
+              <div className="p-4 bg-gradient-to-r from-purple-50 to-pink-50  dark:from-purple-900/20 dark:to-pink-900/20 rounded-xl border border-purple-100/50 dark:border-purple-800/30">
                 <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-2">
                   Période
                 </h3>
@@ -1369,7 +1368,7 @@ const Who = () => {
   return (
     <div className="max-w-6xl mx-auto space-y-12">
       <div className="text-center space-y-6">
-        <h1 className="text-5xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+        <h1 className="text-5xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 dark:from-purple-800 dark:to-pink-300 bg-clip-text text-transparent">
           Qui suis-je ?
         </h1>
         <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
@@ -1480,7 +1479,7 @@ const Approach = () => {
   return (
     <div className="max-w-6xl mx-auto space-y-12">
       <div className="text-center space-y-6">
-        <h1 className="text-5xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+        <h1 className="text-5xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 dark:from-purple-800 dark:to-pink-300 bg-clip-text text-transparent">
           Mon Approche
         </h1>
         <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
@@ -1500,7 +1499,7 @@ const Approach = () => {
       <AnimatedCard>
         <div className="p-8 space-y-6">
           <div className="text-center space-y-4">
-            <div className="w-20 h-20 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto">
+            <div className="w-20 h-20 bg-gradient-to-r from-purple-500 to-pink-500 dark:from-purple-800 dark:to-pink-300 rounded-full flex items-center justify-center mx-auto">
               <FaBullseye className="text-3xl text-white" />
             </div>
             <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100">
@@ -1511,7 +1510,7 @@ const Approach = () => {
             </p>
           </div>
 
-          <div className="bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 p-8 rounded-3xl border border-purple-100/50 dark:border-purple-800/30">
+          <div className="bg-gradient-to-r from-purple-50 to-pink-50  dark:from-purple-900/20 dark:to-pink-900/20 p-8 rounded-3xl border border-purple-100/50 dark:border-purple-800/30">
             <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed text-center">
               Ma méthode pédagogique allie les outils modernes et des approches
               traditionnelles, conformes aux programmes nationaux, pour créer un
@@ -1535,7 +1534,8 @@ const Approach = () => {
               {
                 icon: <FaBullseye />,
                 title: "M'adapter à chacun",
-                color: "from-purple-400 to-pink-400",
+                color:
+                  "from-purple-400 to-pink-400 dark:from-purple-800 dark:to-pink-300",
               },
               {
                 icon: <FaStar />,
@@ -1587,7 +1587,7 @@ const Contacts = () => {
   return (
     <div className="max-w-6xl mx-auto space-y-12">
       <div className="text-center space-y-6">
-        <h1 className="text-5xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+        <h1 className="text-5xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 dark:from-purple-800 dark:to-pink-300 bg-clip-text text-transparent">
           Contact
         </h1>
         <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
@@ -1598,7 +1598,7 @@ const Contacts = () => {
       <AnimatedCard>
         <div className="p-8 text-center space-y-8">
           <div className="space-y-4">
-            <div className="w-20 h-20 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto">
+            <div className="w-20 h-20 bg-gradient-to-r from-purple-500 to-pink-500 dark:from-purple-800 dark:to-pink-300 rounded-full flex items-center justify-center mx-auto">
               <FaPhone className="text-3xl text-white" />
             </div>
             <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100">
@@ -1611,7 +1611,7 @@ const Contacts = () => {
 
           <a
             href="https://calendly.com/psychopedagogue/reunion?month=2024-11"
-            className="inline-block group px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl dark:shadow-gray-900/30 transition-all duration-300 hover:scale-105"
+            className="inline-block group px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-500 dark:from-purple-800 dark:to-pink-300 text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl dark:shadow-gray-900/30 transition-all duration-300 hover:scale-105"
           >
             <span className="flex items-center space-x-2">
               <span>Réserver un appel</span>
@@ -1730,7 +1730,7 @@ const Contacts = () => {
       </AnimatedCard>
 
       <AnimatedCard delay={800}>
-        <section className="p-8 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-3xl border border-purple-100/50 dark:border-purple-800/30">
+        <section className="p-8 bg-gradient-to-r from-purple-50 to-pink-50  dark:from-purple-900/20 dark:to-pink-900/20 rounded-3xl border border-purple-100/50 dark:border-purple-800/30">
           <div className="text-center space-y-4">
             <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-100">
               Localisation
