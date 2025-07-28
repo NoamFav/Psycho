@@ -421,9 +421,37 @@ const FloatingElements = () => {
 };
 
 // Modern navigation menu
+import React, { useState } from "react";
+import {
+  FaBook,
+  FaBrain,
+  FaStar,
+  FaBullseye,
+  FaRocket,
+  FaTrophy,
+  FaUserGraduate,
+  FaPhone,
+} from "react-icons/fa";
+import { MdBackpack } from "react-icons/md";
+
+// Mock NavLink component for demonstration
+const NavLink = ({ to, children, className }) => {
+  const [isActive] = useState(to === "/"); // Mock active state
+  return (
+    <div
+      className={
+        typeof className === "function" ? className({ isActive }) : className
+      }
+    >
+      {children}
+    </div>
+  );
+};
+
 const Menu = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [hoveredItem, setHoveredItem] = useState(null);
 
   const toggleSubList = (e) => {
     e.preventDefault();
@@ -434,84 +462,151 @@ const Menu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
 
+  const menuItems = [
+    { to: "/", icon: FaBook, label: "Accueil", delay: "0ms" },
+    { to: "/psycho", icon: FaBrain, label: "Psychopédagogie", delay: "100ms" },
+    { to: "/pre", icon: MdBackpack, label: "Pré-rentrée", delay: "200ms" },
+    { to: "/who", icon: FaUserGraduate, label: "Qui suis-je", delay: "300ms" },
+    { to: "/contacts", icon: FaPhone, label: "Contact", delay: "400ms" },
+  ];
+
+  const subMenuItems = [
+    { to: "/school", icon: FaBullseye, label: "Suivi scolaire", delay: "0ms" },
+    {
+      to: "/learn",
+      icon: FaRocket,
+      label: "Apprendre à apprendre",
+      delay: "100ms",
+    },
+    {
+      to: "/brevet",
+      icon: FaTrophy,
+      label: "Préparation brevet",
+      delay: "200ms",
+    },
+  ];
+
   return (
     <div className="w-full lg:w-80 mb-8 lg:mb-0 relative z-10">
+      {/* Mobile Header */}
       <div className="lg:hidden flex justify-between items-center py-6">
-        <div className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 dark:from-purple-800 dark:to-pink-300 bg-clip-text text-transparent">
+        <div className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 dark:from-purple-800 dark:to-pink-300 bg-clip-text text-transparent animate-pulse">
           Séverine Favier
         </div>
         <button
           onClick={toggleMobileMenu}
-          className="p-2 rounded-xl bg-white/20 dark:bg-gray-800/50 backdrop-blur-sm hover:bg-white/30 dark:hover:bg-gray-700/50 transition-all duration-300"
+          className="p-3 rounded-xl bg-white/20 dark:bg-gray-800/50 backdrop-blur-sm hover:bg-white/30 dark:hover:bg-gray-700/50 transition-all duration-300 hover:scale-110 active:scale-95 group"
         >
           <div className="w-6 h-6 relative">
             <span
-              className={`absolute block w-full h-0.5 bg-gray-800 dark:bg-gray-200 transition-all duration-300 ${
-                mobileMenuOpen ? "top-3 rotate-45" : "top-1"
+              className={`absolute block w-full h-0.5 bg-gray-800 dark:bg-gray-200 transition-all duration-500 ease-in-out transform ${
+                mobileMenuOpen
+                  ? "top-3 rotate-45 bg-purple-600 dark:bg-pink-300"
+                  : "top-1 group-hover:bg-purple-600 dark:group-hover:bg-pink-300"
               }`}
             ></span>
             <span
               className={`absolute block w-full h-0.5 bg-gray-800 dark:bg-gray-200 transition-all duration-300 top-3 ${
-                mobileMenuOpen ? "opacity-0" : "opacity-100"
+                mobileMenuOpen
+                  ? "opacity-0 scale-0"
+                  : "opacity-100 scale-100 group-hover:bg-purple-600 dark:group-hover:bg-pink-300"
               }`}
             ></span>
             <span
-              className={`absolute block w-full h-0.5 bg-gray-800 dark:bg-gray-200 transition-all duration-300 ${
-                mobileMenuOpen ? "top-3 -rotate-45" : "top-5"
+              className={`absolute block w-full h-0.5 bg-gray-800 dark:bg-gray-200 transition-all duration-500 ease-in-out transform ${
+                mobileMenuOpen
+                  ? "top-3 -rotate-45 bg-purple-600 dark:bg-pink-300"
+                  : "top-5 group-hover:bg-purple-600 dark:group-hover:bg-pink-300"
               }`}
             ></span>
           </div>
         </button>
       </div>
 
-      <nav className={`${mobileMenuOpen ? "block" : "hidden"} lg:block`}>
-        <div className="bg-white/10 dark:bg-gray-800/30 backdrop-blur-md rounded-3xl border border-white/20 dark:border-gray-700/20 p-6 shadow-2xl dark:shadow-gray-900/50">
+      {/* Navigation */}
+      <nav
+        className={`${mobileMenuOpen ? "block" : "hidden"} lg:block transition-all duration-500`}
+      >
+        <div
+          className={`bg-white/10 dark:bg-gray-800/30 backdrop-blur-md rounded-3xl border border-white/20 dark:border-gray-700/20 p-6 shadow-2xl dark:shadow-gray-900/50 transition-all duration-700 ${
+            mobileMenuOpen ? "animate-slideInDown" : ""
+          }`}
+        >
           <ul className="space-y-3">
-            <li>
-              <NavLink
-                to="/"
-                className={({ isActive }) =>
-                  `group flex items-center px-6 py-4 rounded-2xl transition-all duration-300 hover:bg-gradient-to-r hover:from-purple-600 hover:to-pink-600 dark:hover:from-purple-800 dark:hover:to-pink-300 hover:text-white ${
-                    isActive
-                      ? "bg-gradient-to-r from-purple-500 to-pink-500 dark:from-purple-800 dark:to-pink-300 text-white shadow-lg"
-                      : "text-gray-700 dark:text-gray-200 hover:shadow-md"
-                  }`
-                }
+            {/* Regular Menu Items */}
+            {menuItems.map((item) => (
+              <li
+                key={item.to}
+                className={`transform transition-all duration-500 ${
+                  mobileMenuOpen
+                    ? "translate-x-0 opacity-100"
+                    : "lg:translate-x-0 lg:opacity-100"
+                }`}
+                style={{
+                  transitionDelay: mobileMenuOpen ? item.delay : "0ms",
+                  animationDelay: item.delay,
+                }}
+                onMouseEnter={() => setHoveredItem(item.to)}
+                onMouseLeave={() => setHoveredItem(null)}
               >
-                <FaBook className="text-xl mr-3 group-hover:scale-110 transition-transform duration-300" />
-                <span className="font-medium">Accueil</span>
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/psycho"
-                className={({ isActive }) =>
-                  `group flex items-center px-6 py-4 rounded-2xl transition-all duration-300 hover:bg-gradient-to-r hover:from-purple-600 hover:to-pink-600 dark:hover:from-purple-800 dark:hover:to-pink-300 hover:text-white ${
-                    isActive
-                      ? "bg-gradient-to-r from-purple-500 to-pink-500 dark:from-purple-800 dark:to-pink-300 text-white shadow-lg"
-                      : "text-gray-700 dark:text-gray-200 hover:shadow-md"
-                  }`
-                }
-              >
-                <FaBrain className="text-xl mr-3 group-hover:scale-110 transition-transform duration-300" />
-                <span className="font-medium">Psychopédagogie</span>
-              </NavLink>
-            </li>
-            <li className="relative">
+                <NavLink
+                  to={item.to}
+                  className={({ isActive }) =>
+                    `group flex items-center px-6 py-4 rounded-2xl transition-all duration-500 transform hover:scale-105 active:scale-95 hover:bg-gradient-to-r hover:from-purple-600 hover:to-pink-600 dark:hover:from-purple-800 dark:hover:to-pink-300 hover:text-white hover:shadow-xl ${
+                      isActive
+                        ? "bg-gradient-to-r from-purple-500 to-pink-500 dark:from-purple-800 dark:to-pink-300 text-white shadow-lg scale-105"
+                        : "text-gray-700 dark:text-gray-200 hover:shadow-md"
+                    } ${hoveredItem === item.to ? "translate-x-2" : ""}`
+                  }
+                >
+                  <item.icon
+                    className={`text-xl mr-3 transition-all duration-300 ${
+                      hoveredItem === item.to
+                        ? "scale-125 rotate-12"
+                        : "group-hover:scale-110"
+                    }`}
+                  />
+                  <span className="font-medium transition-all duration-300">
+                    {item.label}
+                  </span>
+                  {hoveredItem === item.to && (
+                    <div className="ml-auto w-2 h-2 bg-white rounded-full animate-ping"></div>
+                  )}
+                </NavLink>
+              </li>
+            ))}
+
+            {/* Dropdown Menu Item */}
+            <li
+              className="relative transform transition-all duration-500"
+              style={{ transitionDelay: "250ms" }}
+              onMouseEnter={() => setHoveredItem("/approach")}
+              onMouseLeave={() => setHoveredItem(null)}
+            >
               <div
                 onClick={toggleSubList}
-                className={`group w-full flex items-center justify-between px-6 py-4 rounded-2xl transition-all duration-300 hover:bg-gradient-to-r hover:from-purple-600 hover:to-pink-600 dark:hover:from-purple-800 dark:hover:to-pink-300 hover:text-white cursor-pointer ${
+                className={`group w-full flex items-center justify-between px-6 py-4 rounded-2xl transition-all duration-500 transform hover:scale-105 active:scale-95 hover:bg-gradient-to-r hover:from-purple-600 hover:to-pink-600 dark:hover:from-purple-800 dark:hover:to-pink-300 hover:text-white cursor-pointer hover:shadow-xl ${
                   isOpen
-                    ? "bg-gradient-to-r from-purple-500 to-pink-500 dark:from-purple-800 dark:to-pink-300 text-white shadow-lg"
+                    ? "bg-gradient-to-r from-purple-500 to-pink-500 dark:from-purple-800 dark:to-pink-300 text-white shadow-lg scale-105"
                     : "text-gray-700 dark:text-gray-200 hover:shadow-md"
-                }`}
+                } ${hoveredItem === "/approach" ? "translate-x-2" : ""}`}
               >
-                <NavLink to="/approach" className="flex items-center w-full">
-                  <FaStar className="text-xl mr-3 group-hover:scale-110 transition-transform duration-300" />
-                  <span className="font-medium">Mon approche</span>
-                </NavLink>
+                <div className="flex items-center w-full">
+                  <FaStar
+                    className={`text-xl mr-3 transition-all duration-300 ${
+                      hoveredItem === "/approach"
+                        ? "scale-125 rotate-12"
+                        : "group-hover:scale-110"
+                    } ${isOpen ? "animate-spin" : ""}`}
+                  />
+                  <span className="font-medium transition-all duration-300">
+                    Mon approche
+                  </span>
+                </div>
                 <svg
-                  className={`w-4 h-4 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
+                  className={`w-4 h-4 transition-all duration-500 ease-in-out ${
+                    isOpen ? "rotate-180 scale-110" : "group-hover:scale-110"
+                  }`}
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -523,107 +618,87 @@ const Menu = () => {
                     d="M19 9l-7 7-7-7"
                   />
                 </svg>
+                {hoveredItem === "/approach" && (
+                  <div className="ml-2 w-2 h-2 bg-white rounded-full animate-ping"></div>
+                )}
               </div>
+
+              {/* Submenu */}
               <div
-                className={`overflow-hidden transition-all duration-500 ${isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"}`}
+                className={`overflow-hidden transition-all duration-700 ease-in-out ${
+                  isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+                }`}
               >
                 <ul className="ml-6 mt-2 space-y-2">
-                  <li>
-                    <NavLink
-                      to="/school"
-                      className={({ isActive }) =>
-                        `group flex items-center px-6 py-3 rounded-xl transition-all duration-300 hover:bg-gradient-to-r hover:from-pink-600 hover:to-purple-600 dark:hover:from-pink-300 dark:hover:to-purple-800 hover:text-white ${
-                          isActive
-                            ? "bg-gradient-to-r from-pink-400 to-purple-400 dark:from-pink-300 dark:to-purple-800 text-white shadow-md"
-                            : "text-gray-600 dark:text-gray-300 hover:shadow-sm"
-                        }`
-                      }
+                  {subMenuItems.map((item) => (
+                    <li
+                      key={item.to}
+                      className={`transform transition-all duration-500 ${
+                        isOpen
+                          ? "translate-y-0 opacity-100 scale-100"
+                          : "translate-y-4 opacity-0 scale-95"
+                      }`}
+                      style={{
+                        transitionDelay: isOpen ? item.delay : "0ms",
+                      }}
+                      onMouseEnter={() => setHoveredItem(item.to)}
+                      onMouseLeave={() => setHoveredItem(null)}
                     >
-                      <FaBullseye className="text-lg mr-3 group-hover:scale-110 transition-transform duration-300" />
-                      <span className="font-medium">Suivi scolaire</span>
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink
-                      to="/learn"
-                      className={({ isActive }) =>
-                        `group flex items-center px-6 py-3 rounded-xl transition-all duration-300 hover:bg-gradient-to-r hover:from-pink-600 hover:to-purple-600 dark:hover:from-pink-300 dark:hover:to-purple-800 hover:text-white ${
-                          isActive
-                            ? "bg-gradient-to-r from-pink-400 to-purple-400 dark:from-pink-300 dark:to-purple-800 text-white shadow-md"
-                            : "text-gray-600 dark:text-gray-300 hover:shadow-sm"
-                        }`
-                      }
-                    >
-                      <FaRocket className="text-lg mr-3 group-hover:scale-110 transition-transform duration-300" />
-                      <span className="font-medium">Apprendre à apprendre</span>
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink
-                      to="/brevet"
-                      className={({ isActive }) =>
-                        `group flex items-center px-6 py-3 rounded-xl transition-all duration-300 hover:bg-gradient-to-r hover:from-pink-600 hover:to-purple-600 dark:hover:from-pink-300 dark:hover:to-purple-800 hover:text-white ${
-                          isActive
-                            ? "bg-gradient-to-r from-pink-400 to-purple-400 dark:from-pink-300 dark:to-purple-800 text-white shadow-md"
-                            : "text-gray-600 dark:text-gray-300 hover:shadow-sm"
-                        }`
-                      }
-                    >
-                      <FaTrophy className="text-lg mr-3 group-hover:scale-110 transition-transform duration-300" />
-                      <span className="font-medium">Préparation brevet</span>
-                    </NavLink>
-                  </li>
+                      <NavLink
+                        to={item.to}
+                        className={({ isActive }) =>
+                          `group flex items-center px-6 py-3 rounded-xl transition-all duration-500 transform hover:scale-105 active:scale-95 hover:bg-gradient-to-r hover:from-pink-600 hover:to-purple-600 dark:hover:from-pink-300 dark:hover:to-purple-800 hover:text-white hover:shadow-lg ${
+                            isActive
+                              ? "bg-gradient-to-r from-pink-400 to-purple-400 dark:from-pink-300 dark:to-purple-800 text-white shadow-md scale-105"
+                              : "text-gray-600 dark:text-gray-300 hover:shadow-sm"
+                          } ${hoveredItem === item.to ? "translate-x-2" : ""}`
+                        }
+                      >
+                        <item.icon
+                          className={`text-lg mr-3 transition-all duration-300 ${
+                            hoveredItem === item.to
+                              ? "scale-125 rotate-12"
+                              : "group-hover:scale-110"
+                          }`}
+                        />
+                        <span className="font-medium transition-all duration-300">
+                          {item.label}
+                        </span>
+                        {hoveredItem === item.to && (
+                          <div className="ml-auto w-1.5 h-1.5 bg-white rounded-full animate-ping"></div>
+                        )}
+                      </NavLink>
+                    </li>
+                  ))}
                 </ul>
               </div>
             </li>
-            <li>
-              <NavLink
-                to="/pre"
-                className={({ isActive }) =>
-                  `group flex items-center px-6 py-4 rounded-2xl transition-all duration-300 hover:bg-gradient-to-r hover:from-purple-600 hover:to-pink-600 dark:hover:from-purple-800 dark:hover:to-pink-300 hover:text-white ${
-                    isActive
-                      ? "bg-gradient-to-r from-purple-500 to-pink-500 dark:from-purple-800 dark:to-pink-300 text-white shadow-lg"
-                      : "text-gray-700 dark:text-gray-200 hover:shadow-md"
-                  }`
-                }
-              >
-                <MdBackpack className="text-xl mr-3 group-hover:scale-110 transition-transform duration-300" />
-                <span className="font-medium">Pré-rentrée</span>
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/who"
-                className={({ isActive }) =>
-                  `group flex items-center px-6 py-4 rounded-2xl transition-all duration-300 hover:bg-gradient-to-r hover:from-purple-600 hover:to-pink-600 dark:hover:from-purple-800 dark:hover:to-pink-300 hover:text-white ${
-                    isActive
-                      ? "bg-gradient-to-r from-purple-500 to-pink-500 dark:from-purple-800 dark:to-pink-300 text-white shadow-lg"
-                      : "text-gray-700 dark:text-gray-200 hover:shadow-md"
-                  }`
-                }
-              >
-                <FaUserGraduate className="text-xl mr-3 group-hover:scale-110 transition-transform duration-300" />
-                <span className="font-medium">Qui suis-je</span>
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/contacts"
-                className={({ isActive }) =>
-                  `group flex items-center px-6 py-4 rounded-2xl transition-all duration-300 hover:bg-gradient-to-r hover:from-purple-600 hover:to-pink-600 dark:hover:from-purple-800 dark:hover:to-pink-300 hover:text-white ${
-                    isActive
-                      ? "bg-gradient-to-r from-purple-500 to-pink-500 dark:from-purple-800 dark:to-pink-300 text-white shadow-lg"
-                      : "text-gray-700 dark:text-gray-200 hover:shadow-md"
-                  }`
-                }
-              >
-                <FaPhone className="text-xl mr-3 group-hover:scale-110 transition-transform duration-300" />
-                <span className="font-medium">Contact</span>
-              </NavLink>
-            </li>
           </ul>
+
+          {/* Animated Background Elements */}
+          <div className="absolute inset-0 rounded-3xl overflow-hidden pointer-events-none">
+            <div className="absolute -top-4 -right-4 w-8 h-8 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full opacity-20 animate-pulse"></div>
+            <div className="absolute -bottom-4 -left-4 w-6 h-6 bg-gradient-to-r from-pink-400 to-purple-400 rounded-full opacity-20 animate-bounce"></div>
+          </div>
         </div>
       </nav>
+
+      <style jsx>{`
+        @keyframes slideInDown {
+          from {
+            transform: translateY(-20px);
+            opacity: 0;
+          }
+          to {
+            transform: translateY(0);
+            opacity: 1;
+          }
+        }
+
+        .animate-slideInDown {
+          animation: slideInDown 0.5s ease-out;
+        }
+      `}</style>
     </div>
   );
 };
