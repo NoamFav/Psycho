@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, createContext, useContext } from "react";
+
 import { HashRouter as Router, Routes, Route, NavLink } from "react-router-dom";
 import PropTypes from "prop-types";
 
@@ -16,6 +17,8 @@ import contactsRoom from "../assets/contacts-room.jpg";
 import contactsAvatar from "../assets/contacts-avatar.jpg";
 
 import {
+  FaMoon,
+  FaSun,
   FaBook,
   FaBrain,
   FaStar,
@@ -57,6 +60,71 @@ import {
 
 import { MdBackpack } from "react-icons/md";
 
+const DarkModeContext = createContext();
+
+const DarkModeProvider = ({ children }) => {
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  useEffect(() => {
+    const saved = localStorage.getItem("darkMode");
+    const prefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)",
+    ).matches;
+
+    if (saved !== null) {
+      setIsDarkMode(JSON.parse(saved));
+    } else {
+      setIsDarkMode(prefersDark);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("darkMode", JSON.stringify(isDarkMode));
+
+    if (isDarkMode) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [isDarkMode]);
+
+  const toggleDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
+  };
+
+  return (
+    <DarkModeContext.Provider value={{ isDarkMode, toggleDarkMode }}>
+      {children}
+    </DarkModeContext.Provider>
+  );
+};
+
+const useDarkMode = () => {
+  const context = useContext(DarkModeContext);
+  if (!context) {
+    throw new Error("useDarkMode must be used within a DarkModeProvider");
+  }
+  return context;
+};
+
+const DarkModeToggle = () => {
+  const { isDarkMode, toggleDarkMode } = useDarkMode();
+
+  return (
+    <button
+      onClick={toggleDarkMode}
+      className="fixed top-4 right-4 z-50 p-3 rounded-full bg-white/20 dark:bg-gray-800/50 backdrop-blur-sm border border-white/20 dark:border-gray-700/50 hover:bg-white/30 dark:hover:bg-gray-700/50 transition-all duration-300 shadow-lg"
+      aria-label="Toggle dark mode"
+    >
+      {isDarkMode ? (
+        <FaSun className="text-2xl text-yellow-400" />
+      ) : (
+        <FaMoon className="text-2xl text-purple-600" />
+      )}
+    </button>
+  );
+};
+
 // Custom hook for intersection observer
 const useIntersectionObserver = (ref, options = {}) => {
   const [isIntersecting, setIsIntersecting] = useState(false);
@@ -91,7 +159,7 @@ const AnimatedCard = ({ children, className = "", delay = 0 }) => {
       } ${className}`}
       style={{ transitionDelay: `${delay}ms` }}
     >
-      <div className="bg-white/80 backdrop-blur-sm border border-white/20 rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-105 hover:rotate-1 group">
+      <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20 dark:border-gray-700/20 rounded-3xl shadow-2xl hover:shadow-3xl dark:shadow-gray-900/50 transition-all duration-500 hover:scale-105 hover:rotate-1 group">
         {children}
       </div>
     </div>
@@ -108,14 +176,15 @@ AnimatedCard.propTypes = {
 const FloatingElements = () => {
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden">
-      <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-purple-300/20 rounded-full blur-3xl animate-pulse"></div>
-      <div className="absolute top-3/4 right-1/4 w-96 h-96 bg-pink-300/20 rounded-full blur-3xl animate-pulse animation-delay-2000"></div>
-      <div className="absolute top-1/2 left-1/2 w-48 h-48 bg-blue-300/20 rounded-full blur-3xl animate-pulse animation-delay-4000"></div>
+      <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-purple-300/20 dark:bg-purple-500/10 rounded-full blur-3xl animate-pulse"></div>
+      <div className="absolute top-3/4 right-1/4 w-96 h-96 bg-pink-300/20 dark:bg-pink-500/10 rounded-full blur-3xl animate-pulse animation-delay-2000"></div>
+      <div className="absolute top-1/2 left-1/2 w-48 h-48 bg-blue-300/20 dark:bg-blue-500/10 rounded-full blur-3xl animate-pulse animation-delay-4000"></div>
     </div>
   );
 };
 
 // Modern navigation menu
+// Modern navigation menu with dark mode support
 const Menu = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -137,21 +206,21 @@ const Menu = () => {
         </div>
         <button
           onClick={toggleMobileMenu}
-          className="p-2 rounded-xl bg-white/20 backdrop-blur-sm hover:bg-white/30 transition-all duration-300"
+          className="p-2 rounded-xl bg-white/20 dark:bg-gray-800/50 backdrop-blur-sm hover:bg-white/30 dark:hover:bg-gray-700/50 transition-all duration-300"
         >
           <div className="w-6 h-6 relative">
             <span
-              className={`absolute block w-full h-0.5 bg-gray-800 transition-all duration-300 ${
+              className={`absolute block w-full h-0.5 bg-gray-800 dark:bg-gray-200 transition-all duration-300 ${
                 mobileMenuOpen ? "top-3 rotate-45" : "top-1"
               }`}
             ></span>
             <span
-              className={`absolute block w-full h-0.5 bg-gray-800 transition-all duration-300 top-3 ${
+              className={`absolute block w-full h-0.5 bg-gray-800 dark:bg-gray-200 transition-all duration-300 top-3 ${
                 mobileMenuOpen ? "opacity-0" : "opacity-100"
               }`}
             ></span>
             <span
-              className={`absolute block w-full h-0.5 bg-gray-800 transition-all duration-300 ${
+              className={`absolute block w-full h-0.5 bg-gray-800 dark:bg-gray-200 transition-all duration-300 ${
                 mobileMenuOpen ? "top-3 -rotate-45" : "top-5"
               }`}
             ></span>
@@ -160,7 +229,7 @@ const Menu = () => {
       </div>
 
       <nav className={`${mobileMenuOpen ? "block" : "hidden"} lg:block`}>
-        <div className="bg-white/10 backdrop-blur-md rounded-3xl border border-white/20 p-6 shadow-2xl">
+        <div className="bg-white/10 dark:bg-gray-800/30 backdrop-blur-md rounded-3xl border border-white/20 dark:border-gray-700/20 p-6 shadow-2xl dark:shadow-gray-900/50">
           <ul className="space-y-3">
             <li>
               <NavLink
@@ -169,12 +238,11 @@ const Menu = () => {
                   `group flex items-center px-6 py-4 rounded-2xl transition-all duration-300 hover:bg-gradient-to-r hover:from-purple-500 hover:to-pink-500 hover:text-white ${
                     isActive
                       ? "bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg"
-                      : "text-gray-700 hover:shadow-md"
+                      : "text-gray-700 dark:text-gray-200 hover:shadow-md"
                   }`
                 }
               >
                 <FaBook className="text-xl mr-3 group-hover:scale-110 transition-transform duration-300" />
-
                 <span className="font-medium">Accueil</span>
               </NavLink>
             </li>
@@ -185,27 +253,25 @@ const Menu = () => {
                   `group flex items-center px-6 py-4 rounded-2xl transition-all duration-300 hover:bg-gradient-to-r hover:from-purple-500 hover:to-pink-500 hover:text-white ${
                     isActive
                       ? "bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg"
-                      : "text-gray-700 hover:shadow-md"
+                      : "text-gray-700 dark:text-gray-200 hover:shadow-md"
                   }`
                 }
               >
                 <FaBrain className="text-xl mr-3 group-hover:scale-110 transition-transform duration-300" />
-
                 <span className="font-medium">Psychopédagogie</span>
               </NavLink>
             </li>
             <li className="relative">
               <div
                 onClick={toggleSubList}
-                className={`group w-full flex items-center justify-between px-6 py-4 rounded-2xl transition-all duration-300 hover:bg-gradient-to-r hover:from-purple-500 hover:to-pink-500 hover:text-white ${
+                className={`group w-full flex items-center justify-between px-6 py-4 rounded-2xl transition-all duration-300 hover:bg-gradient-to-r hover:from-purple-500 hover:to-pink-500 hover:text-white cursor-pointer ${
                   isOpen
                     ? "bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg"
-                    : "text-gray-700 hover:shadow-md"
+                    : "text-gray-700 dark:text-gray-200 hover:shadow-md"
                 }`}
               >
                 <NavLink to="/approach" className="flex items-center w-full">
                   <FaStar className="text-xl mr-3 group-hover:scale-110 transition-transform duration-300" />
-
                   <span className="font-medium">Mon approche</span>
                 </NavLink>
                 <svg
@@ -233,12 +299,11 @@ const Menu = () => {
                         `group flex items-center px-6 py-3 rounded-xl transition-all duration-300 hover:bg-gradient-to-r hover:from-pink-400 hover:to-purple-400 hover:text-white ${
                           isActive
                             ? "bg-gradient-to-r from-pink-400 to-purple-400 text-white shadow-md"
-                            : "text-gray-600 hover:shadow-sm"
+                            : "text-gray-600 dark:text-gray-300 hover:shadow-sm"
                         }`
                       }
                     >
                       <FaBullseye className="text-lg mr-3 group-hover:scale-110 transition-transform duration-300" />
-
                       <span className="font-medium">Suivi scolaire</span>
                     </NavLink>
                   </li>
@@ -249,12 +314,11 @@ const Menu = () => {
                         `group flex items-center px-6 py-3 rounded-xl transition-all duration-300 hover:bg-gradient-to-r hover:from-pink-400 hover:to-purple-400 hover:text-white ${
                           isActive
                             ? "bg-gradient-to-r from-pink-400 to-purple-400 text-white shadow-md"
-                            : "text-gray-600 hover:shadow-sm"
+                            : "text-gray-600 dark:text-gray-300 hover:shadow-sm"
                         }`
                       }
                     >
                       <FaRocket className="text-lg mr-3 group-hover:scale-110 transition-transform duration-300" />
-
                       <span className="font-medium">Apprendre à apprendre</span>
                     </NavLink>
                   </li>
@@ -265,12 +329,11 @@ const Menu = () => {
                         `group flex items-center px-6 py-3 rounded-xl transition-all duration-300 hover:bg-gradient-to-r hover:from-pink-400 hover:to-purple-400 hover:text-white ${
                           isActive
                             ? "bg-gradient-to-r from-pink-400 to-purple-400 text-white shadow-md"
-                            : "text-gray-600 hover:shadow-sm"
+                            : "text-gray-600 dark:text-gray-300 hover:shadow-sm"
                         }`
                       }
                     >
                       <FaTrophy className="text-lg mr-3 group-hover:scale-110 transition-transform duration-300" />
-
                       <span className="font-medium">Préparation brevet</span>
                     </NavLink>
                   </li>
@@ -284,12 +347,11 @@ const Menu = () => {
                   `group flex items-center px-6 py-4 rounded-2xl transition-all duration-300 hover:bg-gradient-to-r hover:from-purple-500 hover:to-pink-500 hover:text-white ${
                     isActive
                       ? "bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg"
-                      : "text-gray-700 hover:shadow-md"
+                      : "text-gray-700 dark:text-gray-200 hover:shadow-md"
                   }`
                 }
               >
                 <MdBackpack className="text-xl mr-3 group-hover:scale-110 transition-transform duration-300" />
-
                 <span className="font-medium">Pré-rentrée</span>
               </NavLink>
             </li>
@@ -300,12 +362,11 @@ const Menu = () => {
                   `group flex items-center px-6 py-4 rounded-2xl transition-all duration-300 hover:bg-gradient-to-r hover:from-purple-500 hover:to-pink-500 hover:text-white ${
                     isActive
                       ? "bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg"
-                      : "text-gray-700 hover:shadow-md"
+                      : "text-gray-700 dark:text-gray-200 hover:shadow-md"
                   }`
                 }
               >
                 <FaUserGraduate className="text-xl mr-3 group-hover:scale-110 transition-transform duration-300" />
-
                 <span className="font-medium">Qui suis-je</span>
               </NavLink>
             </li>
@@ -316,12 +377,11 @@ const Menu = () => {
                   `group flex items-center px-6 py-4 rounded-2xl transition-all duration-300 hover:bg-gradient-to-r hover:from-purple-500 hover:to-pink-500 hover:text-white ${
                     isActive
                       ? "bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg"
-                      : "text-gray-700 hover:shadow-md"
+                      : "text-gray-700 dark:text-gray-200 hover:shadow-md"
                   }`
                 }
               >
                 <FaPhone className="text-xl mr-3 group-hover:scale-110 transition-transform duration-300" />
-
                 <span className="font-medium">Contact</span>
               </NavLink>
             </li>
@@ -332,7 +392,7 @@ const Menu = () => {
   );
 };
 
-// Modern Home component
+// Home component
 const Home = () => {
   const [currentImage, setCurrentImage] = useState(0);
   const images = [
@@ -356,13 +416,13 @@ const Home = () => {
           <h1 className="text-5xl lg:text-7xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent animate-pulse">
             Séverine Favier
           </h1>
-          <p className="text-2xl lg:text-3xl text-gray-700 font-light">
+          <p className="text-2xl lg:text-3xl text-gray-700 dark:text-gray-300 font-light">
             Psychopédagogue certifiée
           </p>
         </div>
 
         <div className="flex justify-center">
-          <div className="relative w-96 h-64 overflow-hidden rounded-3xl shadow-2xl">
+          <div className="relative w-96 h-64 overflow-hidden rounded-3xl shadow-2xl dark:shadow-gray-900/50">
             {images.map((image, index) => (
               <div
                 key={index}
@@ -402,11 +462,13 @@ const Home = () => {
           <div className="p-8 space-y-6">
             <div className="flex items-center space-x-4">
               <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center">
-                <FaQuestion className="text-2xl" />
+                <FaQuestion className="text-2xl text-white" />
               </div>
-              <h2 className="text-3xl font-bold text-gray-800">Pourquoi ?</h2>
+              <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100">
+                Pourquoi ?
+              </h2>
             </div>
-            <p className="text-lg text-gray-600 leading-relaxed">
+            <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
               Comprendre et améliorer le processus d&apos;apprentissage de
               chaque élève en alliant pédagogie moderne et approche
               psychologique bienveillante.
@@ -418,11 +480,13 @@ const Home = () => {
           <div className="p-8 space-y-6">
             <div className="flex items-center space-x-4">
               <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl flex items-center justify-center">
-                <FaLightbulb className="text-2xl" />
+                <FaLightbulb className="text-2xl text-white" />
               </div>
-              <h2 className="text-3xl font-bold text-gray-800">Comment ?</h2>
+              <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100">
+                Comment ?
+              </h2>
             </div>
-            <p className="text-lg text-gray-600 leading-relaxed">
+            <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
               Une approche personnalisée basée sur l&apos;écoute, la
               bienveillance et l&apos;adaptation pour révéler et libérer le
               potentiel unique de chaque enfant.
@@ -437,7 +501,7 @@ const Home = () => {
           <h2 className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
             Prêt à débuter l&apos;aventure ?
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
             Découvrez comment libérer le potentiel de votre enfant grâce à une
             approche sur mesure
           </p>
@@ -455,7 +519,7 @@ const Home = () => {
   );
 };
 
-// Modern Psycho component
+// Modern Psycho component with dark mode support
 const Psycho = () => {
   return (
     <div className="max-w-6xl mx-auto space-y-12">
@@ -463,7 +527,7 @@ const Psycho = () => {
         <h1 className="text-5xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
           La Psychopédagogie
         </h1>
-        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+        <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
           Une approche holistique pour accompagner chaque enfant vers la
           réussite
         </p>
@@ -473,13 +537,13 @@ const Psycho = () => {
         <img
           src={psychoPersonal}
           alt="Accompagnement personnalisé"
-          className="rounded-3xl shadow-2xl mx-auto hover:scale-105 transition-transform duration-500"
+          className="rounded-3xl shadow-2xl dark:shadow-gray-900/50 mx-auto hover:scale-105 transition-transform duration-500"
         />
       </div>
 
       <AnimatedCard>
         <div className="p-8 space-y-8">
-          <h2 className="text-3xl font-bold text-gray-800 text-center">
+          <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100 text-center">
             Un soutien adapté aux difficultés scolaires
           </h2>
 
@@ -511,11 +575,11 @@ const Psycho = () => {
             ))}
           </div>
 
-          <div className="bg-gradient-to-r from-purple-50 to-pink-50 p-8 rounded-3xl">
-            <p className="text-lg text-gray-700 leading-relaxed text-center">
+          <div className="bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 p-8 rounded-3xl border border-purple-100/50 dark:border-purple-800/30">
+            <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed text-center">
               L&apos;approche psychopédagogique prend en compte tous les aspects
               du développement -
-              <span className="font-semibold text-purple-600">
+              <span className="font-semibold text-purple-600 dark:text-purple-400">
                 {" "}
                 intellectuel, émotionnel, social et cognitif
               </span>{" "}
@@ -529,7 +593,7 @@ const Psycho = () => {
   );
 };
 
-// Modern School component
+// Modern School component with dark mode support
 const School = () => {
   return (
     <div className="max-w-6xl mx-auto space-y-12">
@@ -537,7 +601,7 @@ const School = () => {
         <h1 className="text-5xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
           Suivi Scolaire Personnalisé
         </h1>
-        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+        <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
           Un accompagnement sur mesure pour révéler le potentiel de chaque élève
         </p>
       </div>
@@ -547,10 +611,12 @@ const School = () => {
           <div className="p-8 space-y-6">
             <div className="text-center space-y-4">
               <div className="w-20 h-20 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto">
-                <FaChartBar className="text-3xl" />
+                <FaChartBar className="text-3xl text-white" />
               </div>
-              <h2 className="text-3xl font-bold text-gray-800">Le Bilan</h2>
-              <p className="text-lg text-purple-600 font-semibold">
+              <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100">
+                Le Bilan
+              </h2>
+              <p className="text-lg text-purple-600 dark:text-purple-400 font-semibold">
                 4 séances d&apos;1h
               </p>
             </div>
@@ -572,10 +638,14 @@ const School = () => {
               ].map((item, index) => (
                 <div
                   key={index}
-                  className="flex items-start space-x-4 p-4 bg-purple-50 rounded-xl hover:bg-purple-100 transition-colors duration-300"
+                  className="flex items-start space-x-4 p-4 bg-purple-50 dark:bg-purple-900/20 rounded-xl hover:bg-purple-100 dark:hover:bg-purple-800/30 border border-purple-100/50 dark:border-purple-800/30 transition-colors duration-300"
                 >
-                  <span className="text-2xl flex-shrink-0">{item.icon}</span>
-                  <p className="text-gray-700">{item.text}</p>
+                  <span className="text-2xl text-purple-600 dark:text-purple-400 flex-shrink-0">
+                    {item.icon}
+                  </span>
+                  <p className="text-gray-700 dark:text-gray-300">
+                    {item.text}
+                  </p>
                 </div>
               ))}
             </div>
@@ -587,19 +657,21 @@ const School = () => {
             <img
               src={psychoHelp}
               alt="Accompagnement bienveillant"
-              className="rounded-3xl shadow-2xl mx-auto hover:scale-105 transition-transform duration-500"
+              className="rounded-3xl shadow-2xl dark:shadow-gray-900/50 mx-auto hover:scale-105 transition-transform duration-500"
             />
           </div>
 
           <AnimatedCard>
             <div className="p-8 text-center space-y-6">
-              <h3 className="text-2xl font-bold text-gray-800">Tarifs</h3>
+              <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-100">
+                Tarifs
+              </h3>
               <div className="space-y-4">
-                <div className="p-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-2xl">
+                <div className="p-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-2xl flex items-center justify-center">
                   <FaMoneyBillWave className="text-2xl mr-3" />
                   <span className="text-xl font-semibold">Bilan : 300€</span>
                 </div>
-                <div className="p-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-2xl">
+                <div className="p-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-2xl flex items-center justify-center">
                   <FaClock className="text-2xl mr-3" />
                   <span className="text-xl font-semibold">Suivi : 50€/h</span>
                 </div>
@@ -613,10 +685,12 @@ const School = () => {
         <div className="p-8 space-y-8">
           <div className="text-center space-y-4">
             <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center mx-auto">
-              <FaBullseye className="text-3xl" />
+              <FaBullseye className="text-3xl text-white" />
             </div>
-            <h2 className="text-3xl font-bold text-gray-800">Le Suivi</h2>
-            <p className="text-lg text-blue-600 font-semibold">
+            <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100">
+              Le Suivi
+            </h2>
+            <p className="text-lg text-blue-600 dark:text-blue-400 font-semibold">
               Séances personnalisées - Rythme adapté
             </p>
           </div>
@@ -632,11 +706,15 @@ const School = () => {
             ].map((item, index) => (
               <div
                 key={index}
-                className="p-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl hover:from-purple-100 hover:to-pink-100 transition-all duration-300 hover:scale-105"
+                className="p-4 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-xl hover:from-purple-100 hover:to-pink-100 dark:hover:from-purple-800/30 dark:hover:to-pink-800/30 border border-purple-100/50 dark:border-purple-800/30 transition-all duration-300 hover:scale-105"
               >
                 <div className="text-center space-y-2">
-                  <span className="text-2xl">{item.icon}</span>
-                  <p className="text-gray-700 font-medium">{item.text}</p>
+                  <span className="text-2xl text-purple-600 dark:text-purple-400">
+                    {item.icon}
+                  </span>
+                  <p className="text-gray-700 dark:text-gray-300 font-medium">
+                    {item.text}
+                  </p>
                 </div>
               </div>
             ))}
@@ -655,7 +733,7 @@ const Learn = () => {
         <h1 className="text-5xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
           Apprendre à Apprendre
         </h1>
-        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+        <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
           Acquérir les bonnes méthodologies de travail, adaptées à chacun
         </p>
       </div>
@@ -664,7 +742,7 @@ const Learn = () => {
         <img
           src={learn}
           alt="Méthodes d'apprentissage"
-          className="rounded-3xl shadow-2xl mx-auto hover:scale-105 transition-transform duration-500"
+          className="rounded-3xl shadow-2xl dark:shadow-gray-900/50 mx-auto hover:scale-105 transition-transform duration-500"
         />
       </div>
 
@@ -672,28 +750,28 @@ const Learn = () => {
         <div className="p-8 space-y-8">
           <div className="text-center space-y-4">
             <div className="w-20 h-20 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto">
-              <FaBullseye className="text-3xl" />
+              <FaBullseye className="text-3xl text-white" />
             </div>
-            <h2 className="text-3xl font-bold text-gray-800">
+            <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100">
               À chacun sa façon de travailler !
             </h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="space-y-6">
-              <h3 className="text-xl font-semibold text-purple-600">
+              <h3 className="text-xl font-semibold text-purple-600 dark:text-purple-400">
                 S&apos;appuyant sur :
               </h3>
               <div className="space-y-4">
-                <div className="flex items-start space-x-4 p-4 bg-purple-50 rounded-xl">
-                  <FaLightbulb className="text-2xl" />
-                  <p className="text-gray-700">
+                <div className="flex items-start space-x-4 p-4 bg-purple-50 dark:bg-purple-900/20 rounded-xl border border-purple-100/50 dark:border-purple-800/30">
+                  <FaLightbulb className="text-2xl text-purple-600 dark:text-purple-400" />
+                  <p className="text-gray-700 dark:text-gray-300">
                     Les intelligences multiples (Howard Gardner)
                   </p>
                 </div>
-                <div className="flex items-start space-x-4 p-4 bg-purple-50 rounded-xl">
-                  <FaHandshake className="text-2xl" />
-                  <p className="text-gray-700">
+                <div className="flex items-start space-x-4 p-4 bg-purple-50 dark:bg-purple-900/20 rounded-xl border border-purple-100/50 dark:border-purple-800/30">
+                  <FaHandshake className="text-2xl text-purple-600 dark:text-purple-400" />
+                  <p className="text-gray-700 dark:text-gray-300">
                     Un entretien avec l&apos;élève et ses parents
                   </p>
                 </div>
@@ -701,37 +779,40 @@ const Learn = () => {
             </div>
 
             <div className="space-y-6">
-              <h3 className="text-xl font-semibold text-purple-600">
+              <h3 className="text-xl font-semibold text-purple-600 dark:text-purple-400">
                 Nous travaillons sur :
               </h3>
               <div className="grid grid-cols-1 gap-4">
-                <div className="p-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl">
-                  <h4 className="font-semibold text-gray-800 mb-2">
+                <div className="p-4 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-xl border border-purple-100/50 dark:border-purple-800/30">
+                  <h4 className="font-semibold text-gray-800 dark:text-gray-100 mb-2">
                     Méthodes de travail
                   </h4>
-                  <ul className="text-sm text-gray-600 space-y-1">
-                    <li>
-                      <FaPenFancy />
-                      Prise de notes
+                  <ul className="text-sm text-gray-600 dark:text-gray-400 space-y-1">
+                    <li className="flex items-center space-x-2">
+                      <FaPenFancy className="text-purple-600 dark:text-purple-400" />
+                      <span>Prise de notes</span>
                     </li>
-                    <li>
-                      <FaFileAlt /> Fiches structurées
+                    <li className="flex items-center space-x-2">
+                      <FaFileAlt className="text-purple-600 dark:text-purple-400" />
+                      <span>Fiches structurées</span>
                     </li>
-                    <li>
-                      <FaMap /> Mind mapping
+                    <li className="flex items-center space-x-2">
+                      <FaMap className="text-purple-600 dark:text-purple-400" />
+                      <span>Mind mapping</span>
                     </li>
-                    <li>
-                      <FaQuoteRight /> Flash cards
+                    <li className="flex items-center space-x-2">
+                      <FaQuoteRight className="text-purple-600 dark:text-purple-400" />
+                      <span>Flash cards</span>
                     </li>
                   </ul>
                 </div>
-                <div className="p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl">
-                  <h4 className="font-semibold text-gray-800">
+                <div className="p-4 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-xl border border-blue-100/50 dark:border-blue-800/30">
+                  <h4 className="font-semibold text-gray-800 dark:text-gray-100">
                     Mise en œuvre autonome
                   </h4>
                 </div>
-                <div className="p-4 bg-gradient-to-r from-pink-50 to-purple-50 rounded-xl">
-                  <h4 className="font-semibold text-gray-800">
+                <div className="p-4 bg-gradient-to-r from-pink-50 to-purple-50 dark:from-pink-900/20 dark:to-purple-900/20 rounded-xl border border-pink-100/50 dark:border-pink-800/30">
+                  <h4 className="font-semibold text-gray-800 dark:text-gray-100">
                     Organisation quotidienne
                   </h4>
                 </div>
@@ -744,36 +825,44 @@ const Learn = () => {
       <AnimatedCard delay={400}>
         <div className="p-8 text-center space-y-8">
           <div className="space-y-4">
-            <h2 className="text-3xl font-bold text-gray-800">
+            <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100">
               Informations pratiques
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="p-6 bg-gradient-to-r from-purple-100 to-pink-100 rounded-2xl">
-                <h3 className="text-xl font-semibold text-purple-800 mb-2">
-                  <FaUsers /> Public
+              <div className="p-6 bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 rounded-2xl border border-purple-200/50 dark:border-purple-700/30">
+                <h3 className="text-xl font-semibold text-purple-800 dark:text-purple-300 mb-2 flex items-center justify-center space-x-2">
+                  <FaUsers />
+                  <span>Public</span>
                 </h3>
-                <p className="text-gray-700">Collégiens et lycéens</p>
+                <p className="text-gray-700 dark:text-gray-300">
+                  Collégiens et lycéens
+                </p>
               </div>
-              <div className="p-6 bg-gradient-to-r from-blue-100 to-purple-100 rounded-2xl">
-                <h3 className="text-xl font-semibold text-blue-800 mb-2">
-                  <FaCalendarAlt /> Périodes
+              <div className="p-6 bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 rounded-2xl border border-blue-200/50 dark:border-blue-700/30">
+                <h3 className="text-xl font-semibold text-blue-800 dark:text-blue-300 mb-2 flex items-center justify-center space-x-2">
+                  <FaCalendarAlt />
+                  <span>Périodes</span>
                 </h3>
-                <p className="text-gray-700">
+                <p className="text-gray-700 dark:text-gray-300">
                   Dernière semaine d&apos;août + petites vacances
                 </p>
               </div>
-              <div className="p-6 bg-gradient-to-r from-pink-100 to-purple-100 rounded-2xl">
-                <h3 className="text-xl font-semibold text-pink-800 mb-2">
-                  <FaMoneyBillWave /> Tarif
+              <div className="p-6 bg-gradient-to-r from-pink-100 to-purple-100 dark:from-pink-900/30 dark:to-purple-900/30 rounded-2xl border border-pink-200/50 dark:border-pink-700/30">
+                <h3 className="text-xl font-semibold text-pink-800 dark:text-pink-300 mb-2 flex items-center justify-center space-x-2">
+                  <FaMoneyBillWave />
+                  <span>Tarif</span>
                 </h3>
-                <p className="text-gray-700 font-bold">450€ pour 5 séances</p>
+                <p className="text-gray-700 dark:text-gray-300 font-bold">
+                  450€ pour 5 séances
+                </p>
               </div>
             </div>
           </div>
 
-          <div className="max-w-2xl mx-auto p-6 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-2xl">
-            <p className="text-xl font-semibold">
-              <FaArrowRight /> Apprendre à travailler de manière plus efficace
+          <div className="max-w-2xl mx-auto p-6 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-2xl shadow-lg">
+            <p className="text-xl font-semibold flex items-center justify-center space-x-2">
+              <FaArrowRight />
+              <span>Apprendre à travailler de manière plus efficace</span>
             </p>
           </div>
         </div>
@@ -782,7 +871,7 @@ const Learn = () => {
   );
 };
 
-// Modern Brevet component
+// Modern Brevet component with dark mode support
 const Brevet = () => {
   return (
     <div className="max-w-6xl mx-auto space-y-12">
@@ -790,7 +879,7 @@ const Brevet = () => {
         <h1 className="text-5xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
           En route pour le brevet !
         </h1>
-        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+        <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
           Un accompagnement complet pour réussir cette étape importante
         </p>
       </div>
@@ -799,7 +888,7 @@ const Brevet = () => {
         <img
           src={brevetPrep}
           alt="Préparation au brevet"
-          className="rounded-3xl shadow-2xl mx-auto hover:scale-105 transition-transform duration-500"
+          className="rounded-3xl shadow-2xl dark:shadow-gray-900/50 mx-auto hover:scale-105 transition-transform duration-500"
         />
       </div>
 
@@ -807,12 +896,12 @@ const Brevet = () => {
         <div className="p-8 space-y-8">
           <div className="text-center space-y-4">
             <div className="w-20 h-20 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto">
-              <FaGraduationCap className="text-3xl" />
+              <FaGraduationCap className="text-3xl text-white" />
             </div>
-            <h2 className="text-3xl font-bold text-gray-800">
+            <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100">
               Programme intensif
             </h2>
-            <p className="text-lg text-gray-600">
+            <p className="text-lg text-gray-600 dark:text-gray-300">
               Dès les vacances de la Toussaint, j&apos;accompagne vos enfants
               dans leurs révisions, leur organisation, et la préparation aux
               différentes épreuves.
@@ -821,24 +910,24 @@ const Brevet = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="space-y-6">
-              <h3 className="text-xl font-semibold text-purple-600">
+              <h3 className="text-xl font-semibold text-purple-600 dark:text-purple-400">
                 Informations pratiques
               </h3>
               <div className="space-y-4">
-                <div className="p-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl">
-                  <p className="text-gray-700">
+                <div className="p-4 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-xl border border-purple-100/50 dark:border-purple-800/30">
+                  <p className="text-gray-700 dark:text-gray-300">
                     <span className="font-semibold">Périodes :</span> Vacances
                     de février / printemps + avant l&apos;examen
                   </p>
                 </div>
-                <div className="p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl">
-                  <p className="text-gray-700">
+                <div className="p-4 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-xl border border-blue-100/50 dark:border-blue-800/30">
+                  <p className="text-gray-700 dark:text-gray-300">
                     <span className="font-semibold">Groupe :</span> Min 2 élèves
                     / Max 4 élèves
                   </p>
                 </div>
-                <div className="p-4 bg-gradient-to-r from-pink-50 to-purple-50 rounded-xl">
-                  <p className="text-gray-700">
+                <div className="p-4 bg-gradient-to-r from-pink-50 to-purple-50 dark:from-pink-900/20 dark:to-purple-900/20 rounded-xl border border-pink-100/50 dark:border-pink-800/30">
+                  <p className="text-gray-700 dark:text-gray-300">
                     <span className="font-semibold">Durée :</span> 10h de cours
                     (2h/jour pendant 5 jours)
                   </p>
@@ -847,7 +936,7 @@ const Brevet = () => {
             </div>
 
             <div className="space-y-6">
-              <h3 className="text-xl font-semibold text-purple-600">
+              <h3 className="text-xl font-semibold text-purple-600 dark:text-purple-400">
                 Au programme
               </h3>
               <div className="grid grid-cols-1 gap-3">
@@ -870,10 +959,14 @@ const Brevet = () => {
                 ].map((item, index) => (
                   <div
                     key={index}
-                    className="flex items-center space-x-3 p-3 bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl hover:from-purple-100 hover:to-pink-100 transition-all duration-300"
+                    className="flex items-center space-x-3 p-3 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-xl hover:from-purple-100 hover:to-pink-100 dark:hover:from-purple-800/30 dark:hover:to-pink-800/30 transition-all duration-300 border border-purple-100/50 dark:border-purple-800/30"
                   >
-                    <span className="text-xl">{item.icon}</span>
-                    <span className="text-gray-700">{item.text}</span>
+                    <span className="text-xl text-purple-600 dark:text-purple-400">
+                      {item.icon}
+                    </span>
+                    <span className="text-gray-700 dark:text-gray-300">
+                      {item.text}
+                    </span>
                   </div>
                 ))}
               </div>
@@ -885,21 +978,25 @@ const Brevet = () => {
       <AnimatedCard delay={400}>
         <div className="p-8 text-center space-y-8">
           <div className="space-y-4">
-            <h2 className="text-3xl font-bold text-gray-800">Tarifs</h2>
+            <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100">
+              Tarifs
+            </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
-              <div className="p-6 bg-gradient-to-r from-purple-100 to-pink-100 rounded-2xl">
-                <h3 className="text-xl font-semibold text-purple-800 mb-2">
-                  <FaCalendarAlt /> Session unique
+              <div className="p-6 bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 rounded-2xl border border-purple-200/50 dark:border-purple-700/30">
+                <h3 className="text-xl font-semibold text-purple-800 dark:text-purple-300 mb-2 flex items-center justify-center space-x-2">
+                  <FaCalendarAlt />
+                  <span>Session unique</span>
                 </h3>
-                <p className="text-2xl font-bold text-gray-800">
+                <p className="text-2xl font-bold text-gray-800 dark:text-gray-100">
                   300€ / semaine
                 </p>
               </div>
-              <div className="p-6 bg-gradient-to-r from-blue-100 to-purple-100 rounded-2xl">
-                <h3 className="text-xl font-semibold text-blue-800 mb-2">
-                  <FaBullseye /> 4 sessions annuelles
+              <div className="p-6 bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 rounded-2xl border border-blue-200/50 dark:border-blue-700/30">
+                <h3 className="text-xl font-semibold text-blue-800 dark:text-blue-300 mb-2 flex items-center justify-center space-x-2">
+                  <FaBullseye />
+                  <span>4 sessions annuelles</span>
                 </h3>
-                <p className="text-2xl font-bold text-gray-800">
+                <p className="text-2xl font-bold text-gray-800 dark:text-gray-100">
                   250€ / semaine
                 </p>
               </div>
@@ -911,7 +1008,7 @@ const Brevet = () => {
   );
 };
 
-// Modern Pre component
+// Modern Pre component with dark mode support
 const Pre = () => {
   return (
     <div className="max-w-6xl mx-auto space-y-12">
@@ -919,7 +1016,7 @@ const Pre = () => {
         <h1 className="text-5xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
           Pour une Rentrée Réussie !
         </h1>
-        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+        <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
           Une semaine de révision pour aborder la rentrée de façon sereine
         </p>
       </div>
@@ -928,7 +1025,7 @@ const Pre = () => {
         <img
           src={preFirstDay}
           alt="Préparation rentrée"
-          className="rounded-3xl shadow-2xl mx-auto hover:scale-105 transition-transform duration-500"
+          className="rounded-3xl shadow-2xl dark:shadow-gray-900/50 mx-auto hover:scale-105 transition-transform duration-500"
         />
       </div>
 
@@ -937,29 +1034,31 @@ const Pre = () => {
           <div className="p-8 space-y-6">
             <div className="text-center space-y-4">
               <div className="w-20 h-20 bg-gradient-to-r from-green-500 to-teal-500 rounded-full flex items-center justify-center mx-auto">
-                <MdBackpack className="text-3xl" />
+                <MdBackpack className="text-3xl text-white" />
               </div>
-              <h2 className="text-3xl font-bold text-gray-800">Le Programme</h2>
+              <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100">
+                Le Programme
+              </h2>
             </div>
 
             <div className="space-y-4">
-              <p className="text-lg text-gray-700 leading-relaxed">
+              <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
                 Je vous propose d&apos;accueillir vos enfants fin août pour
                 réviser ensemble, de manière ludique et bienveillante, les
                 notions de l&apos;année précédente.
               </p>
-              <div className="bg-gradient-to-r from-green-50 to-teal-50 p-6 rounded-2xl">
-                <h3 className="text-xl font-semibold text-gray-800 mb-3">
+              <div className="bg-gradient-to-r from-green-50 to-teal-50 dark:from-green-900/20 dark:to-teal-900/20 p-6 rounded-2xl border border-green-100/50 dark:border-green-800/30">
+                <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-3">
                   Nous travaillerons sur :
                 </h3>
                 <div className="space-y-2">
-                  <p className="text-gray-700">
+                  <p className="text-gray-700 dark:text-gray-300">
                     • Les compétences non acquises ou fragiles
                   </p>
-                  <p className="text-gray-700">
+                  <p className="text-gray-700 dark:text-gray-300">
                     • Les méthodes de travail efficaces
                   </p>
-                  <p className="text-gray-700">
+                  <p className="text-gray-700 dark:text-gray-300">
                     • L&apos;autonomie et la confiance en soi
                   </p>
                 </div>
@@ -972,48 +1071,52 @@ const Pre = () => {
           <div className="p-8 space-y-6">
             <div className="text-center space-y-4">
               <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center mx-auto">
-                <FaUsers className="text-3xl" />
+                <FaUsers className="text-3xl text-white" />
               </div>
-              <h2 className="text-3xl font-bold text-gray-800">
+              <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100">
                 Informations Pratiques
               </h2>
             </div>
 
             <div className="space-y-4">
-              <div className="p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl">
-                <h3 className="text-lg font-semibold text-gray-800 mb-2">
+              <div className="p-4 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-xl border border-blue-100/50 dark:border-blue-800/30">
+                <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-2">
                   Pour qui ?
                 </h3>
-                <p className="text-gray-700">
+                <p className="text-gray-700 dark:text-gray-300">
                   Tous les élèves de primaire, collégiens et nouveaux lycéens
                 </p>
               </div>
 
-              <div className="p-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl">
-                <h3 className="text-lg font-semibold text-gray-800 mb-2">
+              <div className="p-4 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-xl border border-purple-100/50 dark:border-purple-800/30">
+                <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-2">
                   Période
                 </h3>
-                <p className="text-gray-700">
+                <p className="text-gray-700 dark:text-gray-300">
                   Du 26 au 30 août (horaires à définir ensemble)
                 </p>
               </div>
 
-              <div className="p-4 bg-gradient-to-r from-pink-50 to-red-50 rounded-xl">
-                <h3 className="text-lg font-semibold text-gray-800 mb-2">
+              <div className="p-4 bg-gradient-to-r from-pink-50 to-red-50 dark:from-pink-900/20 dark:to-red-900/20 rounded-xl border border-pink-100/50 dark:border-pink-800/30">
+                <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-2">
                   Format
                 </h3>
-                <p className="text-gray-700">
+                <p className="text-gray-700 dark:text-gray-300">
                   5 séances de 1h à 1h30 selon le niveau et les besoins
                 </p>
               </div>
 
-              <div className="p-4 bg-gradient-to-r from-green-50 to-teal-50 rounded-xl">
-                <h3 className="text-lg font-semibold text-gray-800 mb-2">
+              <div className="p-4 bg-gradient-to-r from-green-50 to-teal-50 dark:from-green-900/20 dark:to-teal-900/20 rounded-xl border border-green-100/50 dark:border-green-800/30">
+                <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-2">
                   Tarifs
                 </h3>
                 <div className="space-y-1">
-                  <p className="text-gray-700">• 50€/h en individuel</p>
-                  <p className="text-gray-700">• En groupe : sur devis</p>
+                  <p className="text-gray-700 dark:text-gray-300">
+                    • 50€/h en individuel
+                  </p>
+                  <p className="text-gray-700 dark:text-gray-300">
+                    • En groupe : sur devis
+                  </p>
                 </div>
               </div>
             </div>
@@ -1024,7 +1127,7 @@ const Pre = () => {
   );
 };
 
-// Modern Who component
+// Modern Who component with dark mode support
 const Who = () => {
   return (
     <div className="max-w-6xl mx-auto space-y-12">
@@ -1032,7 +1135,7 @@ const Who = () => {
         <h1 className="text-5xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
           Qui suis-je ?
         </h1>
-        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+        <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
           Découvrez mon parcours et ma passion pour l&apos;accompagnement
           éducatif
         </p>
@@ -1043,29 +1146,31 @@ const Who = () => {
           <div className="p-8 space-y-6">
             <div className="text-center space-y-4">
               <div className="w-20 h-20 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full flex items-center justify-center mx-auto">
-                <FaChalkboardTeacher className="text-3xl" />
+                <FaChalkboardTeacher className="text-3xl text-white" />
               </div>
-              <h2 className="text-3xl font-bold text-gray-800">Mon Parcours</h2>
+              <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100">
+                Mon Parcours
+              </h2>
             </div>
 
             <div className="space-y-4">
-              <p className="text-lg text-gray-700 leading-relaxed">
+              <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
                 Après une décennie dans les ressources humaines, ma passion pour
                 la psychologie et l&apos;école m&apos;a menée à
                 l&apos;enseignement.
               </p>
-              <p className="text-lg text-gray-700 leading-relaxed">
+              <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
                 J&apos;ai enseigné avec enthousiasme en zone prioritaire pendant
                 près de 10 ans. J&apos;ai trop souvent été confrontée aux défis
                 des enfants à besoins éducatifs particuliers.
               </p>
-              <p className="text-lg text-gray-700 leading-relaxed">
+              <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
                 Pour mieux y répondre, j&apos;ai suivi une formation spécifique
                 au sein de l&apos;Éducation Nationale. Maman de deux enfants,
                 j&apos;ai également expérimenté les complexités de
                 l&apos;inclusion.
               </p>
-              <p className="text-lg text-gray-700 leading-relaxed">
+              <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
                 Aujourd&apos;hui, je souhaite mettre mon expertise au service
                 des enfants et des parents, en leur dédiant un espace
                 personnalisé pour favoriser l&apos;épanouissement scolaire et
@@ -1080,7 +1185,7 @@ const Who = () => {
             <img
               src={whoPortrait}
               alt="Séverine Favier"
-              className="rounded-3xl shadow-2xl mx-auto hover:scale-105 transition-transform duration-500"
+              className="rounded-3xl shadow-2xl dark:shadow-gray-900/50 mx-auto hover:scale-105 transition-transform duration-500"
             />
           </div>
 
@@ -1088,9 +1193,9 @@ const Who = () => {
             <div className="p-8 space-y-6">
               <div className="text-center space-y-4">
                 <div className="w-20 h-20 bg-gradient-to-r from-pink-500 to-red-500 rounded-full flex items-center justify-center mx-auto">
-                  <FaGraduationCap className="text-3xl" />
+                  <FaGraduationCap className="text-3xl text-white" />
                 </div>
-                <h2 className="text-3xl font-bold text-gray-800">
+                <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100">
                   Mes Qualifications
                 </h2>
               </div>
@@ -1114,10 +1219,14 @@ const Who = () => {
                 ].map((item, index) => (
                   <div
                     key={index}
-                    className="flex items-center space-x-4 p-4 bg-gradient-to-r from-pink-50 to-red-50 rounded-xl hover:from-pink-100 hover:to-red-100 transition-all duration-300 hover:scale-105"
+                    className="flex items-center space-x-4 p-4 bg-gradient-to-r from-pink-50 to-red-50 dark:from-pink-900/20 dark:to-red-900/20 rounded-xl hover:from-pink-100 hover:to-red-100 dark:hover:from-pink-800/30 dark:hover:to-red-800/30 transition-all duration-300 hover:scale-105 border border-pink-100/50 dark:border-pink-800/30"
                   >
-                    <span className="text-2xl">{item.icon}</span>
-                    <p className="text-gray-700 font-medium">{item.text}</p>
+                    <span className="text-2xl text-pink-600 dark:text-pink-400">
+                      {item.icon}
+                    </span>
+                    <p className="text-gray-700 dark:text-gray-300 font-medium">
+                      {item.text}
+                    </p>
                   </div>
                 ))}
               </div>
@@ -1129,7 +1238,7 @@ const Who = () => {
   );
 };
 
-// Modern Approach component
+// Modern Approach component with dark mode support
 const Approach = () => {
   return (
     <div className="max-w-6xl mx-auto space-y-12">
@@ -1137,7 +1246,7 @@ const Approach = () => {
         <h1 className="text-5xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
           Mon Approche
         </h1>
-        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+        <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
           Une méthode personnalisée qui révèle le potentiel unique de chaque
           enfant
         </p>
@@ -1147,7 +1256,7 @@ const Approach = () => {
         <img
           src={approachHand}
           alt="Enfant avec une main tendue"
-          className="rounded-3xl shadow-2xl mx-auto hover:scale-105 transition-transform duration-500"
+          className="rounded-3xl shadow-2xl dark:shadow-gray-900/50 mx-auto hover:scale-105 transition-transform duration-500"
         />
       </div>
 
@@ -1155,18 +1264,18 @@ const Approach = () => {
         <div className="p-8 space-y-6">
           <div className="text-center space-y-4">
             <div className="w-20 h-20 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto">
-              <FaBullseye className="text-3xl" />
+              <FaBullseye className="text-3xl text-white" />
             </div>
-            <h2 className="text-3xl font-bold text-gray-800">
+            <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100">
               Comprendre l&apos;individu dans toute sa complexité
             </h2>
-            <p className="text-lg text-purple-600 font-semibold">
+            <p className="text-lg text-purple-600 dark:text-purple-400 font-semibold">
               Adapter l&apos;apprentissage à ses besoins spécifiques
             </p>
           </div>
 
-          <div className="bg-gradient-to-r from-purple-50 to-pink-50 p-8 rounded-3xl">
-            <p className="text-lg text-gray-700 leading-relaxed text-center">
+          <div className="bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 p-8 rounded-3xl border border-purple-100/50 dark:border-purple-800/30">
+            <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed text-center">
               Ma méthode pédagogique allie les outils modernes et des approches
               traditionnelles, conformes aux programmes nationaux, pour créer un
               environnement d&apos;apprentissage optimal.
@@ -1178,8 +1287,8 @@ const Approach = () => {
       <AnimatedCard delay={200}>
         <div className="p-8 space-y-8">
           <div className="text-center space-y-4">
-            <h2 className="text-3xl font-bold text-gray-800 flex items-center justify-center">
-              <FaStar className="mr-4 text-4xl" />
+            <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100 flex items-center justify-center">
+              <FaStar className="mr-4 text-4xl text-purple-600 dark:text-purple-400" />
               Mes Objectifs
             </h2>
           </div>
@@ -1219,7 +1328,7 @@ const Approach = () => {
             ].map((item, index) => (
               <div
                 key={index}
-                className={`group p-6 rounded-2xl bg-gradient-to-r ${item.color} text-white hover:scale-105 transition-all duration-300 hover:shadow-xl`}
+                className={`group p-6 rounded-2xl bg-gradient-to-r ${item.color} text-white hover:scale-105 transition-all duration-300 hover:shadow-xl dark:shadow-gray-900/30`}
               >
                 <div className="flex items-center space-x-4">
                   <span className="text-3xl group-hover:scale-110 transition-transform duration-300">
@@ -1236,7 +1345,7 @@ const Approach = () => {
   );
 };
 
-// Modern Contacts component
+// Modern Contacts component with dark mode support
 const Contacts = () => {
   return (
     <div className="max-w-6xl mx-auto space-y-12">
@@ -1244,7 +1353,7 @@ const Contacts = () => {
         <h1 className="text-5xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
           Contact
         </h1>
-        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+        <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
           Prêt à commencer cette aventure ensemble ?
         </p>
       </div>
@@ -1253,19 +1362,19 @@ const Contacts = () => {
         <div className="p-8 text-center space-y-8">
           <div className="space-y-4">
             <div className="w-20 h-20 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto">
-              <FaPhone className="text-3xl" />
+              <FaPhone className="text-3xl text-white" />
             </div>
-            <h2 className="text-3xl font-bold text-gray-800">
+            <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100">
               Premier échange téléphonique
             </h2>
-            <p className="text-lg text-gray-600">
+            <p className="text-lg text-gray-600 dark:text-gray-300">
               Discutons ensemble des besoins de votre enfant
             </p>
           </div>
 
           <a
             href="https://calendly.com/psychopedagogue/reunion?month=2024-11"
-            className="inline-block group px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+            className="inline-block group px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl dark:shadow-gray-900/30 transition-all duration-300 hover:scale-105"
           >
             <span className="flex items-center space-x-2">
               <span>Réserver un appel</span>
@@ -1282,14 +1391,18 @@ const Contacts = () => {
           <div className="p-8 space-y-6">
             <div className="text-center space-y-4">
               <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center mx-auto">
-                <FaMapMarkerAlt className="text-2xl" />
+                <FaMapMarkerAlt className="text-2xl text-white" />
               </div>
-              <h3 className="text-2xl font-bold text-gray-800">Adresse</h3>
+              <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-100">
+                Adresse
+              </h3>
             </div>
 
             <div className="text-center space-y-2">
-              <p className="text-lg font-medium text-gray-800">16 rue Tilly</p>
-              <p className="text-lg font-medium text-gray-800">
+              <p className="text-lg font-medium text-gray-800 dark:text-gray-200">
+                16 rue Tilly
+              </p>
+              <p className="text-lg font-medium text-gray-800 dark:text-gray-200">
                 92700 Colombes
               </p>
             </div>
@@ -1298,7 +1411,7 @@ const Contacts = () => {
               <img
                 src={contactsRoom}
                 alt="Salle de classe"
-                className="rounded-2xl shadow-lg mx-auto hover:scale-105 transition-transform duration-500"
+                className="rounded-2xl shadow-lg dark:shadow-gray-900/50 mx-auto hover:scale-105 transition-transform duration-500"
               />
             </div>
           </div>
@@ -1308,12 +1421,12 @@ const Contacts = () => {
           <div className="p-8 space-y-6">
             <div className="text-center space-y-4">
               <div className="w-16 h-16 bg-gradient-to-r from-pink-500 to-red-500 rounded-full flex items-center justify-center mx-auto">
-                <FaUserGraduate className="text-2xl" />
+                <FaUserGraduate className="text-2xl text-white" />
               </div>
-              <h3 className="text-2xl font-bold text-gray-800">
+              <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-100">
                 Séverine Favier
               </h3>
-              <p className="text-lg text-purple-600 font-semibold">
+              <p className="text-lg text-purple-600 dark:text-purple-400 font-semibold">
                 Psychopédagogue certifiée
               </p>
             </div>
@@ -1322,7 +1435,7 @@ const Contacts = () => {
               <img
                 src={contactsAvatar}
                 alt="Séverine Favier"
-                className="rounded-full shadow-lg mx-auto w-32 h-32 object-cover hover:scale-110 transition-transform duration-500"
+                className="rounded-full shadow-lg dark:shadow-gray-900/50 mx-auto w-32 h-32 object-cover hover:scale-110 transition-transform duration-500"
               />
             </div>
           </div>
@@ -1332,8 +1445,10 @@ const Contacts = () => {
       <AnimatedCard delay={600}>
         <div className="p-8 space-y-6">
           <div className="text-center space-y-4">
-            <h3 className="text-2xl font-bold text-gray-800">Suivez-moi</h3>
-            <p className="text-lg text-gray-600">
+            <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-100">
+              Suivez-moi
+            </h3>
+            <p className="text-lg text-gray-600 dark:text-gray-300">
               Restez connecté pour plus de conseils et d&apos;actualités
             </p>
           </div>
@@ -1363,7 +1478,7 @@ const Contacts = () => {
             ].map((social, index) => (
               <button
                 key={index}
-                className={`group p-6 rounded-2xl bg-gradient-to-r ${social.color} text-white hover:scale-105 transition-all duration-300 hover:shadow-xl`}
+                className={`group p-6 rounded-2xl bg-gradient-to-r ${social.color} text-white hover:scale-105 transition-all duration-300 hover:shadow-xl dark:shadow-gray-900/30`}
               >
                 <div className="text-center space-y-2">
                   <span className="text-3xl group-hover:scale-110 transition-transform duration-300">
@@ -1378,13 +1493,15 @@ const Contacts = () => {
       </AnimatedCard>
 
       <AnimatedCard delay={800}>
-        <section className="p-8 bg-gradient-to-r from-purple-50 to-pink-50 rounded-3xl">
+        <section className="p-8 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-3xl border border-purple-100/50 dark:border-purple-800/30">
           <div className="text-center space-y-4">
-            <h3 className="text-2xl font-bold text-gray-800">Localisation</h3>
-            <p className="text-lg text-gray-600">
+            <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-100">
+              Localisation
+            </h3>
+            <p className="text-lg text-gray-600 dark:text-gray-300">
               Carte Google Map interactive
             </p>
-            <div className="overflow-hidden rounded-2xl shadow-inner">
+            <div className="overflow-hidden rounded-2xl shadow-inner dark:shadow-gray-900/50">
               <iframe
                 title="Localisation"
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2621.565993122632!2d2.265246176444258!3d48.92366057134102!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e665ee84ec765b%3A0xdca84c8210b42996!2s16%20Rue%20Tilly%2C%2092700%20Colombes%2C%20France!5e0!3m2!1sen!2snl!4v1752427888237!5m2!1sen!2snl"
@@ -1403,32 +1520,35 @@ const Contacts = () => {
   );
 };
 
-// Main App component
+// Main App component with dark mode support
 const App = () => {
   return (
-    <Router>
-      <div className="min-h-screen bg-gradient-to-br from-purple-100 via-pink-50 to-blue-100 relative overflow-hidden">
-        <FloatingElements />
-        <div className="relative z-10 container mx-auto px-4 py-8">
-          <div className="flex flex-col lg:flex-row gap-8">
-            <Menu />
-            <main className="flex-1">
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/psycho" element={<Psycho />} />
-                <Route path="/school" element={<School />} />
-                <Route path="/learn" element={<Learn />} />
-                <Route path="/brevet" element={<Brevet />} />
-                <Route path="/pre" element={<Pre />} />
-                <Route path="/who" element={<Who />} />
-                <Route path="/approach" element={<Approach />} />
-                <Route path="/contacts" element={<Contacts />} />
-              </Routes>
-            </main>
+    <DarkModeProvider>
+      <Router>
+        <div className="min-h-screen bg-gradient-to-br from-purple-100 via-pink-50 to-blue-100 dark:from-gray-900 dark:via-purple-900/20 dark:to-blue-900/20 relative overflow-hidden transition-colors duration-300">
+          <FloatingElements />
+          <div className="relative z-10 container mx-auto px-4 py-8">
+            <div className="flex flex-col lg:flex-row gap-8">
+              <DarkModeToggle />
+              <Menu />
+              <main className="flex-1">
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/psycho" element={<Psycho />} />
+                  <Route path="/school" element={<School />} />
+                  <Route path="/learn" element={<Learn />} />
+                  <Route path="/brevet" element={<Brevet />} />
+                  <Route path="/pre" element={<Pre />} />
+                  <Route path="/who" element={<Who />} />
+                  <Route path="/approach" element={<Approach />} />
+                  <Route path="/contacts" element={<Contacts />} />
+                </Routes>
+              </main>
+            </div>
           </div>
         </div>
-      </div>
-    </Router>
+      </Router>
+    </DarkModeProvider>
   );
 };
 
