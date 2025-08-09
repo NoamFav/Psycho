@@ -1,3 +1,48 @@
+/* Regular */
+@font-face {
+  font-family: "OpenDyslexic3";
+  src:
+    local("OpenDyslexic Regular"),
+    local("OpenDyslexic"),
+    url("/fonts/OpenDyslexic-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Italic */
+@font-face {
+  font-family: "OpenDyslexic3";
+  src:
+    local("OpenDyslexic Italic"),
+    url("/fonts/OpenDyslexic-Italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Bold */
+@font-face {
+  font-family: "OpenDyslexic3";
+  src:
+    local("OpenDyslexic Bold"),
+    url("/fonts/OpenDyslexic-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Bold Italic */
+@font-face {
+  font-family: "OpenDyslexic3";
+  src:
+    local("OpenDyslexic Bold Italic"),
+    url("/fonts/OpenDyslexic-Bold-Italic.woff2") format("woff2");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -10,4 +55,9 @@
 .no-scrollbar {
   -ms-overflow-style: none; /* for IE and Edge */
   scrollbar-width: none; /* for Firefox */
+}
+
+/* Optional: prevent fake bold/italic */
+:root {
+  font-synthesis: none;
 }

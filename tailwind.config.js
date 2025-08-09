@@ -2,13 +2,17 @@
 export default {
   content: [
     "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx,vue}",
+    "./src/**/*.{js,ts,jsx,tsx,vue,css}",
     "./components/**/*.{js,ts,jsx,tsx}",
     "./pages/**/*.{js,ts,jsx,tsx}",
   ],
   darkMode: "class",
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        dyslexic: ['"OpenDyslexic3"', "sans-serif"],
+      },
+    },
   },
   plugins: [],
 };
