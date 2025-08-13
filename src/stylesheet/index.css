@@ -61,3 +61,47 @@
 :root {
   font-synthesis: none;
 }
+/* Regular */
+@font-face {
+  font-family: "OpenDyslexic3";
+  src:
+    local("OpenDyslexic3 Regular"),
+    local("OpenDyslexic3"),
+    url("/fonts/OpenDyslexic3-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Italic */
+@font-face {
+  font-family: "OpenDyslexic3";
+  src:
+    local("OpenDyslexic3 Italic"),
+    url("/fonts/OpenDyslexic3-Italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Bold */
+@font-face {
+  font-family: "OpenDyslexic3";
+  src:
+    local("OpenDyslexic3 Bold"),
+    url("/fonts/OpenDyslexic3-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Bold Italic */
+@font-face {
+  font-family: "OpenDyslexic3";
+  src:
+    local("OpenDyslexic3 Bold Italic"),
+    url("/fonts/OpenDyslexic3-BoldItalic.woff2") format("woff2");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}

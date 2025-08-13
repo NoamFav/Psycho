@@ -13,7 +13,7 @@ import Cookies from "js-cookie";
 import homeCreative from "../assets/home-creative.jpg";
 import homeLearning from "../assets/home-learning.jpg";
 import homeSuccess from "../assets/home-success.jpg";
-import psychoPersonal from "../assets/psyco-personal.jpg";
+import psychoPersonal from "../assets/psychop.png";
 import psychoHelp from "../assets/psycho-help.jpg";
 import learn from "../assets/learn.jpg";
 import brevetPrep from "../assets/brevet-prep.jpg";
@@ -485,7 +485,6 @@ const Menu = () => {
   const bottomMenuItems = [
     { to: "/pre", icon: MdBackpack, label: "Pré-rentrée", delay: "300ms" },
     { to: "/highschool", icon: FaSchool, label: "Lycée", delay: "400ms" },
-    { to: "/who", icon: FaUserGraduate, label: "Qui suis-je", delay: "500ms" },
     { to: "/contacts", icon: FaPhone, label: "Contact", delay: "600ms" },
   ];
 
@@ -803,7 +802,7 @@ const Home = () => {
             Séverine Favier
           </h1>
           <p className="text-2xl lg:text-3xl text-gray-700 dark:text-gray-300 font-light">
-            Psychopédagogue certifiée
+            Psychopédagogue
           </p>
         </div>
 
@@ -905,10 +904,10 @@ const Home = () => {
   );
 };
 
-// Modern Psycho component with dark mode support
 const Psycho = () => {
   return (
     <div className="max-w-6xl mx-auto space-y-12">
+      {/* Header Section */}
       <div className="text-center space-y-6">
         <h1 className="text-5xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 dark:from-purple-800 dark:to-pink-300 bg-clip-text text-transparent">
           La Psychopédagogie
@@ -919,20 +918,21 @@ const Psycho = () => {
         </p>
       </div>
 
+      {/* Main Image */}
       <div className="text-center">
         <img
           src={psychoPersonal}
           alt="Accompagnement personnalisé"
-          className="rounded-3xl shadow-2xl dark:shadow-gray-900/50 mx-auto hover:scale-105 transition-transform duration-500"
+          className="w-80 h-80 rounded-3xl shadow-2xl dark:shadow-gray-900/50 mx-auto hover:scale-105 transition-transform duration-500"
         />
       </div>
 
+      {/* Understanding Difficulties Section */}
       <AnimatedCard>
         <div className="p-8 space-y-8">
           <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100 text-center">
             Mieux comprendre et surmonter les difficultés scolaires
           </h2>
-
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               {
@@ -960,12 +960,11 @@ const Psycho = () => {
               </div>
             ))}
           </div>
-
           <div className="bg-gradient-to-r from-purple-50 to-pink-50  dark:from-purple-900/20 dark:to-pink-900/20 p-8 rounded-3xl border border-purple-100/50 dark:border-purple-800/30">
             <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed text-center">
-              Mais aussi pour renforcer l’estime de soi, la confiance, améliorer
-              la mémoire, l’organisation et l’autonomie. Et ce, en français, en
-              mathématiques ou en compréhension…
+              Mais aussi pour renforcer l&apos;estime de soi, la confiance,
+              améliorer la mémoire, l&apos;organisation et l&apos;autonomie. Et
+              ce, en français, en mathématiques ou en compréhension…
               <span className="block mt-4 font-semibold text-purple-600 dark:text-purple-400">
                 Chaque enfant est unique.
               </span>
@@ -985,57 +984,162 @@ const Psycho = () => {
           </div>
         </div>
       </AnimatedCard>
-    </div>
-  );
-};
 
-// Modern Approach component with dark mode support
-const Approach = () => {
-  return (
-    <div className="max-w-6xl mx-auto space-y-12">
-      <div className="text-center space-y-6">
-        <h1 className="text-5xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 dark:from-purple-800 dark:to-pink-300 bg-clip-text text-transparent">
-          Mon Approche
-        </h1>
-        <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-          Une méthode personnalisée qui révèle le potentiel unique de chaque
-          enfant
-        </p>
-      </div>
-
-      <div className="text-center">
-        <img
-          src={approachHand}
-          alt="Enfant avec une main tendue"
-          className="rounded-3xl shadow-2xl dark:shadow-gray-900/50 mx-auto hover:scale-105 transition-transform duration-500"
-        />
-      </div>
-
-      <AnimatedCard>
-        <div className="p-8 space-y-6">
-          <div className="text-center space-y-4">
-            <div className="w-20 h-20 bg-gradient-to-r from-purple-500 to-pink-500 dark:from-purple-800 dark:to-pink-300 rounded-full flex items-center justify-center mx-auto">
-              <FaBullseye className="text-3xl text-white" />
-            </div>
-            <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100">
-              Comprendre l&apos;individu dans toute sa complexité
+      {/* Who Am I Section */}
+      <AnimatedCard delay={200}>
+        <div className="p-8 space-y-8">
+          <div className="text-center space-y-6">
+            <h2 className="text-4xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 bg-clip-text text-transparent">
+              Qui suis-je ?
             </h2>
-            <p className="text-lg text-purple-600 dark:text-purple-400 font-semibold">
-              Adapter l&apos;apprentissage à ses besoins spécifiques
+            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+              Découvrez mon parcours et ma passion pour l&apos;accompagnement
+              éducatif
             </p>
           </div>
 
-          <div className="bg-gradient-to-r from-purple-50 to-pink-50  dark:from-purple-900/20 dark:to-pink-900/20 p-8 rounded-3xl border border-purple-100/50 dark:border-purple-800/30">
-            <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed text-center">
-              Ma méthode pédagogique allie outils modernes et approches
-              traditionnelles, en cohérence avec les programmes nationaux, pour
-              créer un environnement d’apprentissage optimal.
-            </p>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div className="space-y-6">
+              <div className="text-center">
+                <div className="w-20 h-20 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full flex items-center justify-center mx-auto">
+                  <FaChalkboardTeacher className="text-3xl text-white" />
+                </div>
+                <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mt-4">
+                  Mon Parcours
+                </h3>
+              </div>
+
+              <div className="space-y-4">
+                <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+                  Après une décennie dans les ressources humaines, ma passion
+                  pour la psychologie et l&apos;école m&apos;a menée à
+                  l&apos;enseignement.
+                </p>
+                <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+                  J&apos;ai enseigné avec enthousiasme en zone prioritaire
+                  pendant près de 10 ans. J&apos;ai trop souvent été confrontée
+                  aux défis des enfants à besoins éducatifs particuliers.
+                </p>
+                <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+                  Pour mieux y répondre, j&apos;ai suivi une formation
+                  spécifique au sein de l&apos;Éducation Nationale. Maman de
+                  deux enfants, j&apos;ai également expérimenté les complexités
+                  de l&apos;inclusion.
+                </p>
+                <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+                  Aujourd&apos;hui, je souhaite mettre mon expertise au service
+                  des enfants et des parents, en leur dédiant un espace
+                  personnalisé pour favoriser l&apos;épanouissement scolaire et
+                  personnel de tous.
+                </p>
+              </div>
+            </div>
+
+            <div className="space-y-6">
+              <div className="text-center">
+                <img
+                  src={whoPortrait}
+                  alt="Séverine Favier"
+                  className="rounded-3xl shadow-2xl dark:shadow-gray-900/50 mx-auto hover:scale-105 transition-transform duration-500 max-w-sm"
+                />
+              </div>
+
+              <div className="space-y-4">
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-gradient-to-r from-pink-500 to-red-500 rounded-full flex items-center justify-center mx-auto">
+                    <FaGraduationCap className="text-2xl text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-800 dark:text-gray-100 mt-3">
+                    Mes Qualifications
+                  </h3>
+                </div>
+
+                <div className="space-y-2">
+                  {[
+                    {
+                      icon: <FaGraduationCap />,
+                      text: "Master 1 MEEF - pratique & ingénierie de la formation",
+                    },
+                    {
+                      icon: <FaBook />,
+                      text: "Concours Professeurs des écoles",
+                    },
+                    { icon: <FaBrain />, text: "Psychologue Praticienne" },
+                    {
+                      icon: <FaUserTie />,
+                      text: "Master 2 en Management des Ressources Humaines",
+                    },
+                    {
+                      icon: <FaChartBar />,
+                      text: "Master 1 en Sociologie du travail et du développement",
+                    },
+                  ].map((item, index) => (
+                    <div
+                      key={index}
+                      className="flex items-center space-x-3 p-3 bg-gradient-to-r from-pink-50 to-red-50 dark:from-pink-900/20 dark:to-red-900/20 rounded-xl hover:from-pink-100 hover:to-red-100 dark:hover:from-pink-800/30 dark:hover:to-red-800/30 transition-all duration-300 hover:scale-105 border border-pink-100/50 dark:border-pink-800/30"
+                    >
+                      <span className="text-lg text-pink-600 dark:text-pink-400">
+                        {item.icon}
+                      </span>
+                      <p className="text-sm text-gray-700 dark:text-gray-300 font-medium">
+                        {item.text}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </AnimatedCard>
 
-      <AnimatedCard delay={200}>
+      {/* My Approach Section */}
+      <AnimatedCard delay={400}>
+        <div className="p-8 space-y-8">
+          <div className="text-center space-y-6">
+            <h2 className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 dark:from-purple-800 dark:to-pink-300 bg-clip-text text-transparent">
+              Mon Approche
+            </h2>
+            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+              Une méthode personnalisée qui révèle le potentiel unique de chaque
+              enfant
+            </p>
+          </div>
+
+          <div className="text-center mb-8">
+            <img
+              src={approachHand}
+              alt="Enfant avec une main tendue"
+              className="rounded-3xl shadow-2xl dark:shadow-gray-900/50 mx-auto hover:scale-105 transition-transform duration-500 max-w-md"
+            />
+          </div>
+
+          <div className="space-y-6">
+            <div className="text-center space-y-4">
+              <div className="w-20 h-20 bg-gradient-to-r from-purple-500 to-pink-500 dark:from-purple-800 dark:to-pink-300 rounded-full flex items-center justify-center mx-auto">
+                <FaBullseye className="text-3xl text-white" />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-100">
+                Comprendre l&apos;individu dans toute sa complexité
+              </h3>
+              <p className="text-lg text-purple-600 dark:text-purple-400 font-semibold">
+                Adapter l&apos;apprentissage à ses besoins spécifiques
+              </p>
+            </div>
+
+            <div className="bg-gradient-to-r from-purple-50 to-pink-50  dark:from-purple-900/20 dark:to-pink-900/20 p-8 rounded-3xl border border-purple-100/50 dark:border-purple-800/30">
+              <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed text-center">
+                Ma méthode pédagogique allie outils modernes et approches
+                traditionnelles, en cohérence avec les programmes nationaux,
+                pour créer un environnement d&apos;apprentissage optimal.
+              </p>
+            </div>
+          </div>
+        </div>
+      </AnimatedCard>
+
+      {/* My Objectives Section */}
+      <AnimatedCard delay={600}>
         <div className="p-8 space-y-8">
           <div className="text-center space-y-4">
             <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100 flex items-center justify-center">
@@ -1923,117 +2027,6 @@ const Highschool = () => {
   );
 };
 
-// Modern Who component with dark mode support
-const Who = () => {
-  return (
-    <div className="max-w-6xl mx-auto space-y-12">
-      <div className="text-center space-y-6">
-        <h1 className="text-5xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 dark:from-purple-800 dark:to-pink-300 bg-clip-text text-transparent">
-          Qui suis-je ?
-        </h1>
-        <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-          Découvrez mon parcours et ma passion pour l&apos;accompagnement
-          éducatif
-        </p>
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <AnimatedCard>
-          <div className="p-8 space-y-6">
-            <div className="text-center space-y-4">
-              <div className="w-20 h-20 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full flex items-center justify-center mx-auto">
-                <FaChalkboardTeacher className="text-3xl text-white" />
-              </div>
-              <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100">
-                Mon Parcours
-              </h2>
-            </div>
-
-            <div className="space-y-4">
-              <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-                Après une décennie dans les ressources humaines, ma passion pour
-                la psychologie et l&apos;école m&apos;a menée à
-                l&apos;enseignement.
-              </p>
-              <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-                J&apos;ai enseigné avec enthousiasme en zone prioritaire pendant
-                près de 10 ans. J&apos;ai trop souvent été confrontée aux défis
-                des enfants à besoins éducatifs particuliers.
-              </p>
-              <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-                Pour mieux y répondre, j&apos;ai suivi une formation spécifique
-                au sein de l&apos;Éducation Nationale. Maman de deux enfants,
-                j&apos;ai également expérimenté les complexités de
-                l&apos;inclusion.
-              </p>
-              <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-                Aujourd&apos;hui, je souhaite mettre mon expertise au service
-                des enfants et des parents, en leur dédiant un espace
-                personnalisé pour favoriser l&apos;épanouissement scolaire et
-                personnel de tous.
-              </p>
-            </div>
-          </div>
-        </AnimatedCard>
-
-        <div className="space-y-8">
-          <div className="text-center">
-            <img
-              src={whoPortrait}
-              alt="Séverine Favier"
-              className="rounded-3xl shadow-2xl dark:shadow-gray-900/50 mx-auto hover:scale-105 transition-transform duration-500"
-            />
-          </div>
-
-          <AnimatedCard>
-            <div className="p-8 space-y-6">
-              <div className="text-center space-y-4">
-                <div className="w-20 h-20 bg-gradient-to-r from-pink-500 to-red-500 rounded-full flex items-center justify-center mx-auto">
-                  <FaGraduationCap className="text-3xl text-white" />
-                </div>
-                <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100">
-                  Mes Qualifications
-                </h2>
-              </div>
-
-              <div className="space-y-3">
-                {[
-                  {
-                    icon: <FaGraduationCap />,
-                    text: "Master 1 MEEF - pratique & ingénierie de la formation",
-                  },
-                  { icon: <FaBook />, text: "Concours Professeurs des écoles" },
-                  { icon: <FaBrain />, text: "Psychologue Praticienne" },
-                  {
-                    icon: <FaUserTie />,
-                    text: "Master 2 en Management des Ressources Humaines",
-                  },
-                  {
-                    icon: <FaChartBar />,
-                    text: "Master 1 en Sociologie du travail et du développement",
-                  },
-                ].map((item, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center space-x-4 p-4 bg-gradient-to-r from-pink-50 to-red-50 dark:from-pink-900/20 dark:to-red-900/20 rounded-xl hover:from-pink-100 hover:to-red-100 dark:hover:from-pink-800/30 dark:hover:to-red-800/30 transition-all duration-300 hover:scale-105 border border-pink-100/50 dark:border-pink-800/30"
-                  >
-                    <span className="text-2xl text-pink-600 dark:text-pink-400">
-                      {item.icon}
-                    </span>
-                    <p className="text-gray-700 dark:text-gray-300 font-medium">
-                      {item.text}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </AnimatedCard>
-        </div>
-      </div>
-    </div>
-  );
-};
-
 // Modern Contacts component
 const Contacts = () => {
   return (
@@ -2371,7 +2364,7 @@ const App = () => {
   return (
     <DarkModeProvider>
       <Router>
-        <div className="font-dyslexic min-h-screen bg-gradient-to-br from-purple-100 via-pink-50 to-blue-100 dark:from-gray-900 dark:via-purple-900 dark:to-blue-900 relative overflow-hidden transition-colors duration-300">
+        <div className=" min-h-screen bg-gradient-to-br from-purple-100 via-pink-50 to-blue-100 dark:from-gray-900 dark:via-purple-900 dark:to-blue-900 relative overflow-hidden transition-colors duration-300">
           <FloatingElements />
           <div className="relative z-10 container mx-auto px-4 py-8">
             <div className="flex flex-col lg:flex-row gap-8">
@@ -2386,8 +2379,6 @@ const App = () => {
                   <Route path="/brevet" element={<Brevet />} />
                   <Route path="/pre" element={<Pre />} />
                   <Route path="/highschool" element={<Highschool />} />
-                  <Route path="/who" element={<Who />} />
-                  <Route path="/approach" element={<Approach />} />
                   <Route path="/contacts" element={<Contacts />} />
                 </Routes>
               </main>
