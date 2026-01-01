@@ -3,6 +3,7 @@ import { HashRouter as Router, Routes, Route, NavLink } from "react-router-dom";
 import PropTypes from "prop-types";
 import Cookies from "js-cookie";
 
+import logo from "../assets/logo.png";
 import homeCreative from "../assets/home-creative.jpg";
 import homeLearning from "../assets/home-learning.jpg";
 import homeSuccess from "../assets/home-success.jpg";
@@ -57,7 +58,9 @@ import {
   FaGithub,
   FaUserFriends,
 } from "react-icons/fa";
-
+{
+  /*TODO make the color more pastel*/
+}
 import { MdBackpack } from "react-icons/md";
 
 const FontContext = createContext();
@@ -75,9 +78,9 @@ const FontProvider = ({ children }) => {
   useEffect(() => {
     Cookies.set("dyslexicFont", isDyslexic.toString(), { expires: 365 });
     if (isDyslexic) {
-      document.documentElement.classList.add("dyslexic-font");
+      document.documentElement.classList.add("font-dyslexic");
     } else {
-      document.documentElement.classList.remove("dyslexic-font");
+      document.documentElement.classList.remove("font-dyslexic");
     }
   }, [isDyslexic]);
 
@@ -107,8 +110,7 @@ const TopNav = () => {
   const navLinks = [
     { to: "/", label: "Accueil", icon: <FaBook /> },
     { to: "/psycho", label: "Psychopédagogie", icon: <FaBrain /> },
-    { to: "/pre", label: "Pré-rentrée", icon: <MdBackpack /> },
-    { to: "/highschool", label: "Lycée", icon: <FaSchool /> },
+
     { to: "/contacts", label: "Contact", icon: <FaPhone /> },
   ];
 
@@ -116,13 +118,16 @@ const TopNav = () => {
     { to: "/school", label: "Suivi scolaire", icon: <FaBullseye /> },
     { to: "/learn", label: "Apprendre à apprendre", icon: <FaRocket /> },
     { to: "/brevet", label: "Préparation brevet", icon: <FaTrophy /> },
+    { to: "/pre", label: "Pré-rentrée", icon: <MdBackpack /> },
+    { to: "/highschool", label: "Lycée", icon: <FaSchool /> },
   ];
 
   return (
     <nav className="bg-white shadow-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4">
-        <div className="flex justify-between items-center h-20">
+        <div className="flex justify-between items-center h-20 ">
           {/* Logo */}
+          {/*TODO add her logo instead*/}
           <NavLink to="/" className="flex items-center space-x-3">
             <div className="w-12 h-12 bg-gradient-to-br from-purple-600 to-pink-600 rounded-full flex items-center justify-center">
               <FaBrain className="text-white text-2xl" />
@@ -306,10 +311,17 @@ const Home = () => {
     <div className="space-y-20">
       {/* Hero Section */}
       <section className="text-center space-y-8 py-12">
-        <h1 className="text-6xl lg:text-7xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-          Séverine Favier
-        </h1>
-        <p className="text-2xl text-gray-600">Psychopédagogue certifiée</p>
+        <div className="flex justify-center">
+          <div className="relative">
+            <div className="absolute -inset-3 rounded-3xl bg-gradient-to-r from-purple-500/30 to-pink-500/30 blur-xl" />
+            <img
+              src={logo}
+              alt="Logo"
+              className="relative object-contain rounded-3xl bg-white shadow-2xl ring-1 ring-black/5"
+            />
+          </div>
+        </div>
+
         <p className="text-lg text-gray-500 max-w-2xl mx-auto">
           Accompagnement personnalisé pour révéler le potentiel unique de chaque
           enfant
@@ -328,6 +340,7 @@ const Home = () => {
                 alt={image.alt}
                 className="w-full h-full object-cover"
               />
+              {/*TODO reduce slightly*/}
             </div>
           ))}
           <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-2">
@@ -375,10 +388,10 @@ const Home = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="text-center py-16 bg-gradient-to-r from-purple-600 to-pink-600 rounded-3xl text-white max-w-5xl mx-auto">
-        <h2 className="text-4xl font-bold mb-4">Prêt à débuter l'aventure ?</h2>
+      <section className="text-center py-8 bg-gradient-to-r from-purple-600 to-pink-600 rounded-3xl text-white max-w-3xl mx-auto">
+        <h2 className="text-4xl font-bold mb-4">Pour me contacter</h2>
         <p className="text-xl mb-8 opacity-90">
-          Découvrez comment libérer le potentiel de votre enfant
+          Et découvrir comment libérer le potentiel de votre enfant
         </p>
         <NavLink
           to="/contacts"
@@ -411,10 +424,13 @@ const Psycho = () => {
           className="w-80 h-80 rounded-2xl shadow-xl"
         />
       </div>
-
+      {/*TODO make the the div keyword like the p below, i know its wrong but fuck it*/}
       <div className="bg-white p-8 rounded-2xl border border-gray-200">
-        <h2 className="text-3xl font-bold text-gray-900 text-center mb-8">
-          Surmonter les difficultés scolaires
+        <h2 className="text-3xl font-bold text-gray-900 text-center mb-8 ">
+          {" "}
+          {/*TODO font smaller*/}
+          Un soutien pour les enfants en difficulté scolaire ou face à des
+          troubles d'apprentissage:
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           {[
@@ -448,9 +464,10 @@ const Psycho = () => {
               Chaque enfant est unique.
             </span>
           </p>
+          {/*TODO add text from mom*/}
         </div>
       </div>
-
+      {/*TODO: two cta one for who i am and the other for my approach, each individual page*/}
       {/* Who Am I Section */}
       <div className="bg-gradient-to-br from-indigo-50 to-white p-8 rounded-2xl border border-indigo-100">
         <h2 className="text-4xl font-bold text-center text-gray-900 mb-12">
@@ -531,7 +548,7 @@ const Psycho = () => {
             créer un environnement d'apprentissage optimal.
           </p>
         </div>
-
+        {/*TODO less fat*/}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {[
             {
@@ -603,11 +620,10 @@ const School = () => {
             {[
               {
                 icon: <FaHandshake />,
-                text: "Rencontre en climat de confiance",
+                text: "Rencontre en climat de confiance ",
               },
-              { icon: <FaSearch />, text: "Évaluation complète" },
+              { icon: <FaSearch />, text: "Évaluation complète(2 séances)" },
               { icon: <FaClipboardList />, text: "Restitution détaillée" },
-              { icon: <FaUserFriends />, text: "Entretien personnalisé" },
             ].map((item, i) => (
               <div
                 key={i}
@@ -652,7 +668,7 @@ const School = () => {
           </div>
           <h2 className="text-3xl font-bold text-gray-900">Le Suivi</h2>
           <p className="text-blue-600 font-semibold mt-2">
-            Séances adaptées au rythme de chaque élève
+            Séances individuelles vers une mediation appropriée
           </p>
         </div>
 
@@ -710,7 +726,9 @@ const Learn = () => {
             <div className="space-y-3">
               <div className="flex items-center gap-3 p-4 bg-purple-50 rounded-xl">
                 <FaLightbulb className="text-2xl text-purple-600" />
-                <p className="text-gray-700">Les intelligences multiples</p>
+                <p className="text-gray-700">
+                  Les intelligences multiples (Howard Gardner)
+                </p>
               </div>
               <div className="flex items-center gap-3 p-4 bg-purple-50 rounded-xl">
                 <FaHandshake className="text-2xl text-purple-600" />
@@ -741,6 +759,7 @@ const Learn = () => {
                     <FaQuoteRight className="text-purple-600" />
                     Flash cards
                   </div>
+                  {/*TODO add mindmap*/}
                 </div>
               </div>
               <div className="p-4 bg-blue-50 rounded-xl">
@@ -809,7 +828,6 @@ const Brevet = () => {
           <h2 className="text-3xl font-bold text-gray-900">
             Programme intensif
           </h2>
-          <p className="text-gray-600 mt-2">Dès les vacances de la Toussaint</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -841,6 +859,7 @@ const Brevet = () => {
                   sur 6 sessions
                 </p>
               </div>
+              {/*TODO add session intensive en juin*/}
             </div>
           </div>
 
@@ -876,12 +895,12 @@ const Brevet = () => {
           <div className="bg-white/10 backdrop-blur-sm p-6 rounded-xl">
             <FaCalendarAlt className="text-4xl mx-auto mb-3" />
             <h3 className="text-xl font-semibold mb-2">Session standard</h3>
-            <p className="text-3xl font-bold">200€/semaine</p>
+            <p className="text-3xl font-bold">300€/semaine</p>
           </div>
           <div className="bg-white/10 backdrop-blur-sm p-6 rounded-xl">
             <FaBullseye className="text-4xl mx-auto mb-3" />
             <h3 className="text-xl font-semibold mb-2">Session intensive</h3>
-            <p className="text-3xl font-bold">250€/semaine</p>
+            <p className="text-3xl font-bold">350€/semaine</p>
           </div>
         </div>
       </div>
@@ -925,7 +944,7 @@ const Pre = () => {
                 Nous travaillerons sur :
               </h3>
               <div className="space-y-2 text-gray-700">
-                <p>• Compétences non acquises</p>
+                <p>• Compétences non acquises ou fragiles</p>
                 <p>• Méthodes de travail efficaces</p>
                 <p>• Autonomie et confiance</p>
               </div>
@@ -956,7 +975,7 @@ const Pre = () => {
               <h3 className="text-lg font-semibold text-gray-800 mb-2">
                 Période
               </h3>
-              <p className="text-gray-700">Du 25 au 29 août</p>
+              <p className="text-gray-700">Derniere semaine d'aout</p>
             </div>
             <div className="p-4 bg-pink-50 rounded-xl">
               <h3 className="text-lg font-semibold text-gray-800 mb-2">
@@ -997,9 +1016,8 @@ const Highschool = () => {
           <div className="w-16 h-16 bg-green-600 rounded-xl flex items-center justify-center mx-auto mb-4">
             <FaUsers className="text-white text-2xl" />
           </div>
-          <h2 className="text-3xl font-bold text-gray-900">
-            Seconde – Bien démarrer
-          </h2>
+          <h2 className="text-3xl font-bold text-gray-900">Seconde</h2>
+          Pour bien demarrer au lycée
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -1054,8 +1072,9 @@ const Highschool = () => {
           <h2 className="text-3xl font-bold text-gray-900">
             Première – Bac de Français
           </h2>
+          Pour aborder le bac de francais avec clarté et confiance
+          {/*TODO Stylizer*/}
         </div>
-
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
           {[
             { icon: <FaBook />, text: "Vulgarisation des œuvres" },
@@ -1080,9 +1099,8 @@ const Highschool = () => {
           <div className="w-16 h-16 bg-red-600 rounded-xl flex items-center justify-center mx-auto mb-4">
             <FaGraduationCap className="text-white text-2xl" />
           </div>
-          <h2 className="text-3xl font-bold text-gray-900">
-            Terminale – Préparer le bac
-          </h2>
+          <h2 className="text-3xl font-bold text-gray-900">Terminale</h2>
+          Pour préparer le bac efficacement
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -1106,14 +1124,16 @@ const Highschool = () => {
       <div className="bg-gradient-to-r from-purple-600 to-pink-600 text-white p-8 rounded-2xl text-center">
         <h2 className="text-3xl font-bold mb-6">Tarif</h2>
         <div className="bg-white/10 backdrop-blur-sm p-8 rounded-xl max-w-md mx-auto">
-          <p className="text-4xl font-bold">70€/heure</p>
+          <p className="text-4xl font-bold">65€/heure</p>
         </div>
+        {/*TODO reduce it*/}
       </div>
     </div>
   );
 };
 
 // Contacts Component
+//TODO Add her google review somehow and google view
 const Contacts = () => (
   <div className="space-y-16">
     <div className="text-center space-y-4">
@@ -1145,7 +1165,7 @@ const Contacts = () => (
           </div>
           <h3 className="text-2xl font-bold text-gray-900">Séverine Favier</h3>
           <p className="text-lg text-purple-600 font-semibold mt-2">
-            Psychopédagogue certifiée
+            Psychopédagogue
           </p>
         </div>
         <img
@@ -1161,6 +1181,7 @@ const Contacts = () => (
 // Footer
 const Footer = () => (
   <footer className="mt-20 border-t border-gray-200 bg-gray-50">
+    {/*TODO add legal mention*/}
     <div className="max-w-7xl mx-auto px-4 py-12 text-center">
       <h3 className="text-2xl font-bold text-gray-900 mb-4">
         Créé avec passion

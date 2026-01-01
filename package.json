@@ -6,17 +6,23 @@
     "scripts": {
         "dev": "vite",
         "build": "vite build",
-        "build:data": "node ./scripts/toml-to-json.js",
         "lint": "eslint .",
         "preview": "vite preview",
         "predeploy": "npm run build",
         "deploy": "gh-pages -d dist"
     },
     "dependencies": {
+        "@icons-pack/react-simple-icons": "^13.8.0",
         "@tailwindcss/postcss": "^4.0.7",
+        "chalk": "^5.6.2",
+        "cli-table3": "^0.6.5",
+        "commander": "^14.0.2",
         "eslint-plugin-react": "^7.37.4",
         "framer-motion": "^12.4.7",
         "js-cookie": "^3.0.5",
+        "lucide-react": "^0.545.0",
+        "ora": "^9.0.0",
+        "prompts": "^2.4.2",
         "react": "^18.3.1",
         "react-dom": "^18.3.1",
         "react-icons": "^5.5.0",
@@ -26,6 +32,7 @@
     },
     "devDependencies": {
         "@eslint/js": "^9.17.0",
+        "@types/node": "^24.2.1",
         "@types/react": "^18.3.17",
         "@types/react-dom": "^18.3.5",
         "@vitejs/plugin-react": "^4.3.4",
@@ -39,7 +46,7 @@
         "tailwindcss": "^3.4.17",
         "typescript": "~5.6.2",
         "typescript-eslint": "^8.18.1",
-        "vite": "^6.1.1"
+        "vite": "^6.3.5"
     },
     "overrides": {
         "esbuild": "latest"
