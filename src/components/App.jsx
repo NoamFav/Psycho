@@ -8,12 +8,12 @@ import homeCreative from "../assets/home-creative.jpg";
 import homeLearning from "../assets/home-learning.jpg";
 import homeSuccess from "../assets/home-success.jpg";
 import psychoPersonal from "../assets/psychop.png";
-import psychoHelp from "../assets/psycho-help.jpg";
+import psychoHelp from "../assets/equality.jpeg";
 import learn from "../assets/learn.jpg";
 import brevetPrep from "../assets/brevet-prep.jpg";
 import approachHand from "../assets/approach-hand.jpg";
 import preFirstDay from "../assets/pre-first-day.jpg";
-import whoPortrait from "../assets/who-portrait.png";
+import whoPortrait from "../assets/contacts-avatar.jpg";
 import contactsRoom from "../assets/contacts-room.jpg";
 import contactsAvatar from "../assets/contacts-avatar.jpg";
 
@@ -739,7 +739,7 @@ const Learn = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="space-y-4">
             <h3 className="text-xl font-semibold text-amber-700">
-              S'appuyant sur :
+              S&apos;appuyant sur :
             </h3>
             <div className="space-y-3">
               <div className="flex items-center gap-3 p-4 bg-gradient-to-r from-amber-50 to-yellow-50 rounded-xl border border-amber-200">
@@ -800,7 +800,9 @@ const Learn = () => {
 
       <div className="relative overflow-hidden bg-gradient-to-br from-amber-600 via-yellow-500 to-amber-600 text-white p-8 rounded-2xl shadow-2xl">
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-        <h2 className="relative text-3xl font-bold mb-8 text-center">Informations pratiques</h2>
+        <h2 className="relative text-3xl font-bold mb-8 text-center">
+          Informations pratiques
+        </h2>
         <div className="relative grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="bg-white/20 backdrop-blur-sm p-6 rounded-xl border border-white/30">
             <FaUsers className="text-4xl mx-auto mb-3" />
@@ -959,7 +961,9 @@ const Pre = () => {
             <div className="w-16 h-16 bg-gradient-to-br from-green-600 to-emerald-600 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
               <MdBackpack className="text-white text-2xl" />
             </div>
-            <h2 className="text-3xl font-bold bg-gradient-to-r from-green-700 to-emerald-600 bg-clip-text text-transparent">Le Programme</h2>
+            <h2 className="text-3xl font-bold bg-gradient-to-r from-green-700 to-emerald-600 bg-clip-text text-transparent">
+              Le Programme
+            </h2>
           </div>
 
           <div className="space-y-4">
@@ -1033,7 +1037,9 @@ const Highschool = () => {
   return (
     <div className="space-y-16">
       <div className="text-center space-y-4">
-        <h1 className="text-5xl font-bold bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-600 bg-clip-text text-transparent">Et au lycée !</h1>
+        <h1 className="text-5xl font-bold bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-600 bg-clip-text text-transparent">
+          Et au lycée !
+        </h1>
         <p className="text-xl text-gray-600">
           Accompagnement pour chaque étape
         </p>
@@ -1044,7 +1050,9 @@ const Highschool = () => {
           <div className="w-16 h-16 bg-gradient-to-br from-green-600 to-emerald-600 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
             <FaUsers className="text-white text-2xl" />
           </div>
-          <h2 className="text-3xl font-bold bg-gradient-to-r from-green-700 to-emerald-600 bg-clip-text text-transparent">Seconde</h2>
+          <h2 className="text-3xl font-bold bg-gradient-to-r from-green-700 to-emerald-600 bg-clip-text text-transparent">
+            Seconde
+          </h2>
           <p className="text-gray-600 mt-2">Pour bien démarrer au lycée</p>
         </div>
 
@@ -1100,7 +1108,9 @@ const Highschool = () => {
           <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-700 to-cyan-600 bg-clip-text text-transparent">
             Première – Bac de Français
           </h2>
-          <p className="text-gray-600 mt-2 italic">Pour aborder le bac de français avec clarté et confiance</p>
+          <p className="text-gray-600 mt-2 italic">
+            Pour aborder le bac de français avec clarté et confiance
+          </p>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
           {[
@@ -1126,8 +1136,12 @@ const Highschool = () => {
           <div className="w-16 h-16 bg-gradient-to-br from-red-600 to-rose-600 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
             <FaGraduationCap className="text-white text-2xl" />
           </div>
-          <h2 className="text-3xl font-bold bg-gradient-to-r from-red-700 to-rose-600 bg-clip-text text-transparent">Terminale</h2>
-          <p className="text-gray-600 mt-2">Pour préparer le bac efficacement</p>
+          <h2 className="text-3xl font-bold bg-gradient-to-r from-red-700 to-rose-600 bg-clip-text text-transparent">
+            Terminale
+          </h2>
+          <p className="text-gray-600 mt-2">
+            Pour préparer le bac efficacement
+          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -1163,7 +1177,9 @@ const Highschool = () => {
 const Contacts = () => (
   <div className="space-y-16">
     <div className="text-center space-y-4">
-      <h1 className="text-5xl font-bold bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-600 bg-clip-text text-transparent">Contact</h1>
+      <h1 className="text-5xl font-bold bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-600 bg-clip-text text-transparent">
+        Contact
+      </h1>
       <p className="text-xl text-gray-600">
         Prêt à commencer cette aventure ensemble ?
       </p>
@@ -1175,7 +1191,9 @@ const Contacts = () => (
           <div className="w-14 h-14 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
             <FaMapMarkerAlt className="text-white text-xl" />
           </div>
-          <h3 className="text-2xl font-bold bg-gradient-to-r from-blue-700 to-cyan-600 bg-clip-text text-transparent">Adresse</h3>
+          <h3 className="text-2xl font-bold bg-gradient-to-r from-blue-700 to-cyan-600 bg-clip-text text-transparent">
+            Adresse
+          </h3>
         </div>
         <div className="text-center space-y-2 mb-6">
           <p className="text-lg font-medium text-gray-800">16 rue Tilly</p>
@@ -1183,7 +1201,11 @@ const Contacts = () => (
         </div>
         <div className="relative">
           <div className="absolute -inset-1 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-xl blur opacity-20" />
-          <img src={contactsRoom} alt="Salle" className="relative rounded-xl shadow-md ring-1 ring-blue-200" />
+          <img
+            src={contactsRoom}
+            alt="Salle"
+            className="relative rounded-xl shadow-md ring-1 ring-blue-200"
+          />
         </div>
       </div>
 
@@ -1192,7 +1214,9 @@ const Contacts = () => (
           <div className="w-14 h-14 bg-gradient-to-br from-amber-600 to-yellow-600 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
             <FaUserGraduate className="text-white text-xl" />
           </div>
-          <h3 className="text-2xl font-bold bg-gradient-to-r from-amber-700 to-yellow-600 bg-clip-text text-transparent">Séverine Favier</h3>
+          <h3 className="text-2xl font-bold bg-gradient-to-r from-amber-700 to-yellow-600 bg-clip-text text-transparent">
+            Séverine Favier
+          </h3>
           <p className="text-lg text-amber-700 font-semibold mt-2">
             Psychopédagogue
           </p>
@@ -1351,7 +1375,9 @@ const Footer = () => (
             <h3 className="text-xl font-bold bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-600 bg-clip-text text-transparent mb-2 text-center md:text-right">
               Noam Favier
             </h3>
-            <p className="text-gray-600 mb-4 text-center md:text-right">Software Engineer</p>
+            <p className="text-gray-600 mb-4 text-center md:text-right">
+              Software Engineer
+            </p>
             <div className="flex gap-3 justify-center md:justify-end">
               <a
                 href="https://github.com/noamfav"
